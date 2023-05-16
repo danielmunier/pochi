@@ -2,7 +2,7 @@ const { Client, Collection, Events, GatewayIntentBits, Intents } = require('disc
 require("dotenv").config()
 /* Loading command files */
 
-const fs = require("node:fs")
+const fs = require("node:fs");
 const path = require('node:path');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });

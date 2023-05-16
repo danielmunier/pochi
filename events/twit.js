@@ -12,43 +12,34 @@ const tweetClient = new Twitter({
   bearer_token: process.env.BEARER_TOKEN,
 });
 
+const usersChannel = JSON.parse(fs.readFileSync("usersChannel.json", "utf8"));
+
 /* 
-const profiles = require('../profiles.json').profiles */
-/* const params = { screen_name: 'choquei', count: 1, tweet_mode: 'extended' }; */
-const usersChannels = {
-  PBEBrasil: "1063127715466711040",
-  WildRiftBR: "1063130867905593345",
-  RuneterraBrasil: "1063138338216882257",
-  TFTBrasil: "1063138624478126110",
-  VALORANTBrasil: "1063144964839710802",
-  BRGenshinImpact: "1063148179257831536",
-  craftminePortal: "1062365380171018301",
-  Terraria_Logic: "1068102446083227648",
-  Brawlhalla: "1062407905552367707",
-  choquei: "1066937247670206586",
-};
+Object.entries(usersChannel).forEach(([user, channelId]) => {
+
+ })
+ */
+
 
 module.exports = {
   name: Events.ClientReady,
   once: true,
   execute(client) {
-    /*   tweetClient.get('statuses/user_timeline', params, function(error, tweet, response) {
-      if (!error) {
-          const tweetUrl = `https://twitter.com/choquei/status/${tweet[0].id_str}`;
-          console.log(tweetUrl);
-      }else {
-          console.log('Deu ruim')
-          console.log(error)
-      }
-      });
-       */
-
+    
     setInterval(() => {
-      Object.entries(usersChannels).forEach(([user, channelId]) => {
+      // Le o arquivo com os usuários e canais
+      const usersChannel = JSON.parse(fs.readFileSync("usersChannel.json", "utf8"));
+
+      // Para cada usuário no objeto usersChannel
+      Object.entries(usersChannel).forEach(([user, channelId]) => {
         tweetClient.get(
           "statuses/user_timeline",
-          { screen_name: user },
+          { screen_name: user,
+            exclude_replies: true, 
+          },
+          
           (error, tweets, response) => {
+            console.log(`É a vez do ${user}:`);
             let lastTweetIds = {};
             try {
               lastTweetIds = JSON.parse(fs.readFileSync("lastTweetIds.json"));
@@ -56,7 +47,7 @@ module.exports = {
               console.log("Erro ao ler o arquivo de IDs: ", error);
             }
 
-            if (tweets[0].id_str) {
+            if (Array.isArray(tweets) && tweets.length > 0 && tweets[0].id_str) {
               if (lastTweetIds[tweets[0].id_str] !== tweets[0].id_str) {
                 // Atualiza o ID do último tweet enviado para o perfil
                 lastTweetIds[tweets[0].id_str] = tweets[0].id_str;
@@ -83,14 +74,13 @@ module.exports = {
                 console.log("Enviado anteriormente");
               }
             } else {
-              console.log(`${tweets[0].id_str} não encontrado`);
               console.log(tweets[0]);
               console.log(tweets);
             }
           }
         );
       });
-    }, 200000);
+    }, 10000 ); // 960000 = 16 minutos
 
     // Em qual canal será enviado o tweet conforme o perfil
   },

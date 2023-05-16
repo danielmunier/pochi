@@ -91,6 +91,6 @@ module.exports = {
     }
 
     // Executa a cada 15 minutos
-    setInterval(getWeatherData, 900000)
+    setInterval(getWeatherData, 21600000)
   },
 };
