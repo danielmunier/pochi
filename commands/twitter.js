@@ -40,7 +40,7 @@ module.exports = {
                   {name: "listar", value: "list"}
                   )
       )
-  
+    
     .addStringOption((option) =>
       option
         .setName("user")

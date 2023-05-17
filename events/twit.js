@@ -80,7 +80,7 @@ module.exports = {
           }
         );
       });
-    }, 10000 ); // 960000 = 16 minutos
+    }, 960000 ); // 960000 = 16 minutos
 
     // Em qual canal será enviado o tweet conforme o perfil
   },
