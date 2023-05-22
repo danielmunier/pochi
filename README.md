@@ -25,6 +25,26 @@ O comando consulta um CEP brasileiro e retorna dados sobre ele.
 
 ### Twit
  Este evento foi criado para seguir perfis diferentes do Twitter, cada perfil é identificado por um ID do usuário e um ID do canal no discord, cada perfil tem um canal diferente no discord para enviar as embeds das mensagens. A cada nova mensagem postada pelo perfil no twitter, o bot pega essa mensagem e a envia para um canal do discord associado a esse perfil. 
+
+
+    ClientReady Event
+|
+└── setInterval (Executa a cada 16 minutos)
+    |
+    └── Lê o arquivo "usersChannel.json" (Função: readUsersChannel)
+    |   |
+    |   └── Para cada usuário e canal em usersChannel
+    |       |
+    |       └── Consulta os tweets do usuário no Twitter (Função: tweetClient.get)
+    |           |
+    |           └── Verifica se há tweets e se o ID do último tweet é diferente do último enviado
+    |               |
+    |               ├── Atualiza o ID do último tweet (Função: writeLastTweetIds)
+    |               |
+    |               └── Envia o tweet para o canal no Discord (Função: sendTweetToChannel)
+    |
+    └── Fim do setInterval
+
 ### Cats
 Este evento envia imagens de gato sempre que o bot é ligado. Utiliza-se a API do thecatapi.
 

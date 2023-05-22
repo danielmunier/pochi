@@ -7,6 +7,7 @@ const path = require('node:path');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.commands = new Collection();
+client.buttons = new Collection();
 
 const commandsPath = path.join(__dirname, 'commands'); // Path commands
 const eventsPath = path.join(__dirname, 'events') // Path events
