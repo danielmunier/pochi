@@ -1,4 +1,4 @@
-const { Client, Events, MessageEmbed } = require("discord.js");
+const { Client, Events, EmbedBuilder } = require("discord.js");
 const axios = require("axios");
 require("dotenv").config();
 
@@ -39,7 +39,7 @@ module.exports = {
 
     function createWeatherEmbed(weatherData) {
       const { main, weather, wind } = weatherData;
-      const embed = new MessageEmbed()
+      const embed = new EmbedBuilder()
         .setColor("#0099ff")
         .setTitle("Clima no Rio de Janeiro")
         .setThumbnail(
@@ -75,6 +75,6 @@ module.exports = {
     }
 
     // Executa a cada 15 minutos
-    setInterval(getWeatherData, 15 * 60 * 1000);
+    setInterval(getWeatherData, 7200000);
   },
 };

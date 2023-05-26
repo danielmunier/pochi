@@ -19,6 +19,10 @@ Esse comando retorna imagem de um gato em uma embed sempre que é utilizado
 
 O comando consulta um CEP brasileiro e retorna dados sobre ele.
 
+### Ticket 
+
+Onde esse comando for utilizado irá criar um canal para os membros criarem tickets para falar com o suporte. 
+
 
 
 # Eventos
