@@ -38,7 +38,9 @@ async function sendTicketWelcomeMessage(channel, embed) {
 module.exports = {
   data: new SlashCommandBuilder().setName('ticket').setDescription('Ticket system'),
 
+
   async execute(interaction) {
+  // Verifica se a pessoa que executou o comando possui a permissão de gerenciar o servidor    
     if (!interaction.member.permissions.has('MANAGE_GUILD')) {
       console.log('Sem permissão');
       interaction.reply({ content: 'Sem permissão', ephemeral: true });
