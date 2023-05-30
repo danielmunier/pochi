@@ -1,91 +1,48 @@
-const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, ChannelType, PermissionsBitField } = require('discord.js');
-
-async function createTicketChannel(guild, category, user) {
-  const ticketChannelName = `ticket-${user.id}`;
-  const ticketChannelOptions = {
-    name: ticketChannelName,
-    type: ChannelType.GuildText,
-    parent: category,
-    reason: 'Canal de ticket',
-    permissionOverwrites: [
-      {
-        id: user.id,
-        allow: [PermissionsBitField.Flags.ViewChannel],
-      },
-      {
-        id: guild.roles.everyone,
-        deny: [PermissionsBitField.Flags.ViewChannel],
-      },
-    ],
-  };
-
-  const ticketChannel = await guild.channels.create(ticketChannelOptions);
-  console.log('Canal do ticket criado:', ticketChannel.name);
-  return ticketChannel;
-}
-
-function createWelcomeEmbed(guild) {
-  return new EmbedBuilder()
-    .setTitle(`Bem-vindo ao ${guild.name}`)
-    .setDescription(`Obrigado por entrar em contato com o suporte do ${guild.name}. Por favor, descreva com detalhes o seu problema e aguarde um administrador responder.`)
-    .setThumbnail(guild.iconURL({ dynamic: true }));
-}
-
-async function sendTicketWelcomeMessage(channel, embed) {
-  await channel.send({ embeds: [embed] });
-}
+const { ApplicationCommandType, PermissionFlagsBits, ActionRow, ActionRowBuilder, ButtonStyle, SlashCommandBuilder, EmbedBuilder, ButtonBuilder } = require('discord.js');
+const config = require('../config.js');
 
 module.exports = {
-  data: new SlashCommandBuilder().setName('ticket').setDescription('Ticket system'),
-
+  data: new SlashCommandBuilder()
+    .setName('ticket')
+    .setDescription('Cria um ticket de suporte'),
 
   async execute(interaction) {
-  // Verifica se a pessoa que executou o comando possui a permissão de gerenciar o servidor    
-    if (!interaction.member.permissions.has('MANAGE_GUILD')) {
-      console.log('Sem permissão');
-      interaction.reply({ content: 'Sem permissão', ephemeral: true });
-      return;
+    if(!interaction.member.permissions.has(PermissionFlagsBits.ManageGuild)){
+      interaction.reply({content: 'Você não tem permissão para usar este comando!', ephemeral: true})
+      return 
     }
 
-    const categoryName = 'tickets';
-    const category = interaction.guild.channels.cache.find(
-      (channel) => channel.name === categoryName && channel.type === ChannelType.GuildCategory
-    );
+    let channel = interaction.options.getChannel("canal")
+    if(!channel) channel = interaction.channel
 
-    let ticketChannel;
-    if (!category) {
-      await interaction.guild.channels.create({ name: categoryName, type: ChannelType.GuildCategory });
-      ticketChannel = await createTicketChannel(interaction.guild, category, interaction.user);
-    } else {
-      ticketChannel = await createTicketChannel(interaction.guild, category, interaction.user);
-    }
 
-    const welcomeEmbed = createWelcomeEmbed(interaction.guild);
-    await sendTicketWelcomeMessage(ticketChannel, welcomeEmbed);
+  let embed_ephemeral = new EmbedBuilder()
+  .setColor("Grey")
+  .setDescription("Gerando painel de ticket...")
 
-    let commandChannel = interaction.channel;
+  let embed_ticket = new EmbedBuilder()
+  .setColor("Random")
+  .setTitle("Lotus Club - Ticket de suporte")
+  .setDescription(`🚨 Link de convite do Lotus Club: https://discord.gg/lotusclub/
+  ✉ Aguarde um administrador responder ✉
+  
+  🔽 Clique na reação abaixo para abrir um ticket 🔽
+  `)
+  .setAuthor({name: interaction.guild.name, iconURL: interaction.guild.iconURL({dynamic: true})})
+  
 
-    let embed = new EmbedBuilder()
-      .setColor('Grey')
-      .setDescription('Crie um ticket aqui')
-      .setAuthor({ name: interaction.guild.name, iconURL: interaction.guild.iconURL({ dynamic: true }) });
 
-    const open_button = new ActionRowBuilder().addComponents(
-      new ButtonBuilder().setCustomId('ticket').setStyle('Primary').setLabel('Abrir ticket')
-    );
+  let button = new ActionRowBuilder().addComponents(
+    new ButtonBuilder()
+    .setCustomId("ticket_basic")
+    .setEmoji("🎫")
+    .setStyle('Primary')
 
-    interaction.reply({ embeds: [embed], components: [open_button] });
+  )
 
-    const collector = interaction.channel.createMessageComponentCollector({ time: 15000 });
+  interaction.reply({embeds: [embed_ephemeral], ephemeral: true}).then(() => {
+    channel.send({embeds: [embed_ticket], components: [button]})
+  })
 
-    collector.on('collect', async (i) => {
-      try {
-        if (i.customId === 'ticket') {
-          await i.reply({ content: `Canal do ticket: ${ticketChannel}`, ephemeral: true });
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    });
-  },
-};
+
+}}

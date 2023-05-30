@@ -1,4 +1,5 @@
-const { Events } = require("discord.js")
+const { Events, ActivityType } = require("discord.js")
+
 
 module.exports = {
     name:Events.ClientReady,
@@ -21,18 +22,20 @@ module.exports = {
             ];
         
             const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
-        
             const status = ['online', 'idle', 'dnd']
-            client.user.setPresence({
+            const activities = ['Lotus Club', 'Project Zomboid', 'Terraria', 'Valorant', 'Minecraft', 'Honkai: Star Rail']
+             client.user.setActivity(activities[Math.floor(Math.random() * status.length)], { type: ActivityType.Playing });
+
+          /*   client.user.setPresence({
               activity: {
                 name: randomStatus.name,
                 type: randomStatus.type,
               },    
               status: status[Math.floor(Math.random() * status.length)],
             });
-
+ */
             
-          }, 900000); // Tempo em milissegundos para alternar o status (neste exemplo, a cada 10 segundos)
+          }, 100000); // Tempo em milissegundos para alternar o status (neste exemplo, a cada 10 segundos)
     }
 }
 

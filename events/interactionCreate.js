@@ -1,4 +1,4 @@
-const { Client, Events } = require("discord.js")
+const { Client, Events, ChannelType, PermissionFlagsBits, ActionRowBuilder} = require("discord.js")
 
 
 module.exports = {
@@ -6,12 +6,16 @@ module.exports = {
 	on: true,
 	async execute(interaction) {
 		if (!interaction.isChatInputCommand()) return;
+		
+
 	const command = interaction.client.commands.get(interaction.commandName);
 	if (!command) {
 		console.error(`No command matching ${interaction.commandName} was found.`);
 		return;
 	}
 	if (!interaction.isChatInputCommand()) return;
+
+
 	try {
 		await command.execute(interaction);
 	} catch (error) {

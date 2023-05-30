@@ -48,6 +48,12 @@ module.exports = {
   .setName('consultar')
   .setDescription("Força a consulta ao twitter e envia os tweets para os canais configurados"),
   async execute(interaction) {
+
+    if(!interaction.member.permissions.has(PermissionFlagsBits.ManageGuild)){
+      interaction.reply({content: 'Você não tem permissão para usar este comando!', ephemeral: true})
+      return 
+    }
+
     const usersChannel = readUsersChannel();
     const lastTweetIds = readLastTweetIds();
 

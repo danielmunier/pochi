@@ -66,13 +66,13 @@ module.exports = {
                 if (!error) {
                   const tweet = tweets[0];
 
-                  console.log(`É a vez do ${user}:`);
-                  console.log(`https://twitter.com/${user}/status/${tweet.id_str}`);
+                  console.log(`É a vez do ${user}:` .green);
+                  console.log(`https://twitter.com/${user}/status/${tweet.id_str}` .blue);
 
                   sendTweetToChannel(user, tweet, channelId, client);
                 }
               } else {
-                console.log("Enviado anteriormente");
+                console.log("Enviado anteriormente" .yellow);
               }
             } else {
               console.log(tweets);

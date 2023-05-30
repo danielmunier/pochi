@@ -1,14 +1,15 @@
 const { Client, Collection, Events, GatewayIntentBits, Intents } = require('discord.js');
+const { deployCommands } = require('./deploy-commands.js');
 require("dotenv").config()
 /* Loading command files */
 
 const fs = require("node:fs");
 const path = require('node:path');
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
 client.commands = new Collection();
 client.buttons = new Collection();
-
+deployCommands();
 const commandsPath = path.join(__dirname, 'commands'); // Path commands
 const eventsPath = path.join(__dirname, 'events') // Path events
 
@@ -37,6 +38,9 @@ for (const file of eventFiles) {
 		client.on(event.name, (...args) => event.execute(...args));
 	}
 }
+
+
+
 
 
 
