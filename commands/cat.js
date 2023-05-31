@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const request = require("request");
-
+require('dotenv').config()
 // Esse comando irá retornar uma imagem de gatinho aleatória
 
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
     .setDescription("Imagem de gatinhos"),
   async execute(interaction) {
     fetch(
-      `https://api.thecatapi.com/v1/images/search?api_key=${cat[0].MEOW_KEY}`
+      `https://api.thecatapi.com/v1/images/search?api_key=${process.env.MEOW_KEY}`
     )
       .then((response) => response.json())
       .then((data) => {
