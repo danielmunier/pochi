@@ -14,7 +14,7 @@ const tweetClient = new Twitter({
 
 function readUsersChannel() {
   try {
-    const usersChannel = JSON.parse(fs.readFileSync("usersChannel.json", "utf8"));
+    const usersChannel = JSON.parse(fs.readFileSync("./config/usersChannel.json", "utf8"));
     return usersChannel;
   } catch (error) {
     console.error("Erro ao ler o arquivo usersChannel.json:", error);
@@ -24,7 +24,7 @@ function readUsersChannel() {
 
 function readLastTweetIds() {
   try {
-    const lastTweetIds = JSON.parse(fs.readFileSync("lastTweetIds.json", "utf8"));
+    const lastTweetIds = JSON.parse(fs.readFileSync("./config/lastTweetIds.json", "utf8"));
     return lastTweetIds;
   } catch (error) {
     console.log("Erro ao ler o arquivo de IDs: ", error);
@@ -66,13 +66,13 @@ module.exports = {
                 if (!error) {
                   const tweet = tweets[0];
 
-                  console.log(`É a vez do ${user}:` .green);
-                  console.log(`https://twitter.com/${user}/status/${tweet.id_str}` .blue);
+                  console.log(`É a vez do ${user}:` );
+                  console.log(`https://twitter.com/${user}/status/${tweet.id_str}`);
 
                   sendTweetToChannel(user, tweet, channelId, client);
                 }
               } else {
-                console.log("Enviado anteriormente" .yellow);
+                console.log("Enviado anteriormente");
               }
             } else {
               console.log(tweets);
@@ -80,6 +80,6 @@ module.exports = {
           }
         );
       });
-    }, 960000); // 960000 = 16 minutos
+    }, 10000); // 960000 = 16 minutos
   },
 };

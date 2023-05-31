@@ -1,5 +1,5 @@
 const { ApplicationCommandType, PermissionFlagsBits, ActionRow, ActionRowBuilder, ButtonStyle, SlashCommandBuilder, EmbedBuilder, ButtonBuilder } = require('discord.js');
-const config = require('../config.js');
+
 
 module.exports = {
   data: new SlashCommandBuilder()

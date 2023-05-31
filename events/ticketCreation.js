@@ -32,31 +32,11 @@ module.exports = {
                         name: channel_name,
                         parent: category,
                         type: ChannelType.GuildText,  
-                      /*   permissionsOverwrites: [
-
-                            {
-                                id: interaction.guild.roles.everyone,
-                                deny: [PermissionFlagsBits.ViewChannel],
-                            },
-                            {
-                                id: interaction.user.id,
-                                allow: [
-                                    PermissionFlagsBits.ViewChannel, 
-                                    PermissionFlagsBits.SendMessages, 
-                                    PermissionFlagsBits.AddReactions, 
-                                    PermissionFlagsBits.AttachFiles,
-                                    PermissionFlagsBits.EmbedLinks,
-                                    PermissionFlagsBits.ReadMessageHistory, 
-                                    PermissionFlagsBits.UseExternalEmojis
-                                    ]
-                            },
-                          
-                        ] */
+                     
                     }).then((chat) => {
                         chat.permissionOverwrites.edit(interaction.guild.roles.everyone, {ViewChannel: false, SendMessages: false, ReadMessageHistory: false})
                         chat.permissionOverwrites.edit(interaction.user.id, {ViewChannel: true, SendMessages: true, ReadMessageHistory: true})
-                        chat.send({content: `Ticket criado!`, ephemeral: true})
-
+ 
 
                         interaction.reply({content: `${interaction.user.username}: Ticket criado em ${chat}!`, ephemeral: true})
 
