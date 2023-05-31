@@ -69,7 +69,7 @@ module.exports = {
                   console.log(`É a vez do ${user}:` );
                   console.log(`https://twitter.com/${user}/status/${tweet.id_str}`);
 
-                  sendTweetToChannel(user, tweet, channelId, client);
+                  setInterval(() => sendTweetToChannel(user, tweet, channelId, client), 10000)
                 }
               } else {
                 console.log("Enviado anteriormente");
