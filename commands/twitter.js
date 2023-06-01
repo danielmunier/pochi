@@ -67,7 +67,7 @@ module.exports = {
  
  
          try {
-             usersChannels = JSON.parse(fs.readFileSync('usersChannel.json', 'utf8'));
+             usersChannels = JSON.parse(fs.readFileSync('./config/usersChannel.json/', 'utf8'));
            } catch (error) {
              console.error('Erro ao ler o arquivo usersChannel.json:', error);
            }
@@ -77,7 +77,7 @@ module.exports = {
  
   // Salvar as alterações no arquivo JSON
          try {
-             fs.writeFileSync('usersChannel.json', JSON.stringify(usersChannels));
+             fs.writeFileSync('./config/usersChannel.json/', JSON.stringify(usersChannels));
              interaction.reply({ content: `O usuário ${user} foi cadastrado com sucesso.`, ephemeral: false });
              console.log(`Usuário ${user} cadastrado com sucesso.`);
            } catch (error) {
@@ -97,7 +97,7 @@ module.exports = {
     let usersChannels = {};
 
     try {
-      usersChannels = JSON.parse(fs.readFileSync("usersChannel.json", "utf8"));
+      usersChannels = JSON.parse(fs.readFileSync("./config/usersChannel.json/", "utf8"));
     } catch (error) {
       console.error("Erro ao ler o arquivo usersChannel.json:", error);
     }
@@ -106,7 +106,7 @@ module.exports = {
       delete usersChannels[user];
 
       try {
-        fs.writeFileSync("usersChannel.json", JSON.stringify(usersChannels));
+        fs.writeFileSync("./config/usersChannel.json/", JSON.stringify(usersChannels));
         interaction.reply({ content: `O usuário ${user} foi removido com sucesso.`, ephemeral: false });
         console.log(`Usuário ${user} removido com sucesso.`);
       } catch (error) {
@@ -120,7 +120,7 @@ module.exports = {
     let usersChannels = {};
 
     try {
-      usersChannels = JSON.parse(fs.readFileSync("usersChannel.json", "utf8"));
+      usersChannels = JSON.parse(fs.readFileSync("./config/usersChannel.json/", "utf8"));
     } catch (error) {
       console.error("Erro ao ler o arquivo usersChannel.json:", error);
     }

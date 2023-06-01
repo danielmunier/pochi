@@ -1,4 +1,4 @@
-const { CommandInteraction, SlashCommandBuilder } = require('discord.js');
+const { CommandInteraction, SlashCommandBuilder, PermissionFlagsBits, Client } = require('discord.js');
 const Twitter = require('twitter');
 const fs = require('fs');
 
@@ -12,7 +12,7 @@ const tweetClient = new Twitter({
 
 function readUsersChannel() {
   try {
-    const usersChannel = JSON.parse(fs.readFileSync('usersChannel.json', 'utf8'));
+    const usersChannel = JSON.parse(fs.readFileSync('./config/usersChannel.json', 'utf8'));
     return usersChannel;
   } catch (error) {
     console.error('Erro ao ler o arquivo usersChannel.json:', error);
@@ -22,7 +22,7 @@ function readUsersChannel() {
 
 function readLastTweetIds() {
   try {
-    const lastTweetIds = JSON.parse(fs.readFileSync('lastTweetIds.json', 'utf8'));
+    const lastTweetIds = JSON.parse(fs.readFileSync('./config/lastTweetIds.json', 'utf8'));
     return lastTweetIds;
   } catch (error) {
     console.log('Erro ao ler o arquivo de IDs: ', error);
@@ -45,19 +45,20 @@ function sendTweetToChannel(user, tweet, channelId, client) {
 
 module.exports = {
   data: new SlashCommandBuilder()
-  .setName('consultar')
-  .setDescription("Força a consulta ao twitter e envia os tweets para os canais configurados"),
+    .setName('consultar')
+    .setDescription('Força a consulta ao Twitter e envia os tweets para os canais configurados'),
   async execute(interaction) {
-
-    if(!interaction.member.permissions.has(PermissionFlagsBits.ManageGuild)){
-      interaction.reply({content: 'Você não tem permissão para usar este comando!', ephemeral: true})
-      return 
+    console.log(interaction)
+    if (!interaction.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
+      interaction.reply({ content: 'Você não tem permissão para usar este comando!', ephemeral: true });
+      return;
     }
 
     const usersChannel = readUsersChannel();
     const lastTweetIds = readLastTweetIds();
 
     Object.entries(usersChannel).forEach(([user, channelId]) => {
+      console.log(`Consultando o ${user}: ${channelId}`)
       tweetClient.get(
         'statuses/user_timeline',
         { screen_name: user, exclude_replies: true },
@@ -73,7 +74,7 @@ module.exports = {
                 console.log(`É a vez do ${user}:`);
                 console.log(`https://twitter.com/${user}/status/${tweet.id_str}`);
 
-                sendTweetToChannel(user, tweet, channelId, interaction.client);
+                sendTweetToChannel(user, tweet, channelId, Client);
               }
             } else {
               console.log('Enviado anteriormente');

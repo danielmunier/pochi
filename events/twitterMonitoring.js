@@ -33,7 +33,7 @@ function readLastTweetIds() {
 }
 
 function writeLastTweetIds(lastTweetIds) {
-  fs.writeFileSync("lastTweetIds.json", JSON.stringify(lastTweetIds));
+  fs.writeFileSync("./config/lastTweetIds.json", JSON.stringify(lastTweetIds));
 }
 
 function sendTweetToChannel(user, tweet, channelId, client) {
@@ -69,7 +69,7 @@ module.exports = {
                   console.log(`É a vez do ${user}:` );
                   console.log(`https://twitter.com/${user}/status/${tweet.id_str}`);
 
-                  setInterval(() => sendTweetToChannel(user, tweet, channelId, client), 10000)
+                  sendTweetToChannel(user, tweet, channelId, client)
                 }
               } else {
                 console.log("Enviado anteriormente");

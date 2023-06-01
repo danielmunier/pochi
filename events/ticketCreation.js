@@ -13,9 +13,9 @@ module.exports = {
 
         if(interaction.isButton()) {
             if(interaction.customId === "ticket_basic") {
-                let channel_name = `ticket-${interaction.user.username}`
+                let channel_name = `ticket-${interaction.user.id}`
                 let channel = interaction.guild.channels.cache.find(channel => channel.name === channel_name)
-        
+                
                 if(channel) {
                     interaction.reply({content: `Você já tem um ticket aberto em ${channel}!`, ephemeral: true})
                 } else {
