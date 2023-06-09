@@ -66,8 +66,8 @@ module.exports = {
                 if (!error) {
                   const tweet = tweets[0];
 
-                  console.log(`É a vez do ${user}:` );
-                  console.log(`https://twitter.com/${user}/status/${tweet.id_str}`);
+                 /*  console.log(`É a vez do ${user}:` );
+                  console.log(`https://twitter.com/${user}/status/${tweet.id_str}`); */
 
                   sendTweetToChannel(user, tweet, channelId, client)
                 }
@@ -80,6 +80,6 @@ module.exports = {
           }
         );
       });
-    }, 960000); // 960000 = 16 minutos
+    }, 960000); // 960000 = 16 minutos | 10000 = 10 segundos
   },
 };

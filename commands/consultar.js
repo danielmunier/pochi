@@ -13,6 +13,7 @@ const tweetClient = new Twitter({
 function readUsersChannel() {
   try {
     const usersChannel = JSON.parse(fs.readFileSync('./config/usersChannel.json', 'utf8'));
+    console.log(usersChannel)
     return usersChannel;
   } catch (error) {
     console.error('Erro ao ler o arquivo usersChannel.json:', error);
@@ -31,12 +32,13 @@ function readLastTweetIds() {
 }
 
 function writeLastTweetIds(lastTweetIds) {
-  fs.writeFileSync('lastTweetIds.json', JSON.stringify(lastTweetIds));
+  fs.writeFileSync('./config/lastTweetIds.json', JSON.stringify(lastTweetIds));
 }
 
 function sendTweetToChannel(user, tweet, channelId, client) {
   const tweetUrl = `https://twitter.com/${user}/status/${tweet.id_str}`;
-  const channel = client.channels.cache.get(channelId);
+  const channel = client.guild.channels.cache.get(channelId);
+  console.log(channel)
 
   channel.send({
     content: tweetUrl,
@@ -71,8 +73,8 @@ module.exports = {
               if (!error) {
                 const tweet = tweets[0];
 
-                console.log(`É a vez do ${user}:`);
-                console.log(`https://twitter.com/${user}/status/${tweet.id_str}`);
+               /*  console.log(`É a vez do ${user}:`);
+                console.log(`https://twitter.com/${user}/status/${tweet.id_str}`); */
 
                 sendTweetToChannel(user, tweet, channelId, Client);
               }
