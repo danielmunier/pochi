@@ -3,6 +3,8 @@ const { deployCommands } = require('./deploy-commands.js');
 require("dotenv").config()
 /* Loading command files */
 
+
+
 const fs = require("node:fs");
 const path = require('node:path');
 

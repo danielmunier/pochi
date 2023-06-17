@@ -40,9 +40,13 @@ function sendTweetToChannel(user, tweet, channelId, client) {
   const tweetUrl = `https://twitter.com/${user}/status/${tweet.id_str}`;
   const channel = client.channels.cache.get(channelId);
 
-  channel.send({
-    content: tweetUrl,
-  });
+  if (channel && channel.permissionsFor(client.user).has("SEND_MESSAGES")) {
+    channel.send({
+      content: tweetUrl,
+    });
+  } else {
+    console.log(`O bot não tem permissões para enviar mensagens no canal ${channelId}`);
+  }
 }
 
 module.exports = {

@@ -20,15 +20,16 @@ module.exports = {
   .setColor("Grey")
   .setDescription("Gerando painel de ticket...")
 
-  let embed_ticket = new EmbedBuilder()
-  .setColor("Random")
-  .setTitle("Lotus Club - Ticket de suporte")
-  .setDescription(`🚨 Link de convite do Lotus Club: https://discord.gg/lotusclub/
-  ✉ Aguarde um administrador responder ✉
-  
-  🔽 Clique na reação abaixo para abrir um ticket 🔽
-  `)
-  .setAuthor({name: interaction.guild.name, iconURL: interaction.guild.iconURL({dynamic: true})})
+    let embed_ticket = new EmbedBuilder()
+    .setColor("Random")
+    /* .setTitle(`${interaction.guild.name} - Ticket`) */
+    .setDescription(`🚨 Link de convite: https://discord.gg/lotusclub/
+    ✉ Aguarde um administrador responder ✉
+    
+    🔽 Clique na reação abaixo para abrir um ticket 🔽
+    `)
+    .setImage('https://imgur.com/U4Gdrsi.gif')
+    .setAuthor({name: interaction.guild.name, iconURL: interaction.guild.iconURL({dynamic: true})})
   
 
 

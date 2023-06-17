@@ -23,7 +23,7 @@ module.exports = {
         
             const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
             const status = ['online', 'idle', 'dnd']
-            const activities = ['Lotus Club', 'Project Zomboid', 'Terraria', 'Valorant', 'Minecraft', 'Honkai: Star Rail']
+            const activities = ['Lotus Club', 'Project Zomboid', 'Terraria', 'Valorant', 'Minecraft', 'Honkai: Star Rail', 'Made by Bileygg']
              client.user.setActivity(activities[Math.floor(Math.random() * status.length)], { type: ActivityType.Playing });
 
           /*   client.user.setPresence({

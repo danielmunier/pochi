@@ -36,15 +36,24 @@ function writeLastTweetIds(lastTweetIds) {
 }
 
 function sendTweetToChannel(user, tweet, channelId, client) {
-  const tweetUrl = `https://twitter.com/${user}/status/${tweet.id_str}`;
-  const channel = client.guild.channels.cache.get(channelId);
-  console.log(channel)
 
-  channel.send({
-    content: tweetUrl,
-  });
+  try{
+    const tweetUrl = `https://twitter.com/${user}/status/${tweet.id_str}`;
+    const channel = client.channels.cache.get(channelId);
+    console.log(channel)
+  
+    if (channel && channel.permissionsFor(client.user).has("SEND_MESSAGES")) {
+      channel.send({
+        content: tweetUrl,
+      });
+    } else {
+      console.log(`O bot não tem permissões para enviar mensagens no canal ${channelId}`);
+    }
+  }catch(err) {
+    console.log('erro')
+  }
+  
 }
-
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('consultar')
