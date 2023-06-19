@@ -13,7 +13,6 @@ const tweetClient = new Twitter({
 function readUsersChannel() {
   try {
     const usersChannel = JSON.parse(fs.readFileSync('./config/usersChannel.json', 'utf8'));
-    console.log(usersChannel)
     return usersChannel;
   } catch (error) {
     console.error('Erro ao ler o arquivo usersChannel.json:', error);
@@ -27,7 +26,7 @@ function readLastTweetIds() {
     return lastTweetIds;
   } catch (error) {
     console.log('Erro ao ler o arquivo de IDs: ', error);
-    return {};
+    return {}
   }
 }
 
@@ -39,8 +38,7 @@ function sendTweetToChannel(user, tweet, channelId, client) {
 
   try{
     const tweetUrl = `https://twitter.com/${user}/status/${tweet.id_str}`;
-    const channel = client.channels.cache.get(channelId);
-    console.log(channel)
+    const channel = client.channel.cache.get(channelId);
   
     if (channel && channel.permissionsFor(client.user).has("SEND_MESSAGES")) {
       channel.send({
@@ -50,7 +48,7 @@ function sendTweetToChannel(user, tweet, channelId, client) {
       console.log(`O bot não tem permissões para enviar mensagens no canal ${channelId}`);
     }
   }catch(err) {
-    console.log('erro')
+    console.log(`${err.message}`)
   }
   
 }
@@ -72,9 +70,10 @@ module.exports = {
       console.log(`Consultando o ${user}: ${channelId}`)
       tweetClient.get(
         'statuses/user_timeline',
-        { screen_name: user, exclude_replies: true },
+        { screen_name: user, exclude_replies: true, include_rts: false },
         (error, tweets, response) => {
           if (Array.isArray(tweets) && tweets.length > 0 && tweets[0].id_str) {
+            console.log(tweets)
             if (lastTweetIds[tweets[0].id_str] !== tweets[0].id_str) {
               lastTweetIds[tweets[0].id_str] = tweets[0].id_str;
               writeLastTweetIds(lastTweetIds);
@@ -82,8 +81,8 @@ module.exports = {
               if (!error) {
                 const tweet = tweets[0];
 
-               /*  console.log(`É a vez do ${user}:`);
-                console.log(`https://twitter.com/${user}/status/${tweet.id_str}`); */
+                console.log(`É a vez do ${user}:`);
+                console.log(`https://twitter.com/${user}/status/${tweet.id_str}`);
 
                 sendTweetToChannel(user, tweet, channelId, Client);
               }

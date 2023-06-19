@@ -10,8 +10,7 @@ module.exports = {
     .setName("cat")
     .setDescription("Imagem de gatinhos"),
   async execute(interaction) {
-    console.log(Client)
-    console.log(Client.guilds.fetch(interaction.channelId))
+    interaction.reply({content: "Comando em andamento"})
     
   }
 };
