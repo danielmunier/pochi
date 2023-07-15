@@ -5,13 +5,20 @@ const {
   PermissionFlagsBits,
   ActionRowBuilder,
   EmbedBuilder,
-  ButtonBuilder,
+  ButtonBuilder
 } = require("discord.js");
 
 module.exports = {
   name: Events.InteractionCreate,
   once: false,
   execute(interaction) {
+
+    if(interaction.isStringSelectMenu()) {
+      console.log(interaction.values[0])
+      interaction.reply({content: `Você selecionou ${interaction.values[0]}`, ephemeral: true})
+    }
+
+
     if (interaction.isButton()) {
       if (interaction.customId === "ticket_basic") {
         let channel_name = `ticket-${interaction.user.id}`;

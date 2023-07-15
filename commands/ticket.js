@@ -7,7 +7,8 @@ const {
   SlashCommandBuilder,
   EmbedBuilder,
   ButtonBuilder,
-  StringSelectMenuBuilder
+  StringSelectMenuBuilder,
+  StringSelectMenuOptionBuilder
 } = require("discord.js");
 
 module.exports = {
@@ -47,6 +48,20 @@ module.exports = {
      
       const select = new StringSelectMenuBuilder()
       .setCustomId('starter')
+      .setPlaceholder('Selecione uma opção')
+      .addOptions(
+				new StringSelectMenuOptionBuilder()
+					.setLabel('\u{1f4d6} Tirar dúvidas')
+					.setValue('duvida'),
+				new StringSelectMenuOptionBuilder()
+					.setLabel('\u{1F4E2} Reportar um usuário')
+					.setValue('report'),
+				new StringSelectMenuOptionBuilder()
+					.setLabel('\u{1F4AC} Sugestão')
+					.setValue('sugestao'),
+        new StringSelectMenuOptionBuilder()
+        .setLabel('\u{1f41e} Reportar um bug')
+        .setValue('bug'))
     /* 
     let button = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
@@ -56,6 +71,9 @@ module.exports = {
         , components: [button] 
     );
  */
-    interaction.reply({ embeds: [embed_ticket] });
+
+    	const row = new ActionRowBuilder()
+			.addComponents(select);
+    interaction.reply({ embeds: [embed_ticket], components: [row] });
   },
 };
