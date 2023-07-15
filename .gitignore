@@ -1,3 +1,4 @@
 node_modules/
 package-lock.json/
+twitter_event.js
 .env

@@ -1,4 +1,4 @@
-const { Client, Collection, Events, GatewayIntentBits, Intents } = require('discord.js');
+const { Client, Collection, Events, GatewayIntentBits, Intents, Partials } = require('discord.js');
 const { deployCommands } = require('./deploy-commands.js');
 require("dotenv").config()
 /* Loading command files */
@@ -8,7 +8,12 @@ require("dotenv").config()
 const fs = require("node:fs");
 const path = require('node:path');
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.DirectMessages,
+    GatewayIntentBits.MessageContent],
+	partials: [
+	  Partials.Channel,
+	  Partials.Message
+	] });
 client.commands = new Collection();
 client.buttons = new Collection();
 /* deployCommands(); */
@@ -24,6 +29,7 @@ for (const file of commandFiles) {
 	const command = require(filePath);
 	// Set a new item in the Collection with the key as the command name and the value as the exported module
 	if ('data' in command && 'execute' in command) {
+	/* 	command.execute = command.execute.bind(null, client) */
 		client.commands.set(command.data.name, command);
 	} else {
 		console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);

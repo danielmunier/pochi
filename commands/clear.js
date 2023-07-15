@@ -19,6 +19,8 @@ module.exports = {
                     if(!interaction.member.permissions.has("MANAGER_MESSAGES")){
                       await interaction.reply({content: "Você não possui permissão para isso", ephemeral: true})
                       return
+
+                    
                     }else{
                       if(clear_number>0 && clear_number < 100){
                         await interaction.reply({content: `${clear_number} mensagens apagadas.`}).then(() => {

@@ -12,11 +12,11 @@ const tweetClient = new Twitter({
 
 function readUsersChannel() {
   try {
-    const usersChannel = JSON.parse(fs.readFileSync('./config/usersChannel.json', 'utf8'));
-    return usersChannel;
+    const data = JSON.parse(fs.readFileSync("./config/usersChannel.json", "utf8"));
+    return data.guilds || [];
   } catch (error) {
-    console.error('Erro ao ler o arquivo usersChannel.json:', error);
-    return {};
+    console.error("Erro ao ler o arquivo usersChannel.json:", error);
+    return [];
   }
 }
 
@@ -34,21 +34,23 @@ function writeLastTweetIds(lastTweetIds) {
   fs.writeFileSync('./config/lastTweetIds.json', JSON.stringify(lastTweetIds));
 }
 
-function sendTweetToChannel(user, tweet, channelId, client) {
+function sendTweetToChannel(user, tweet, channelId, interaction) {
 
   try{
+    const guild = interaction.guild
     const tweetUrl = `https://twitter.com/${user}/status/${tweet.id_str}`;
-    const channel = client.channel.cache.get(channelId);
+    const channel = interaction.client.channels.cache.get(channelId);
   
-    if (channel && channel.permissionsFor(client.user).has("SEND_MESSAGES")) {
-      channel.send({
-        content: tweetUrl,
-      });
-    } else {
-      console.log(`O bot não tem permissões para enviar mensagens no canal ${channelId}`);
-    }
+        if (guild.members.me.permissionsIn(channel).toArray().includes("SendMessages") && guild.members.me.permissionsIn(channel).toArray().includes("ViewChannel")) {
+
+          console.log('Eu posso enviar mensagens em ' + channel.name + '!')
+          channel.send({content: tweetUrl})
+          
+      }else {
+        console.log(`Sem permissão em ${channel.name}`)
+      }
   }catch(err) {
-    console.log(`${err.message}`)
+    console.log(`Erro: ${err}`)
   }
   
 }
@@ -57,45 +59,8 @@ module.exports = {
     .setName('consultar')
     .setDescription('Força a consulta ao Twitter e envia os tweets para os canais configurados'),
   async execute(interaction) {
-    console.log(interaction)
-    if (!interaction.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
-      interaction.reply({ content: 'Você não tem permissão para usar este comando!', ephemeral: true });
-      return;
-    }
 
-    const usersChannel = readUsersChannel();
-    const lastTweetIds = readLastTweetIds();
-
-    Object.entries(usersChannel).forEach(([user, channelId]) => {
-      console.log(`Consultando o ${user}: ${channelId}`)
-      tweetClient.get(
-        'statuses/user_timeline',
-        { screen_name: user, exclude_replies: true, include_rts: false },
-        (error, tweets, response) => {
-          if (Array.isArray(tweets) && tweets.length > 0 && tweets[0].id_str) {
-            console.log(tweets)
-            if (lastTweetIds[tweets[0].id_str] !== tweets[0].id_str) {
-              lastTweetIds[tweets[0].id_str] = tweets[0].id_str;
-              writeLastTweetIds(lastTweetIds);
-
-              if (!error) {
-                const tweet = tweets[0];
-
-                console.log(`É a vez do ${user}:`);
-                console.log(`https://twitter.com/${user}/status/${tweet.id_str}`);
-
-                sendTweetToChannel(user, tweet, channelId, Client);
-              }
-            } else {
-              console.log('Enviado anteriormente');
-            }
-          } else {
-            console.log(tweets);
-          }
-        }
-      );
-    });
-
-    await interaction.reply('Tweets enviados para os canais configurados!');
+      // Soon
+   
   },
 };
