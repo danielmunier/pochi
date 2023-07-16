@@ -8,7 +8,8 @@ const {
   EmbedBuilder,
   ButtonBuilder,
   StringSelectMenuBuilder,
-  StringSelectMenuOptionBuilder
+  StringSelectMenuOptionBuilder,
+  ModalBuilder
 } = require("discord.js");
 
 module.exports = {
@@ -54,14 +55,16 @@ module.exports = {
 					.setLabel('\u{1f4d6} Tirar dúvidas')
 					.setValue('duvida'),
 				new StringSelectMenuOptionBuilder()
-					.setLabel('\u{1F4E2} Reportar um usuário')
-					.setValue('report'),
+					.setLabel('\u{1F4E2} Fazer uma denúncia')
+					.setValue('report')
+          .setDefault(true),
 				new StringSelectMenuOptionBuilder()
-					.setLabel('\u{1F4AC} Sugestão')
+					.setLabel('\u{1F4AC} Mande uma sugestão')
 					.setValue('sugestao'),
         new StringSelectMenuOptionBuilder()
         .setLabel('\u{1f41e} Reportar um bug')
         .setValue('bug'))
+
     /* 
     let button = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
