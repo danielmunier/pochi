@@ -138,7 +138,7 @@ ${sugestion}`})
 
     if (interaction.customId === "ticket_close") {
       interaction.reply({
-        content: `O seu ticket será excluido em 5 segundos.`,
+        content: `O ticket será excluido em 5 segundos.`,
         ephemeral: true,
       });
       if (interaction.channel.name.startsWith("ticket-")) {
