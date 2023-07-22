@@ -31,10 +31,9 @@ module.exports = {
 
     let embed_ticket = new EmbedBuilder()
       .setColor("Random")
-      /* .setTitle(`${interaction.guild.name} - Ticket`) */
       .setDescription(
-        `Bem-vindo à Central de Ajuda do Lotus Club!
-        Aqui, você encontrará todas as respostas para suas dúvidas e poderá entrar em contato com nossa equipe de suporte do Lotus Club.
+        `Bem-vindo à Central de Ajuda do ${interaction.guild.name}!
+        Aqui, você encontrará todas as respostas para suas dúvidas e poderá entrar em contato com nossa equipe de suporte.
         
         Para garantir uma experiência tranquila, recomendamos que você leia cuidadosamente as opções disponíveis abaixo. Estamos aqui para ajudar e faremos o possível para resolver qualquer problema que você possa enfrentar.
         
@@ -56,8 +55,7 @@ module.exports = {
 					.setValue('duvida'),
 				new StringSelectMenuOptionBuilder()
 					.setLabel('\u{1F4E2} Fazer uma denúncia')
-					.setValue('report')
-          .setDefault(true),
+					.setValue('report'),
 				new StringSelectMenuOptionBuilder()
 					.setLabel('\u{1F4AC} Mande uma sugestão')
 					.setValue('sugestao'),
@@ -65,15 +63,6 @@ module.exports = {
         .setLabel('\u{1f41e} Reportar um bug')
         .setValue('bug'))
 
-    /* 
-    let button = new ActionRowBuilder().addComponents(
-      new ButtonBuilder()
-        .setCustomId("ticket_basic")
-        .setEmoji("🎫")
-        .setStyle("Primary")
-        , components: [button] 
-    );
- */
 
     	const row = new ActionRowBuilder()
 			.addComponents(select);

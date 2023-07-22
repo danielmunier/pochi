@@ -82,7 +82,7 @@ module.exports = {
       switch (selectedValue) {
         case 'duvida':
           // Ação para quando "Tirar dúvidas" é selecionado
-          interaction.reply({ content: `Para tirar dúvidas gerais sobre o servidor, utilize os tópicos de suporte em <#${'1051814496991203358'}>`, ephemeral: true });
+          createTicket(interaction, 'help')
           break;
     
         case 'report':
@@ -112,7 +112,7 @@ module.exports = {
                 interaction.awaitModalSubmit({filter, time: 60_000}).then((modalInteraction) => {
                   const sugestion = modalInteraction.fields.getTextInputValue('sugestionInput')
                   const channel_sugestions_id = '1129969219358961744'
-                  const channel_sugestions = interaction.guild.channels.cache.get(channel_sugestions_id || interaction.channel.id)
+                  const channel_sugestions = interaction.guild.channels.cache.get(channel_sugestions_id)
                   channel_sugestions.send({content: `Sugestão de ${interaction.user.username}[${interaction.user.id}]:
 ${sugestion}`})
                   modalInteraction.reply({content: 'Sugestão enviada com sucesso!', ephemeral: true})

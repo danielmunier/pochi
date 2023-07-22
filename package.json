@@ -1,9 +1,13 @@
 {
   "dependencies": {
+    "@superfaceai/one-sdk": "^2.4.2",
     "axios": "^1.4.0",
     "colors": "^1.4.0",
     "discord.js": "^14.6.0",
     "dotenv": "^16.0.3",
+    "instagram-web-api": "^2.2.2",
+    "mongodb": "^5.7.0",
+    "node-fetch": "^3.3.1",
     "nodemon": "^2.0.22",
     "request": "^2.88.2",
     "twitter": "^1.7.1",

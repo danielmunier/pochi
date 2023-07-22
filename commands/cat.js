@@ -23,7 +23,7 @@ module.exports = {
         responseType: 'json'
       })
         .then(function (response) {
-          channel.send({content: response.data[0].url})
+          interaction.reply({content: response.data[0].url})
 
         });
       

@@ -8,10 +8,10 @@ const fs = require('fs');
 async function deployCommands() {
   const commands = [];
 
-  const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+  const commandFiles = fs.readdirSync('./Commands').filter(file => file.endsWith('.js'));
 
   for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
+    const command = require(`./Commands/${file}`);
     commands.push(command.data);
   }
 
@@ -30,6 +30,8 @@ async function deployCommands() {
     console.error(error);
   }
 }
+
+deployCommands()
 
 // Exporte a função deployCommands para ser utilizada em outros arquivos
 module.exports = { deployCommands };
