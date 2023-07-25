@@ -49,6 +49,10 @@ Comando em que é cadastra usuários para o bot fazer um stream de tweets de usu
     ACESS_TOKEN_SECRET: ""
     BEARER_TOKEN = ""
 
+
+    OpenIA
+
+    OPANIA: ""
 # Biblioteca
 ├── @superfaceai/one-sdk@2.4.2
 ├── axios@1.4.0
