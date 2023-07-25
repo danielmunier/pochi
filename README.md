@@ -32,25 +32,6 @@ Comando em que é cadastra usuários para o bot fazer um stream de tweets de usu
  Este evento foi criado para seguir perfis diferentes do Twitter, cada perfil é identificado por um ID do usuário e um ID do canal no discord, cada perfil tem um canal diferente no discord para enviar as embeds das mensagens. A cada nova mensagem postada pelo perfil no twitter, o bot pega essa mensagem e a envia para um canal do discord associado a esse perfil. 
 
 
-    ClientReady Event
-|
-└── setInterval (Executa a cada 16 minutos)
-    |
-    └── Lê o arquivo "usersChannel.json" (Função: readUsersChannel)
-    |   |
-    |   └── Para cada usuário e canal em usersChannel
-    |       |
-    |       └── Consulta os tweets do usuário no Twitter (Função: tweetClient.get)
-    |           |
-    |           └── Verifica se há tweets e se o ID do último tweet é diferente do último enviado
-    |               |
-    |               ├── Atualiza o ID do último tweet (Função: writeLastTweetIds)
-    |               |
-    |               └── Envia o tweet para o canal no Discord (Função: sendTweetToChannel)
-    |
-    └── Fim do setInterval
-
-
 # O que você precisa configurar?
 ### .env
 
@@ -67,25 +48,15 @@ Comando em que é cadastra usuários para o bot fazer um stream de tweets de usu
     ACESS_TOKEN: "", 
     ACESS_TOKEN_SECRET: ""
     BEARER_TOKEN = ""
-    
-
-    The Cat API
-
-    "MEOW_KEY": "",
-   
-    Weather API
-
-    WEATHER_API_KEY = ""
-    WEATHER_CHANNEL = ""
-    
-
 
 # Biblioteca
-
+├── @superfaceai/one-sdk@2.4.2
 ├── axios@1.4.0
 ├── colors@1.4.0
 ├── discord.js@14.11.0
 ├── dotenv@16.0.3
+├── mongodb@5.7.0
+├── node-fetch@3.3.1
 ├── nodemon@2.0.22
-├── request@2.88.2
-└──twitter@1.7.1
+├── openai@3.3.0
+├── twitter@1.7.1
