@@ -54,13 +54,13 @@ Comando em que é cadastra usuários para o bot fazer um stream de tweets de usu
 
     OPANIA: ""
 # Biblioteca
-├── @superfaceai/one-sdk@2.4.2
-├── axios@1.4.0
-├── colors@1.4.0
-├── discord.js@14.11.0
-├── dotenv@16.0.3
-├── mongodb@5.7.0
-├── node-fetch@3.3.1
-├── nodemon@2.0.22
-├── openai@3.3.0
-├── twitter@1.7.1
+-├── @superfaceai/one-sdk@2.4.2
+-├── axios@1.4.0
+-├── colors@1.4.0
+-├── discord.js@14.11.0
+-├── dotenv@16.0.3
+-├── mongodb@5.7.0
+-├── node-fetch@3.3.1
+-├── nodemon@2.0.22
+-├── openai@3.3.0
+-├── twitter@1.7.1
