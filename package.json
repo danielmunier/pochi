@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@discordjs/voice": "^0.16.0",
     "@superfaceai/one-sdk": "^2.4.2",
     "axios": "^1.4.0",
     "colors": "^1.4.0",
@@ -7,6 +8,7 @@
     "dotenv": "^16.0.3",
     "instagram-web-api": "^2.2.2",
     "mongodb": "^5.7.0",
+    "mongoose": "^7.4.1",
     "node-fetch": "^3.3.1",
     "nodemon": "^2.0.22",
     "openai": "^3.3.0",

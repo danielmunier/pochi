@@ -6,27 +6,36 @@ const { Collection } = require('discord.js');
 module.exports = async(client) => {
 client.commands = new Collection();
 client.buttons = new Collection();
-/* deployCommands(); */
-const commandsPath = path.join(__dirname, '../commands'); // Path commands
-const eventsPath = path.join(__dirname, '../events') // Path events
+  // Função para carregar comandos de forma recursiva
+  const loadCommands = (directory) => {
+    const files = fs.readdirSync(directory);
+    for (const file of files) {
+      const filePath = path.join(directory, file);
+      const stat = fs.lstatSync(filePath);
 
-const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js')) // Command Files
+      if (stat.isDirectory()) {
+        // Se for uma pasta, chama recursivamente a função para carregar os comandos nela
+        loadCommands(filePath);
+      } else if (file.endsWith('.js')) {
+        // Se for um arquivo .js, carrega o comando
+        const command = require(filePath);
+        if ('data' in command && 'execute' in command) {
+          client.commands.set(command.data.name, command);
+        } else {
+          console.log(
+            `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
+          );
+        }
+      }
+    }
+  };
+
+  const commandsPath = path.join(__dirname, '../commands');
+  loadCommands(commandsPath);
+// Events
+const eventsPath = path.join(__dirname, '../events') // Path events
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js')) // Events files
 
-// Commands
-for (const file of commandFiles) {
-	const filePath = path.join(commandsPath, file);
-	const command = require(filePath);
-	// Set a new item in the Collection with the key as the command name and the value as the exported module
-	if ('data' in command && 'execute' in command) {
-	/* 	command.execute = command.execute.bind(null, client) */
-		client.commands.set(command.data.name, command);
-	} else {
-		console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
-	}
-}
-
-// Events
 for (const file of eventFiles) {
 	const filePath = path.join(eventsPath, file);
 	const event = require(filePath);
