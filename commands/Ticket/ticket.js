@@ -60,8 +60,11 @@ module.exports = {
 					.setLabel('\u{1F4AC} Mande uma sugestão')
 					.setValue('sugestao'),
         new StringSelectMenuOptionBuilder()
-        .setLabel('\u{1f41e} Reportar um bug')
-        .setValue('bug'))
+          .setLabel('\u{1f41e} Reportar um bug')
+          .setValue('bug'))
+        new StringSelectMenuOptionBuilder()
+          .setLabel('\u{1f389} Resgatar um prêmio')
+          .setValue('premio')
 
 
     	const row = new ActionRowBuilder()

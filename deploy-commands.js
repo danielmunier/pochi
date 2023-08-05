@@ -34,7 +34,7 @@ async function deployCommands() {
 
   readCommands(commandsPath);
 
-  const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
+  const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
 
   try {
     console.log(`Started refreshing ${commands.length} application (/) commands.`);

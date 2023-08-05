@@ -14,9 +14,11 @@ module.exports = {
       adapterCreator: client.guilds.cache.get('959115766630854797').voiceAdapterCreator
     })
  */
-    client.guilds.cache.forEach((guild) => {
+  /*   client.guilds.cache.forEach((guild) => {
       console.log(`${guild.name} (ID: ${guild.id})`);
-    });
+    }); */
+
+
   }
     
 }

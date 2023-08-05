@@ -16,4 +16,4 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBit
 
 
 // Log in to Discord with your client's token
-client.login(process.env.TOKEN);
+client.login(process.env.DISCORD_TOKEN);

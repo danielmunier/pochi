@@ -125,6 +125,11 @@ ${sugestion}`})
           createTicket(interaction, 'bug')
           break;
     
+
+        case 'premio':
+          createTicket(interaction, 'premio')
+          break;
+          
         default:
           // Ação padrão para valores não reconhecidos
           interaction.reply({ content: 'Opção inválida', ephemeral: true });

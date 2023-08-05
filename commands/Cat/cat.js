@@ -26,7 +26,6 @@ module.exports = {
           interaction.reply({content: response.data[0].url})
 
         });
-      
 
         
   }}
