@@ -1,8 +1,6 @@
 const {
   SlashCommandBuilder,
   EmbedBuilder,
-  Client,
-  PermissionsBitField,
 } = require("discord.js");
 const axios = require("axios");
 const request = require("request");

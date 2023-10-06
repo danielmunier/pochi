@@ -11,9 +11,9 @@ module.exports = {
 			.setDescription('Número de mensagens apagadas')
 			.setRequired(true)
 			)
-    .setDescription("Rastreare encomenda"),
+    .setDescription("Rastrear encomendas"),
     async execute(interaction) {
-
+      interaction.reply({content: "Comando em desenvolvimento", ephemeral: true})
 
 
 

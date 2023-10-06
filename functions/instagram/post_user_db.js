@@ -28,5 +28,3 @@ async function post_user(username, guild_id, channel_id, shortcode) {
   
   }
 
-
-  post_user("felipeneto", "159115766630854797", "12136070254003486870", 'kDHQY7Q')

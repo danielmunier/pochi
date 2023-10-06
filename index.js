@@ -10,7 +10,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBit
 	] });
 
 	module.exports = client;
-	require("./Handler")(client);
+	require("./handler")(client);
 
 
 
