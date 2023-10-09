@@ -1,0 +1,43 @@
+[
+    {
+        "guild_id": "321",
+        "users": [
+            {
+                "user_id": "123",
+                "joined_time": "3048323123",
+                "total_time": "1234123"
+            },
+            {
+                "user_id": "4324",
+                "joined_time": "0",
+                "total_time": "0"
+            }
+        ]
+    },
+
+    {
+        "guild_id": "123",
+        "users": [
+            {
+                "user_id": "123213",
+                "joined_time": "3048323123",
+                "total_time": "1234123"
+            },
+            {
+                "user_id": "123",
+                "joined_time": "0",
+                "total_time": "0"
+            },
+            {
+                "user_id": "4324",
+                "joined_time": "0",
+                "total_time": "0"
+            },
+            {
+                "user_id": "9879",
+                "joined_time": "0",
+                "total_time": "0"
+            }
+        ]
+    }
+]
