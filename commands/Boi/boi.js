@@ -11,7 +11,7 @@ module.exports = {
     .setDescription("Veja o tamanho do seu chifre!"),
   async execute(interaction) {
     const size_of_horn =  Math.floor(Math.random() * 50) + 1; 
- 
+    console.log(guild)
     const boi_embed = new EmbedBuilder()
       .setDescription(
         `Analisando a curvatura e aerodinâmica do seu crânio... O tamanho do seu chifre é de ${size_of_horn} cm`

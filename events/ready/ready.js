@@ -8,15 +8,14 @@ module.exports = {
   execute(client) {
     console.log(`Logged in as ${client.user.tag}`);
     client.user.setActivity("Lotus Club", { type: ActivityType.Playing });
- /*    joinVoiceChannel({
+    
+
+  /*   joinVoiceChannel({
       channelId: '1101762995299815496',
       guildId: '959115766630854797',
       adapterCreator: client.guilds.cache.get('959115766630854797').voiceAdapterCreator
-    })
- */
-  /*   client.guilds.cache.forEach((guild) => {
-      console.log(`${guild.name} (ID: ${guild.id})`);
-    }); */
+    }) */
+
 
 
   }

@@ -7,7 +7,6 @@ const errorHandler = require('./error_handler.js');
 module.exports = async(client) => {
 client.commands = new Collection();
 client.buttons = new Collection();
-
 errorHandler(client);
 
   // Função para carregar comandos de forma recursiva

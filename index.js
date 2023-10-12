@@ -2,7 +2,7 @@ const { Client, Collection, Events, GatewayIntentBits, Intents, Partials } = req
 require("dotenv").config()
 /* Loading command files */
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.DirectMessages,
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildMessages, GatewayIntentBits.DirectMessages,
     GatewayIntentBits.MessageContent],
 	partials: [
 	  Partials.Channel,
@@ -14,6 +14,8 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBit
 
 
 
-
 // Log in to Discord with your client's token
 client.login(process.env.DISCORD_TOKEN);
+
+
+

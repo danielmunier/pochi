@@ -12,10 +12,10 @@ guild_db = {
             // Verificar se a guilda já existe
             const data = guild_db.read(guild_id)
             if (data) {
-                console.log("[CREATE] Guilda já existente")
+                console.log("[GUILD][CREATE] Guilda já existente")
                 return
             }
-            console.log("[CREATE] Guilda não existente, sendo criada...")
+            console.log("[GUILD][CREATE] Guilda não existente, sendo criada...")
 
 
             const register = {
@@ -27,7 +27,7 @@ guild_db = {
             fs.writeFileSync(this.path, JSON.stringify(db), 'utf8')
 
         } catch (err) {
-            console.log("[CREATE] Erro ao criar uma guilda..." + err)
+            console.log("[GUILD][CREATE] Erro ao criar uma guilda..." + err)
         }
 
 
@@ -48,14 +48,14 @@ guild_db = {
             // Encontre a guilda com base no guild_id
             const guildaEncontrada = data.find(guild => guild.guild_id === guild_id);
             if (guildaEncontrada) {
-                console.log("[READ] Guilda encontrada");
+                console.log("[GUILD][READ] Guilda encontrada");
                 return guildaEncontrada;
             } else {
-                console.log("[READ] Guilda não encontrada.");
+                console.log("[GUILD][READ] Guilda não encontrada.");
                 return null;
             }
         } catch (err) {
-            console.log("[READ] Erro ao ler o arquivo JSON: " + err);
+            console.log("[GUILD][READ] Erro ao ler o arquivo JSON: " + err);
             return null;
         }
     },
@@ -95,107 +95,7 @@ guild_db = {
 
 
 
-user_db = {
-    create(guild_id, user_ID) {
-        try {
-            let database = JSON.parse(fs.readFileSync(guild_db.path, 'utf8'))
-            let data = guild_db.read(guild_id)
-            if (!data) {
-                console.log("Guilda não encontrada")
-                return null
-            }
-
-
-            let user = data.users.find((user) => user.user_id === user_ID)
-
-            if (user) {
-                console.log("[USER][CREATE] Usuario já existente")
-
-                return null
-            }
-
-            database.map((guild) => {
-                if (guild.guild_id === guild_id) {
-                    guild.users.push({
-                        user_id: user_ID,
-                        total_messages: 0,
-                        joined_time: "0",
-                        total_time: 0
-                    })
-                }
-            })
 
 
 
-            fs.writeFileSync(guild_db.path, JSON.stringify(database), 'utf8')
-            console.log("Usuário criado com sucesso!")
-        } catch (err) {
-            console.log("Erro ao criar usuario: " + err)
-        }
-
-    },
-
-    read(guild_id, user_ID) {
-        const database = fs.readFileSync(guild_db.path, 'utf8')
-        let data_guild = guild_db.read(guild_id)
-        if (!data_guild) {
-            return false
-        }
-
-        let userToFind = null;
-        data_guild.users.map((user) => {
-            if (user.user_id === user_ID) {
-                userToFind = user
-            }
-
-        })
-
-        if (!userToFind) {
-            console.log("Usuário não encontrado. ")
-            return false
-        }
-
-        return userToFind
-
-
-
-
-    },
-
-    update(guild_id, user_ID, voice_time = 0, messages = 0) {
-        let database = JSON.parse(fs.readFileSync(guild_db.path, 'utf8'))
-        let guildToUpdate = null;
-        let userToUpdate = null
-        for(guild of database) {
-            if(guild.guild_id === guild_id) {
-                guildToUpdate = true
-                for(user of guild.users) {
-                    if(user.user_id === user_ID) {
-                        userToUpdate = true
-                        user.total_time += voice_time
-                        user.total_messages += messages
-
-                    }
-                }
-
-            }
-        }
-
-        if(!guildToUpdate) {
-            console.log("Guilda não encontrada")
-            return
-        }
-
-        if(!userToUpdate) {
-            console.log("Usuário não encontrado")
-            return
-        }
-
-        fs.writeFileSync(guild_db.path, JSON.stringify(database), 'utf8')
-    }
-}
-
-
-
-
-module.exports = {guild_db, user_db}
+module.exports = {guild_db}
