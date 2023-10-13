@@ -38,7 +38,6 @@ async function get_latest_post(profile_user) {
     
     const recent_post = timestamp_compare(latest_post);
     const post_link = `https://instagram.com/p/${recent_post.shortcode}`;
-
     const data = {
       user: {
         username: profile_user,

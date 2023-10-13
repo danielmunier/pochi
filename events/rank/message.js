@@ -48,15 +48,23 @@ const guild = client.guilds.cache.get(guild_id)
 // Pega o cargo atual
 // Se não tiver um cargo, adicione um
 // Quando o usuario possui xp suficiente para o proximo cargo, deve-se remover o anterior e adicionar o seguinte.
-
+let previousRole = null;
 const member = guild.members.cache.get(user.user_id)
     for(cargo in cargos) {
-      console.log(indexOf(cargos[cargo]))
          if(user.xp >= cargos[cargo].xp) {
 
              let role = guild.roles.cache.get(cargos[cargo].id)
+             if (!member.roles.cache.has(cargos[cargo].id)) {
+              // Se o usuário não tem o cargo, adicione
+              member.roles.add(cargos[cargo].id);
+            }
        
-             member.roles.add(cargos[cargo].id) 
+            if (previousRole && member.roles.cache.has(previousRole.id)) {
+              member.roles.remove(previousRole.id);
+            }
+
+            previousRole = role
+
              break
 
          }

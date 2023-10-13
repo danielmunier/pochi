@@ -1,6 +1,37 @@
 # Pochita
 
 
+# Eventos
+
+### INSTAGRAM [Manutenção]
+ Este evento consulta perfis de usuários do instagram e posta o último perfil que esse usuário postou no canal do discord especificado com o Slash Command /instagram. O perfil, o canal e o ultimo post que foi enviado fica armazenado em data.json.
+
+### RANKING 
+Atualmente, é feito um ranking com base na quantidade de mensagens dos usuários. A cada mensagem um membro comum ganha 10 de xp, um membro "VIP" ganha o dobro. Dentro do evento, quando um usuário alcança um certo nivel de xp, ele ganha um cargo no servidor.
+
+# O que você precisa configurar?
+### .env
+
+    Discord
+
+    TOKEN: "", 
+    CLIENT_ID: "", 
+    GUILD_ID: "",
+
+    Twitter
+
+    CONSUMER_KEY: "", 
+    CONSUMER_SECRET: "", 
+    ACESS_TOKEN: "", 
+    ACESS_TOKEN_SECRET: ""
+    BEARER_TOKEN = ""
+
+
+    OpenIA
+
+    OPANIA: ""
+
+
 
 # Comandos
 
@@ -24,35 +55,6 @@ Onde esse comando for utilizado irá criar um painel/embed para os membros criar
 Comando em que é cadastra usuários para o bot fazer um stream de tweets de usuários do twitter
 
 
-
-
-# Eventos
-
-### Tweets [Manutenção]
- Este evento foi criado para seguir perfis diferentes do Twitter, cada perfil é identificado por um ID do usuário e um ID do canal no discord, cada perfil tem um canal diferente no discord para enviar as embeds das mensagens. A cada nova mensagem postada pelo perfil no twitter, o bot pega essa mensagem e a envia para um canal do discord associado a esse perfil. 
-
-
-# O que você precisa configurar?
-### .env
-
-    Discord
-
-    TOKEN: "", 
-    CLIENT_ID: "", 
-    GUILD_ID: "",
-
-    Twitter
-
-    CONSUMER_KEY: "", 
-    CONSUMER_SECRET: "", 
-    ACESS_TOKEN: "", 
-    ACESS_TOKEN_SECRET: ""
-    BEARER_TOKEN = ""
-
-
-    OpenIA
-
-    OPANIA: ""
 # Biblioteca
 -├── @superfaceai/one-sdk@2.4.2
 -├── axios@1.4.0
