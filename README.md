@@ -3,7 +3,7 @@
 
 # Eventos
 
-### INSTAGRAM [Manutenção]
+### INSTAGRAM 
  Este evento consulta perfis de usuários do instagram e posta o último perfil que esse usuário postou no canal do discord especificado com o Slash Command /instagram. O perfil, o canal e o ultimo post que foi enviado fica armazenado em data.json.
 
 ### RANKING 

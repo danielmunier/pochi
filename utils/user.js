@@ -25,6 +25,7 @@ user_db = {
                         user_id: user_ID,
                         xp: 0,
                         level: 0,
+                        role: "",
                         total_messages: 0,
                         joined_time: "0",
                         total_time: 0,
@@ -146,10 +147,43 @@ user_db = {
 
 
     },
+    
+    update_role(guild_id, user_id, role_id) {
+        let database = JSON.parse(fs.readFileSync(guild_db.path, 'utf8'))
+        let guild = guild_db.read(guild_id)
+        let user = user_db.read(guild_id, user_id);
+    
+        if(!guild) {
+            console.log("[USER][XP] Guilda não encontrada")
+            return false
+        }
+        if(!user) {
+            console.log("[XP] Usuário não encontrado")
+            return false;
+    
+        }
+    
+    
+        for(guild of database) {
+            for(user of guild.users) {
+                if(user.user_id === user_id && guild.guild_id === guild_id) {
+                  user.role = role_id
+    
+                }
+            }
+        }
+    
+    
+        fs.writeFileSync(guild_db.path, JSON.stringify(database))
+    
+        return true
+    }
 
        
 
 
 }
+
+
 
 module.exports = { user_db }
