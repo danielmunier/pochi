@@ -12,10 +12,10 @@ guild_db = {
             // Verificar se a guilda já existe
             const data = guild_db.read(guild_id)
             if (data) {
-                console.log("[GUILD][CREATE] Guilda já existente")
+                /*   console.log("[GUILD][CREATE] Guilda já existente") */
                 return
             }
-            console.log("[GUILD][CREATE] Guilda não existente, sendo criada...")
+            /*  console.log("[GUILD][CREATE] Guilda não existente, sendo criada...") */
 
 
             const register = {
@@ -48,10 +48,10 @@ guild_db = {
             // Encontre a guilda com base no guild_id
             const guildaEncontrada = data.find(guild => guild.guild_id === guild_id);
             if (guildaEncontrada) {
-                console.log("[GUILD][READ] Guilda encontrada");
+                /*   console.log("[GUILD][READ] Guilda encontrada"); */
                 return guildaEncontrada;
             } else {
-                console.log("[GUILD][READ] Guilda não encontrada.");
+                /* console.log("[GUILD][READ] Guilda não encontrada."); */
                 return null;
             }
         } catch (err) {
@@ -65,14 +65,14 @@ guild_db = {
             const data = guild_db.read(guild_id)
 
             if (!data) {
-                console.log("[DELETE] Erro ao deletar guilda. Guilda pode ser inexistente.")
+                /*  console.log("[DELETE] Erro ao deletar guilda. Guilda pode ser inexistente.") */
                 return false
             }
 
             const new_data = JSON.parse(db).filter((guild) => guild.guild_id != guild_id)
 
             if (JSON.stringify(new_data) != JSON.stringify(db)) {
-                console.log("[DELETE] Guilda deletada com sucesso!")
+                /*   console.log("[DELETE] Guilda deletada com sucesso!") */
                 fs.writeFileSync(this.path, JSON.stringify(new_data), 'utf8')
 
                 return true
@@ -98,4 +98,4 @@ guild_db = {
 
 
 
-module.exports = {guild_db}
+module.exports = { guild_db }
