@@ -25,7 +25,7 @@ function verify_permission(channel_id, guild) {
 module.exports = {
   name: Events.ClientReady,
   async execute(client) {
-    const executeEvent = async () => {
+    const instagramEvent = async () => {
       try {
         const data = fs.readFileSync("data.json");
         const data_json = JSON.parse(data);
@@ -55,8 +55,7 @@ module.exports = {
       }
     };
 
-    // Chama a função executeEvent a cada 20 minutos (20 minutos * 60 segundos * 1000 milissegundos)
-    executeEvent();
-    setInterval(executeEvent, 60 * 60 * 1000);
+   
+    setInterval(instagramEvent, 60 * 60 * 1000);
   },
 };

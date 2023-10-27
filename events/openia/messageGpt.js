@@ -12,6 +12,14 @@ const openai = new OpenAIApi(configuration);
 module.exports = {
 	name: Events.MessageCreate,
 	async execute(message) {
+       if(message.content === "khazix") {
+        message.reply({content: "eoq"})
+        
+    }
+    if(message.content === "e ele mata?") {
+           message.reply({content: "eoq"})
+
+       }
         return
         if (message.author.bot) return;
         if (message.channel.id !== "1098628300445851698") return;

@@ -1,1 +1,197 @@
-[{"guild_id":"1041140810881699860","users":[{"user_id":"324719520482721792","xp":1374,"level":0,"role":"1162955841171882105","total_messages":66,"joined_time":"0","total_time":0,"vip":true}]},{"guild_id":"959115766630854797","users":[{"user_id":"324719520482721792","xp":140,"level":0,"role":"970167616717086760","total_messages":14,"joined_time":"0","total_time":0,"vip":false},{"user_id":"460513615506702355","xp":290,"level":0,"role":"970167616717086760","total_messages":29,"joined_time":"0","total_time":0,"vip":false},{"user_id":"955976369475559425","xp":60690,"level":0,"role":"1042721419047481406","total_messages":28,"joined_time":"0","total_time":0,"vip":true},{"user_id":"490548678604619786","xp":50,"level":0,"role":"970167616717086760","total_messages":5,"joined_time":"0","total_time":0,"vip":false},{"user_id":"972818941808345169","xp":10,"level":0,"role":"970167616717086760","total_messages":1,"joined_time":"0","total_time":0,"vip":false},{"user_id":"701541815534485634","xp":140,"level":0,"role":"970167616717086760","total_messages":14,"joined_time":"0","total_time":0,"vip":false},{"user_id":"919904694925660170","xp":20,"level":0,"role":"970167616717086760","total_messages":2,"joined_time":"0","total_time":0,"vip":false}]}]
+[
+    {
+        "guild_id": "959115766630854797",
+        "users": [
+            {
+                "user_id": "324719520482721792",
+                "xp": 50,
+                "level": 0,
+                "role": "970167616717086760",
+                "total_messages": 307,
+                "joined_time": "0",
+                "total_time": 0,
+                "vip": false
+            },
+            {
+                "user_id": "460513615506702355",
+                "xp": 2510,
+                "level": 0,
+                "role": "1147971164052930640",
+                "total_messages": 215,
+                "joined_time": "0",
+                "total_time": 0,
+                "vip": false
+            },
+            {
+                "user_id": "955976369475559425",
+                "xp": 1000,
+                "level": 0,
+                "role": "1148039871127097384",
+                "total_messages": 381,
+                "joined_time": "0",
+                "total_time": 0,
+                "vip": false
+            },
+            {
+                "user_id": "490548678604619786",
+                "xp": 50,
+                "level": 0,
+                "role": "970167616717086760",
+                "total_messages": 5,
+                "joined_time": "0",
+                "total_time": 0,
+                "vip": false
+            },
+            {
+                "user_id": "972818941808345169",
+                "xp": 40,
+                "level": 0,
+                "role": "970167616717086760",
+                "total_messages": 3,
+                "joined_time": "0",
+                "total_time": 0,
+                "vip": false
+            },
+            {
+                "user_id": "701541815534485634",
+                "xp": 1870,
+                "level": 0,
+                "role": "1147971164052930640",
+                "total_messages": 187,
+                "joined_time": "0",
+                "total_time": 0,
+                "vip": false
+            },
+            {
+                "user_id": "919904694925660170",
+                "xp": 2560,
+                "level": 0,
+                "role": "1147971164052930640",
+                "total_messages": 251,
+                "joined_time": "0",
+                "total_time": 0,
+                "vip": false
+            },
+            {
+                "user_id": "671074123383963651",
+                "xp": 1600,
+                "level": 0,
+                "role": "1147971164052930640",
+                "total_messages": 157,
+                "joined_time": "0",
+                "total_time": 0,
+                "vip": false
+            },
+            {
+                "user_id": "587077268644429825",
+                "xp": 3170,
+                "level": 0,
+                "role": "1147971164052930640",
+                "total_messages": 273,
+                "joined_time": "0",
+                "total_time": 0,
+                "vip": false
+            },
+            {
+                "user_id": "237040089727893505",
+                "xp": 420,
+                "level": 0,
+                "role": "970167616717086760",
+                "total_messages": 38,
+                "joined_time": "0",
+                "total_time": 0,
+                "vip": false
+            },
+            {
+                "user_id": "637718371957211157",
+                "xp": 330,
+                "level": 0,
+                "role": "970167616717086760",
+                "total_messages": 32,
+                "joined_time": "0",
+                "total_time": 0,
+                "vip": false
+            },
+            {
+                "user_id": "1043117223079850034",
+                "xp": 220,
+                "level": 0,
+                "role": "970167616717086760",
+                "total_messages": 0,
+                "joined_time": "0",
+                "total_time": 0,
+                "vip": false
+            },
+            {
+                "user_id": "141249868097126400",
+                "xp": 50,
+                "level": 0,
+                "role": "970167616717086760",
+                "total_messages": 3,
+                "joined_time": "0",
+                "total_time": 0,
+                "vip": false
+            },
+            {
+                "user_id": "962882910787080242",
+                "xp": 200,
+                "level": 0,
+                "role": "970167616717086760",
+                "total_messages": 13,
+                "joined_time": "0",
+                "total_time": 0,
+                "vip": false
+            },
+            {
+                "user_id": "1051962879798149252",
+                "xp": 1030,
+                "level": 0,
+                "role": "970167616717086760",
+                "total_messages": 3,
+                "joined_time": "0",
+                "total_time": 0,
+                "vip": false
+            },
+            {
+                "user_id": "936813430164316170",
+                "xp": 780,
+                "level": 0,
+                "role": "970167616717086760",
+                "total_messages": 78,
+                "joined_time": "0",
+                "total_time": 0,
+                "vip": false
+            },
+            {
+                "user_id": "940722659749158995",
+                "xp": 60,
+                "level": 0,
+                "role": "970167616717086760",
+                "total_messages": 6,
+                "joined_time": "0",
+                "total_time": 0,
+                "vip": false
+            },
+            {
+                "user_id": "655469525382463488",
+                "xp": 10,
+                "level": 0,
+                "role": "",
+                "total_messages": 1,
+                "joined_time": "0",
+                "total_time": 0,
+                "vip": false
+            },
+            {
+                "user_id": "626845960152154113",
+                "xp": 20,
+                "level": 0,
+                "role": "970167616717086760",
+                "total_messages": 2,
+                "joined_time": "0",
+                "total_time": 0,
+                "vip": false
+            }
+        ]
+    }
+]

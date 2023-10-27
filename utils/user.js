@@ -46,6 +46,7 @@ user_db = {
     read(guild_id, user_ID) {
         const database = fs.readFileSync(guild_db.path, 'utf8')
         let data_guild = guild_db.read(guild_id)
+        
         if (!data_guild) {
             return false
         }
@@ -70,7 +71,7 @@ user_db = {
 
 
     },
-    update(guild_id, user_ID, voice_time = 0, messages = 0, xp = 0, level = 0) {
+    update({guild_id, user_id, voice_time = 0, messages = 0, xp = 0, level = 0}) {
         let database = JSON.parse(fs.readFileSync(guild_db.path, 'utf8'))
         let guildToUpdate = null;
         let userToUpdate = null
@@ -78,12 +79,11 @@ user_db = {
             if (guild.guild_id === guild_id) {
                 guildToUpdate = true
                 for (user of guild.users) {
-                    if (user.user_id === user_ID) {
+                    if (user.user_id === user_id) {
                         userToUpdate = true
                         user.total_time += voice_time
                         user.total_messages += messages
-
-
+                        user.xp += xp
 
                     }
                 }
@@ -92,13 +92,13 @@ user_db = {
         }
 
         if (!guildToUpdate) {
-            /*          console.log("Guilda não encontrada") */
-            return
+            console.log("[UPDATE][USER]Guilda não encontrada")
+            return false
         }
 
         if (!userToUpdate) {
-            /*    console.log("Usuário não encontrado") */
-            return
+               console.log("[UPDATE][USER]Usuário não encontrado")
+            return false
         }
 
         fs.writeFileSync(guild_db.path, JSON.stringify(database), 'utf8')
@@ -154,7 +154,7 @@ user_db = {
             return false
         }
         if (!user) {
-            /*  console.log("[XP] Usuário não encontrado") */
+             /* console.log("[XP] Usuário não encontrado") */
             return false;
 
         }
@@ -180,11 +180,11 @@ user_db = {
         let user = user_db.read(guild_id, user_id);
 
         if (!guild) {
-            /*       console.log("[USER][XP] Guilda não encontrada") */
+                  console.log("[USER][XP] Guilda não encontrada") 
             return false
         }
         if (!user) {
-            /*     console.log("[XP] Usuário não encontrado") */
+               console.log("[XP] Usuário não encontrado") 
             return false;
 
         }

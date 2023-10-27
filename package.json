@@ -7,13 +7,10 @@
     "discord.js": "^14.6.0",
     "dotenv": "^16.0.3",
     "instatouch": "^2.3.22",
-    "mongodb": "^5.7.0",
-    "mongoose": "^7.4.1",
     "node-fetch": "^3.3.1",
     "nodemon": "^2.0.22",
     "openai": "^3.3.0",
     "request": "^2.88.2",
-    "twitter": "^1.7.1",
     "ytdl-core": "^4.11.2"
   },
   "name": "pochita",
@@ -29,5 +26,12 @@
   "description": "",
   "devDependencies": {
     "typescript": "^5.1.6"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "data.json",
+      "ranking.json"
+    ],
+    "delay": 8000
   }
 }

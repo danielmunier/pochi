@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, PermissionsBitField } = require("discord.js");
 const {
   get_latest_post,
 } = require("../../functions/instagram/get_latest_post");
@@ -34,9 +34,9 @@ module.exports = {
         .setDescription("profile_user")
         .setRequired(true)
     )
-    .setDescription("Acompanhar um perfil do Twitter"),
+    .setDescription("Acompanhar um perfil do Instagram"),
   async execute(interaction) {
-    if (!interaction.member.permissions.has("MANAGER_MESSAGES")) {
+    if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages)) {
       await interaction.reply({
         content: "Você não possui permissão para isso",
         ephemeral: true,
