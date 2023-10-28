@@ -19,7 +19,7 @@ async function updateRoles(guild, user, client) {
     if (user.xp >= role.xpRequired) {
       highestRole = role;
     } else {
-      break; 
+      break;
     }
   }
 
@@ -27,7 +27,7 @@ async function updateRoles(guild, user, client) {
   if (highestRole && highestRole.id != user.role) {
     const role = guild.roles.cache.get(highestRole.id);
     const member = guild.members.cache.get(user.user_id);
-  
+
     const rolesToRemove = xpRoles.map((role) => role.id).filter((roleId) => roleId !== highestRole.id);
     await member.roles.remove(rolesToRemove);
     console.log("Silêncio, o usuário está upando")
@@ -80,7 +80,7 @@ module.exports = {
 
       let current_role = user_db.get_role(guild_id, user_id);
       await updateRoles(guildToUpdate, userExist, client);
-      let updated_role = user_db.get_role(guild_id, user_id); 
+      let updated_role = user_db.get_role(guild_id, user_id);
       // Se a antes da funçao updateRoles for acionada o cargo do usuario for diferente, quer dizer que ele upou
       if (current_role != updated_role) {
         const member = guildToUpdate.members.cache.get(user_id);
@@ -88,7 +88,7 @@ module.exports = {
 
         const channelLeveling = client.channels.cache.get("1153749391417557166")
         let role = guildToUpdate.roles.cache.get(updated_role)
-        channelLeveling.send({ content: `O membro <@${message.author.id}> upou para o cargo **${role.name}**! Parabéns!`})
+        channelLeveling.send({ content: `O membro <@${message.author.id}> upou para o cargo **${role.name}**! Parabéns!` })
       }
     }
   }

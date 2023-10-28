@@ -4,10 +4,10 @@
         "users": [
             {
                 "user_id": "324719520482721792",
-                "xp": 50,
+                "xp": 210,
                 "level": 0,
                 "role": "970167616717086760",
-                "total_messages": 307,
+                "total_messages": 323,
                 "joined_time": "0",
                 "total_time": 0,
                 "vip": false
@@ -24,10 +24,10 @@
             },
             {
                 "user_id": "955976369475559425",
-                "xp": 1000,
+                "xp": 1150,
                 "level": 0,
-                "role": "1148039871127097384",
-                "total_messages": 381,
+                "role": "1147971164052930640",
+                "total_messages": 396,
                 "joined_time": "0",
                 "total_time": 0,
                 "vip": false
@@ -54,10 +54,10 @@
             },
             {
                 "user_id": "701541815534485634",
-                "xp": 1870,
+                "xp": 2330,
                 "level": 0,
                 "role": "1147971164052930640",
-                "total_messages": 187,
+                "total_messages": 233,
                 "joined_time": "0",
                 "total_time": 0,
                 "vip": false
@@ -74,20 +74,20 @@
             },
             {
                 "user_id": "671074123383963651",
-                "xp": 1600,
+                "xp": 1620,
                 "level": 0,
                 "role": "1147971164052930640",
-                "total_messages": 157,
+                "total_messages": 159,
                 "joined_time": "0",
                 "total_time": 0,
                 "vip": false
             },
             {
                 "user_id": "587077268644429825",
-                "xp": 3170,
+                "xp": 3230,
                 "level": 0,
                 "role": "1147971164052930640",
-                "total_messages": 273,
+                "total_messages": 279,
                 "joined_time": "0",
                 "total_time": 0,
                 "vip": false
@@ -104,10 +104,10 @@
             },
             {
                 "user_id": "637718371957211157",
-                "xp": 330,
+                "xp": 430,
                 "level": 0,
                 "role": "970167616717086760",
-                "total_messages": 32,
+                "total_messages": 42,
                 "joined_time": "0",
                 "total_time": 0,
                 "vip": false
@@ -154,10 +154,10 @@
             },
             {
                 "user_id": "936813430164316170",
-                "xp": 780,
+                "xp": 980,
                 "level": 0,
                 "role": "970167616717086760",
-                "total_messages": 78,
+                "total_messages": 98,
                 "joined_time": "0",
                 "total_time": 0,
                 "vip": false
@@ -184,10 +184,10 @@
             },
             {
                 "user_id": "626845960152154113",
-                "xp": 20,
+                "xp": 40,
                 "level": 0,
                 "role": "970167616717086760",
-                "total_messages": 2,
+                "total_messages": 4,
                 "joined_time": "0",
                 "total_time": 0,
                 "vip": false

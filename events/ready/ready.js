@@ -11,12 +11,11 @@ module.exports = {
     
 
     joinVoiceChannel({
-      channelId: '1163844517095546960',
+      channelId: '1164306291255156878',
       guildId: '959115766630854797',
       adapterCreator: client.guilds.cache.get('959115766630854797').voiceAdapterCreator
     })
 
-    console.log(client.guilds)
     
 
 
