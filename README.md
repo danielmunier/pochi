@@ -18,15 +18,6 @@ Atualmente, é feito um ranking com base na quantidade de mensagens dos usuário
     CLIENT_ID: "", 
     GUILD_ID: "",
 
-    Twitter
-
-    CONSUMER_KEY: "", 
-    CONSUMER_SECRET: "", 
-    ACESS_TOKEN: "", 
-    ACESS_TOKEN_SECRET: ""
-    BEARER_TOKEN = ""
-
-
     OpenIA
 
     OPANIA: ""
@@ -44,19 +35,15 @@ Esse comando limpa as mensagens de um canal com o número que o usuário dar
 
 ### Cat 
 
-Esse comando retorna imagem de um gato em uma embed sempre que é utilizado utilizando a API thecatapi
+Esse comando retorna imagem de um gato em uma mensagem sempre que é utilizado utilizando a API thecatapi
 
 ### Ticket 
 
 Onde esse comando for utilizado irá criar um painel/embed para os membros criarem tickets para falar com o suporte, darem sugestões na qual são enviadas para a staff, denúnciar membros. 
 
-### Twitter [MANUTENÇÃO]
-
-Comando em que é cadastra usuários para o bot fazer um stream de tweets de usuários do twitter
 
 
 # Biblioteca
--├── @superfaceai/one-sdk@2.4.2
 -├── axios@1.4.0
 -├── colors@1.4.0
 -├── discord.js@14.11.0
@@ -65,4 +52,3 @@ Comando em que é cadastra usuários para o bot fazer um stream de tweets de usu
 -├── node-fetch@3.3.1
 -├── nodemon@2.0.22
 -├── openai@3.3.0
--├── twitter@1.7.1
