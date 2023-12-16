@@ -9,7 +9,7 @@ const event: BotEvent = {
   once: false,
   execute: async (client: Client) => {
     getLatestPost("querovagas23").then((data) => {
-      postChannel(client, config.DISCORD_JOB_CHANNEL, data, config.DISCORD_GUILD_ID); 
+      postChannel(client, config.DISCORD_JOB_CHANNEL, data, config.DISCORD_GUILD_ID); // client, channelId, data, guildId
     });
 
     setInterval(() => {
