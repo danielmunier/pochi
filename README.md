@@ -1,5 +1,5 @@
 # rimuru-bot
-Aplicação feita para divulgar postagens de perfis do Instagram em canais do Discord
+Application initially made to periodically notify on Discord channels about job opportunity being advertised on certain Instagram profiles.
 
 ## Instalação
 
