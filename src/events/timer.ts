@@ -15,7 +15,7 @@ const event: BotEvent = {
        
      
                
-        cron.schedule({hour: 9, minute: 0}, async () => {
+        cron.schedule("0 9 * * *", async () => {
         const date = await timeRemaining("02/27/2024")
         const content = `Tempo restante: ${date.days} dias, ${date.hours} horas, ${date.minutes} minutos e ${date.seconds} segundos <@324719520482721792>`
         await sendToChannel(client, config.DISCORD_JOB_CHANNEL, config.DISCORD_GUILD_ID, content)
