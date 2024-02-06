@@ -5,6 +5,10 @@ import { deployCommands } from "./deploy-commands";
 import { join } from "path";
 import { readdirSync } from "fs";
 
+let cron = require("node-cron")
+
+require("./database/index")
+
 console.log("Bot is starting")
 
 

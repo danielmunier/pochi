@@ -8,6 +8,21 @@ export interface SlashCommand {
     cooldown?: number // in seconds
 }
 
+export interface instagramUser {
+    username: string,
+    profileIconURL: string,
+}
+
+export interface instagramPost {
+    shortcode: string,
+    owner: instagramUser,
+    description: string,
+    timestamp: number,
+    thumbnail: string,
+    url: string,
+
+}
+
 
 export interface Command {
     name: string,
@@ -20,5 +35,6 @@ export interface Command {
 export interface BotEvent {
     name: string,
     once?: boolean | false,
+    active?:  boolean | true,
     execute: (...args?) => void
 }

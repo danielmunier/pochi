@@ -1,5 +1,8 @@
 const instaTouch = require("instatouch");
-require("dotenv").config();
+import { instagramPost, instagramUser } from "../types";
+
+require("dotenv")
+.config();
 
 
 async function findMostRecentPost(posts: any) {
@@ -17,7 +20,7 @@ async function findMostRecentPost(posts: any) {
 }
 
 
-async function getLatestPost(profile_user: String) {
+async function getLatestPost(profile_user: string) {
  try {
   const postOptions = {
     count: 5,
@@ -39,27 +42,33 @@ async function getLatestPost(profile_user: String) {
   let latestPosts = posts.collector;
   let mostRecentPost = await findMostRecentPost(latestPosts)
 
-  /* */
-  console.log(mostRecentPost)
-  
-  
-  const postData = {
-    user: {
-      username: profile_user,
-      iconURL: user.graphql.user.profile_pic_url_hd,
-    },
-    post: {
-      shortcode: mostRecentPost.shortcode,
-      description: mostRecentPost.description,
-      thumbnail_src: mostRecentPost.thumbnail_src,
-      post_link: `https://instagram.com/p/${mostRecentPost.shortcode}`,
-    },
-  };
+
+
+  const userData: instagramUser = {
+    username: profile_user,
+    profileIconURL: user.graphql.user.profile_pic_url_hd,
+  }
+
+  const postData: instagramPost = {
+    shortcode: mostRecentPost.shortcode,
+    owner: userData,
+    description: mostRecentPost.description,
+    timestamp: mostRecentPost.taken_at_timestamp,
+    thumbnail: mostRecentPost.thumbnail_src,
+    url: `https://instagram.com/p/${mostRecentPost.shortcode}`,
+  }
+
+
   return postData;
- } catch(e) {
+ } catch (e) {
   console.error("Error fetching Instagram data: " + e)
-  throw e;
- }
+  if(e == "Can't find requested data") {
+    console.log("Fetching instagram isnt possible now. Try to update your session_id")
+    throw e
+  }
+  throw e
+
+ } 
 } 
 
 

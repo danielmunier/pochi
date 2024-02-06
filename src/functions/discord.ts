@@ -1,28 +1,51 @@
 import { Client, EmbedBuilder, TextChannel } from "discord.js";
+import { instagramPost } from "../types";
 
 
-async function postChannel(client: Client, channelId: string, postData: any, guildId: string ) {
+async function sendInstagramToChannel(client: Client, channelId: string, postData: instagramPost, guildId: string ) {
   const guild = client.guilds.cache.get(guildId);
   if(!guild) {
-    throw new Error("Guilda não encontrada")
+    throw new Error("Guild not found")
   }
   const embed = new EmbedBuilder()
     .setTimestamp()
     .setAuthor({
-      name: postData.user.username,
-      iconURL: postData.user.iconURL,
-      url: postData.post.post_link,
+      name: postData.owner.username,
+      iconURL: postData.owner.profileIconURL,
+      url: postData.url,
     })
-    .setDescription(postData.post.description)
+    .setDescription(postData.description)
     
 
-  embed.setImage(postData.post.thumbnail_src);
+  embed.setImage(postData.thumbnail);
   const channel = guild.channels.cache.get(channelId) as TextChannel;
   if(!channel) {
-    throw new Error("Canal não encontrado")
+    throw new Error("Channel not found")
   }
   channel.send({ embeds: [embed] });
 }
 
 
-export {postChannel}
+
+async function sendToChannel(client: Client, channelId: string, guildId: string, content: string ) {
+  const guild = client.guilds.cache.get(guildId);
+  if(!guild) {
+    throw new Error("Guild not found")
+  }
+  const channel = guild.channels.cache.get(channelId) as TextChannel;
+  if(!channel) {
+    throw new Error("Channel not found")
+  }
+
+  const embed = new EmbedBuilder()
+  .setTimestamp()
+  .setAuthor({
+    name: "Rimuru",
+  })
+  .setDescription(content)
+  
+  channel.send({ embeds: [embed] });
+
+}
+
+export {sendInstagramToChannel, sendToChannel}
