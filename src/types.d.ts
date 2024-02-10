@@ -1,5 +1,7 @@
 import { AutocompleteInteraction, CacheType, ChatInputCommandInteraction, Message, ModalSubmitInteraction, PermissionResolvable, SlashCommandBuilder } from "discord.js";
 
+
+
 export interface SlashCommand {
     command: SlashCommandBuilder,
     execute: (interaction : ChatInputCommandInteraction) => void,
@@ -37,4 +39,12 @@ export interface BotEvent {
     once?: boolean | false,
     active?:  boolean | true,
     execute: (...args?) => void
+}
+
+declare module "discord.js" {
+    export interface Client {
+        slashCommands: Collection<string, SlashCommand>
+        commands: Collection<string, Command>,
+        cooldowns: Collection<string, number>
+    }
 }

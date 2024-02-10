@@ -1,3 +1,28 @@
+import { Client, EmbedBuilder, TextChannel } from "discord.js";
+
+async function sendToChannel(client: Client, channelId: string, guildId: string, content: string ) {
+  const guild = client.guilds.cache.get(guildId);
+  if(!guild) {
+    throw new Error("Guild not found")
+  }
+  const channel = guild.channels.cache.get(channelId) as TextChannel;
+  if(!channel) {
+    throw new Error("Channel not found")
+  }
+
+  const embed = new EmbedBuilder()
+  .setTimestamp()
+  .setTitle("3rd Anniversary")
+  .setAuthor({
+    name: "Rimuru",
+  })
+  .setDescription(content)
+  
+  channel.send({ embeds: [embed] });
+
+}
+
+
 async function timeRemaining(targetDate: string) {
     try {
  
@@ -23,4 +48,4 @@ async function timeRemaining(targetDate: string) {
   }
  
 
-export {timeRemaining}
+export {timeRemaining, sendToChannel}

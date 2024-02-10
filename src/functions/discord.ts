@@ -27,25 +27,5 @@ async function sendInstagramToChannel(client: Client, channelId: string, postDat
 
 
 
-async function sendToChannel(client: Client, channelId: string, guildId: string, content: string ) {
-  const guild = client.guilds.cache.get(guildId);
-  if(!guild) {
-    throw new Error("Guild not found")
-  }
-  const channel = guild.channels.cache.get(channelId) as TextChannel;
-  if(!channel) {
-    throw new Error("Channel not found")
-  }
 
-  const embed = new EmbedBuilder()
-  .setTimestamp()
-  .setAuthor({
-    name: "Rimuru",
-  })
-  .setDescription(content)
-  
-  channel.send({ embeds: [embed] });
-
-}
-
-export {sendInstagramToChannel, sendToChannel}
+export {sendInstagramToChannel}
