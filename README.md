@@ -1,4 +1,4 @@
-# rimuru-bot
+# Pochi
 Application initially made to periodically notify on Discord channels about job opportunity being advertised on certain Instagram profiles.
 
 
