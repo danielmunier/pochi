@@ -2,8 +2,8 @@ import { Client } from "discord.js";
 import { readdirSync } from "fs";
 import { join } from "path";
 import { BotEvent } from "../types";
+import logger from "../util/beautyLog";
 
-console.log("[Handler] Loading events...");
 
 module.exports = (client: Client) => {
   let eventsDir = join(__dirname, "../events");
@@ -15,18 +15,19 @@ module.exports = (client: Client) => {
     default: { name: 'ready', once: true, execute: [Function: execute] }
         }   */
     if (event === undefined) {
-      console.log(event);
+      logger.error(`[ERROR] ${eventFile} is undefined`);
     }
 
 
     if(event.active || typeof event.active == "undefined") {
-      console.log(`[ACTIVADED] ${eventFile}`)
+      logger.info(`[ACTIVADED] ${eventFile}`)
       event.once
         ? client.once(event.name, (...args) => event.execute(...args))
         : client.on(event.name, (...args) => event.execute(...args));
     } else {
-      console.log(`[DEACTIVADED] ${eventFile}`)
+      logger.warning(`[DEACTIVADED] ${eventFile}`)
     }
 
   }
+
 };

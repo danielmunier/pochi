@@ -41,8 +41,7 @@ module.exports = (client : Client) => {
 )
     })
     .then((data : any) => {
-        console.log(data.length)
-        console.log(commands.length)
+   
     }).catch(e => {
         console.log(e)
     })

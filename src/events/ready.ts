@@ -1,13 +1,20 @@
-import { Client } from "discord.js";
+import { Client, Events } from "discord.js";
 import { BotEvent } from "../types";
-
+import logger from "../util/beautyLog";
+const { joinVoiceChannel } = require('@discordjs/voice');
 
 const event: BotEvent = {
-    name: "ready",
+    name: Events.ClientReady,
     once: true,
     active: true,
-    execute: (client: Client) => {
-        console.log("Logged in as Rimuru")
+    execute: async (client: Client) => {
+           logger.info("Pochi is ready!")
+           const user = await client.users.fetch("324719520482721792")
+
+
+           
+
+    
     }
 }
 

@@ -1,16 +1,14 @@
-import { Interaction } from "discord.js";
+import { Events, Interaction } from "discord.js";
 import { BotEvent } from "../types";
 
 const event: BotEvent = {
-    name: "interactionCreate",
+    name: Events.MessageCreate,
     once: false,
     active: true,
-    execute: (interaction: Interaction) => {
-        if(interaction.isCommand()) {
-
-        }
+    execute: (message: MessageEvent) => {
+          //  console.log(message)
     }
 }
 
 
-export default event;
+export default event; 

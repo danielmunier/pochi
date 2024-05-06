@@ -12,7 +12,7 @@ async function findMostRecentPost(posts: any) {
   for (const post of posts) {
     const timestamp = post.taken_at_timestamp;
     if (timestamp > maiorTimestamp) {
-      maiorTimestamp = timestamp;
+      maiorTimestamp = timestamp; 
       maisRecente = post;
     }
   }
@@ -38,6 +38,7 @@ async function getLatestPost(profile_user: string) {
 
   const posts = await instaTouch.user(profile_user, postOptions);
   const user = await instaTouch.getUserMeta(profile_user, userOptions);
+
 
   let latestPosts = posts.collector;
   let mostRecentPost = await findMostRecentPost(latestPosts)
@@ -70,7 +71,6 @@ async function getLatestPost(profile_user: string) {
 
  } 
 } 
-
 
 
 
