@@ -6,6 +6,7 @@ Application initially made to periodically notify on Discord channels about job 
 
 * 🟦 Typescript
 * 🔥 Slash Commands 
+* 🪜 Ranking
 * ✉️ Message commands
 * 🕛 Cooldowns
 * 🏴 Permissões detalhadas
