@@ -229,6 +229,17 @@
     "start": "npx ts-node src/index.ts",
     "dev": "nodemon src/index.ts"
   },
-  "author": "",
-  "license": "ISC"
+  "nodemonConfig": {
+    "verbose": true,
+    "ext": "ts",
+    "ignore": [
+      "*.test.ts"
+    ],
+    "delay": "4000",
+    "execMap": {
+      "ts": "ts-node"
+    },
+    "author": "",
+    "license": "ISC"
+  }
 }

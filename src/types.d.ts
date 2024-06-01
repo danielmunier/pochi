@@ -7,7 +7,7 @@ export interface SlashCommand {
     execute: (interaction : ChatInputCommandInteraction) => void,
     autocomplete?: (interaction: AutocompleteInteractionn) => void,
     modal?: (interaction: ModalSubmitInteraction<CacheType>) => void,
-    cooldown?: number // in seconds
+    cooldown?: number
 }
 
 export interface instagramUser {

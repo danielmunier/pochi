@@ -15,17 +15,17 @@ module.exports = (client: Client) => {
     default: { name: 'ready', once: true, execute: [Function: execute] }
         }   */
     if (event === undefined) {
-      logger.error(`[ERROR] ${eventFile} is undefined`);
+      logger.error(`[ERROR] [EVENT] ${eventFile} is undefined`);
     }
 
 
     if(event.active || typeof event.active == "undefined") {
-      logger.info(`[ACTIVADED] ${eventFile}`)
+      logger.info(`[ACTIVADED] [EVENT] ${eventFile}`)
       event.once
         ? client.once(event.name, (...args) => event.execute(...args))
         : client.on(event.name, (...args) => event.execute(...args));
     } else {
-      logger.warning(`[DEACTIVADED] ${eventFile}`)
+      logger.warning(`[DEACTIVADED] [EVENT] ${eventFile}`)
     }
 
   }
