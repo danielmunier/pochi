@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, ChannelType, TextChannel, EmbedBuilder, AttachmentBuilder } from "discord.js"
-import { SlashCommand } from "../types";
+import { SlashCommand } from "../../../types";
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("bang")
