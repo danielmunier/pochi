@@ -1,5 +1,6 @@
 import { SlashCommandBuilder, ChannelType, TextChannel, EmbedBuilder, AttachmentBuilder } from "discord.js"
 import { SlashCommand } from "../../../types";
+import logger from "../../../util/beautyLog";
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("bang")
@@ -8,7 +9,7 @@ const command : SlashCommand = {
     execute: interaction => {
 
         const attachment = new AttachmentBuilder("./assets/makimaBang.jpg")
-        console.log(interaction.client.ws.ping)
+        logger.info(`${interaction.client.ws.ping}`)
         interaction.reply({
             files: [attachment]
         })

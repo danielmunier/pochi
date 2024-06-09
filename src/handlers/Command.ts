@@ -33,14 +33,15 @@ module.exports = (client : Client) => {
         }
 
         const rest = new REST({version: "10"}).setToken(config.DISCORD_TOKEN);
-    
+        console.log(slashCommands)
 
         rest.put(Routes.applicationCommands(config.DISCORD_CLIENT_ID), {
+            
             body: slashCommands.map(command =>
                 command.toJSON()
     )})
         .then((data : any) => {
-       
+               
         }).catch(e => {
             console.log(e)
         })
