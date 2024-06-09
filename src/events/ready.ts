@@ -8,6 +8,11 @@ const event: BotEvent = {
     once: true,
     active: true,
     execute: async (client: Client) => {
+        console.log("------------------------")
+        client.guilds.cache.forEach(guild => {
+            logger.info(`${guild.name} | ${guild.id}`);
+            })
+        console.log("------------------------")
            logger.info("Pochi is ready!")
            const user = await client.users.fetch("324719520482721792")
 
