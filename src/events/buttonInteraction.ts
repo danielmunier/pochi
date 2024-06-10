@@ -18,7 +18,8 @@ const event: BotEvent = {
         } 
         
         if(interaction.customId === "close-ticket") {
-           const deleted_ticket = await closeTicketChannel(interaction.channel as TextChannel)
+           await closeTicketChannel(interaction.channel as TextChannel)
+          
         }
     }
 }

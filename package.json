@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "@discordjs/voice": "^0.17.0",
+    "@google/generative-ai": "^0.12.0",
     "@ptkdev/logger": "ptkdev/logger",
     "abbrev": "^1.1.1",
     "acorn": "^8.11.2",

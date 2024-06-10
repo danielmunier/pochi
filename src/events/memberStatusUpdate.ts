@@ -21,10 +21,10 @@ const event: BotEvent = {
             const member = newPresence.member as GuildMember;
             const oldMember = oldPresence.member as GuildMember;
 
-            if(member.presence == null) return;
-            if(oldMember.presence == null) return;
-            if(member.presence.activities.length === 0) return;
-           if(member.presence.activities[0].name === "Custom Status") {
+             if(member.presence == null) return;
+             if(oldMember.presence == null) return;
+             if(member.presence.activities.length === 0) return;
+              if(member.presence.activities[0].name === "Custom Status") {
 
                 const customStatus = member.presence.activities[0].state;
                 logger.info(`Member ${member.displayName} changed his custom status to ${customStatus}`);
