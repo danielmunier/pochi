@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, EmbedBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, ActionRowBuilder, IntegrationApplication, ButtonBuilder, ButtonStyle } from "discord.js"
+import { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } from "discord.js"
 import { SlashCommand } from "../../../types";
 
 const command: SlashCommand = {
@@ -6,6 +6,7 @@ const command: SlashCommand = {
 
     command: new SlashCommandBuilder()
         .setName("helper")
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .setDescription("Create ticket panel for support"),
     execute: interaction => {
         if (!interaction || !interaction.guild) return

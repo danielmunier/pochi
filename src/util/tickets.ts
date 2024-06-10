@@ -40,7 +40,7 @@ async function createTicketChannel(guild: Guild, user: User) {
             const row = new ActionRowBuilder<ButtonBuilder>()
             .addComponents(closeButton)
          
-            channel.send({content: `Olá ${user}, seja bem vindo ao seu ticket. Para fechar o ticket, basta clicar no botão abaixo.`, components: [row]})
+            channel.send({content: `Olá ${user}, seja bem vindo ao seu ticket! Aguarde um administrador responder. Para fechar o ticket, basta clicar no botão abaixo.`, components: [row]})
 
         return {
           channel

@@ -1,9 +1,10 @@
-import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
+import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } from "discord.js"
 import { SlashCommand } from "../../../types";
 
 const command : SlashCommand = {
      command: new SlashCommandBuilder()
     .setName("userinfo")
+    .setDefaultMemberPermissions(PermissionFlagsBits.SendMessages)
     .addUserOption(option =>
       option.setName("user").setDescription("Select a user (optional)")
     )
