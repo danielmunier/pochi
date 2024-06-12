@@ -8,7 +8,8 @@ const event: BotEvent = {
     once: false,
     active: true,
     execute: async (interaction) => {
-        if(!interaction.isButton()|| !interaction.customId) return
+        try {
+            if(!interaction.isButton()|| !interaction.customId) return
 
         if(interaction.customId === "create-ticket"){
             const ticket = await createTicketChannel(interaction.guild, interaction.user)
@@ -17,12 +18,16 @@ const event: BotEvent = {
         } 
         
         if(interaction.customId === "close-ticket") {
+            console.log("Criando um ticket")
            await closeTicketChannel(interaction.channel as TextChannel)
           
-        }
+        }   
 
         if(interaction.customId === "enter-guild") {
             // TO-DO
+        }
+        } catch(e) {
+            console.log(e)
         }
     }
 }
