@@ -1,10 +1,9 @@
-import { Client, Collection, Events, GatewayIntentBits, Interaction, Partials } from "discord.js"
+import { Client, Collection, GatewayIntentBits, Partials } from "discord.js"
 import { config } from './config'
 import { join } from "path";
 import { readdirSync } from "fs";
 import { Command, SlashCommand } from "./types";
 import logger from "./util/beautyLog";
-let cron = require("node-cron")
 
 require("./database/index")
 logger.info("Bot is starting")
@@ -42,11 +41,15 @@ client.commands = new Collection<string, Command>()
 client.cooldowns = new Collection<string, number>()
 
 
-
-const handlersDir = join(__dirname, "./handlers")
+const handlersDir = join(__dirname, "./functions/handlers")
 readdirSync(handlersDir).forEach(handler => {
     if (!handler.endsWith(".ts")) return;
     require(`${handlersDir}/${handler}`)(client)
 })
 
-client.login(config.DISCORD_TOKEN)
+
+client.login(config.DISCORD_TOKEN).then(()=> {
+    client.handleEvents()
+    client.handleCommands()
+
+})

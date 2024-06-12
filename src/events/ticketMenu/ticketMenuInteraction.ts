@@ -1,6 +1,6 @@
 import { Client, Events, InteractionCollector } from "discord.js";
-import { BotEvent } from "../types";
-import logger from "../util/beautyLog";
+import { BotEvent } from "../../types";
+import logger from "../../util/beautyLog";
 
 const event: BotEvent = {
     name: Events.InteractionCreate,

@@ -1,8 +1,7 @@
-import { Client, Events, InteractionCollector, TextChannel } from "discord.js";
-import { BotEvent } from "../types";
-import logger from "../util/beautyLog";
-import { createTicketChannel, closeTicketChannel } from "../util/tickets";
-const { joinVoiceChannel } = require('@discordjs/voice');
+import { ActionRowBuilder, Client, Events, InteractionCollector, ModalBuilder, TextChannel, TextInputBuilder, TextInputStyle } from "discord.js";
+import { BotEvent } from "../../types";
+import logger from "../../util/beautyLog";
+import { createTicketChannel, closeTicketChannel } from "../../util/tickets";
 
 const event: BotEvent = {
     name: Events.InteractionCreate,
@@ -20,6 +19,10 @@ const event: BotEvent = {
         if(interaction.customId === "close-ticket") {
            await closeTicketChannel(interaction.channel as TextChannel)
           
+        }
+
+        if(interaction.customId === "enter-guild") {
+            // TO-DO
         }
     }
 }

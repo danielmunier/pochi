@@ -1,6 +1,8 @@
-import { AutocompleteInteraction, CacheType, ChatInputCommandInteraction, Message, ModalSubmitInteraction, PermissionResolvable, SlashCommandBuilder } from "discord.js";
+import { AutocompleteInteraction, CacheType, ChatInputCommandInteraction, Client, Message, ModalSubmitInteraction, PermissionResolvable, SlashCommandBuilder } from "discord.js";
 
 
+export interface ClientWithEvents extends Client {
+  }
 
 export interface SlashCommand {
     command: SlashCommandBuilder,
@@ -10,20 +12,7 @@ export interface SlashCommand {
     cooldown?: number
 }
 
-export interface instagramUser {
-    username: string,
-    profileIconURL: string,
-}
 
-export interface instagramPost {
-    shortcode: string,
-    owner: instagramUser,
-    description: string,
-    timestamp: number,
-    thumbnail: string,
-    url: string,
-
-}
 
 
 export interface Command {
@@ -45,6 +34,9 @@ declare module "discord.js" {
     export interface Client {
         slashCommands: Collection<string, SlashCommand>
         commands: Collection<string, Command>,
-        cooldowns: Collection<string, number>
+        cooldowns: Collection<string, number>,
+        handleEvents: () => Promise<void>;
+        handleCommands: () => Promise<void>;
+
     }
 }

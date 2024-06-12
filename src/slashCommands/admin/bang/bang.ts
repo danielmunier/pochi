@@ -1,18 +1,29 @@
-import { SlashCommandBuilder, ChannelType, TextChannel, EmbedBuilder, AttachmentBuilder } from "discord.js"
+import { SlashCommandBuilder, AttachmentBuilder, PermissionFlagsBits } from "discord.js"
 import { SlashCommand } from "../../../types";
 import logger from "../../../util/beautyLog";
+import axios from "axios"
+
+
+
+
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("bang")
-    .setDescription("Shows the bot's bang")
+    .setDescription("Shows the bang of Makima character")
+
     ,
-    execute: interaction => {
+    execute: async interaction => {
+        try {
+            
 
         const attachment = new AttachmentBuilder("./assets/makimaBang.jpg")
         logger.info(`${interaction.client.ws.ping}`)
         interaction.reply({
             files: [attachment]
         })
+        } catch(e) {
+            logger.error(`${e}`)
+        }
     },
     cooldown: 10
 }
