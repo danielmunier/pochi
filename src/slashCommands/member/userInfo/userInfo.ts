@@ -8,7 +8,7 @@ import axios from "axios"
 
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
-    .setName("bang")
+    .setName("userinfo")
     .setDescription("Shows the bang of Makima character")
 
     ,
