@@ -16,6 +16,10 @@ const event: BotEvent = {
     once: false,
     active: true,
     execute: async (oldPresence, newPresence) => {
+        // Ignorar update dos bots
+        if (newPresence.bot) return;
+
+
         const GUILD_ID = "1209632813792628746";
         const WARN_CHANNEL_ID = "1229905956368941167";
         const ROLE_ID = "1250057595142799391";
@@ -49,4 +53,4 @@ const event: BotEvent = {
     }
 }
 
-export default event;
+module.exports = event

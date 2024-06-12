@@ -18,7 +18,6 @@ const event: BotEvent = {
         } 
         
         if(interaction.customId === "close-ticket") {
-            console.log("Criando um ticket")
            await closeTicketChannel(interaction.channel as TextChannel)
           
         }   
@@ -33,4 +32,4 @@ const event: BotEvent = {
 }
 
 
-export default event;
+module.exports = event

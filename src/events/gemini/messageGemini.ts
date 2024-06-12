@@ -66,6 +66,8 @@ const event: BotEvent = {
         
         const prompt = message.content
         prompt.replace(`<@${message.author.id}>`, "")
+        // O usuário marca o bot, entao o prompt não pode possuir essa marcação
+        prompt.replace(`<@!${message.client.user?.id}>`, "")
         console.log(prompt)
         const result = await chat.sendMessage(prompt);
         const response = result.response 

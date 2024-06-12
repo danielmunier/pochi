@@ -22,4 +22,4 @@ const event: BotEvent = {
 }
 
 
-export default event;
+module.exports = event
