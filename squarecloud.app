@@ -4,4 +4,4 @@ MAIN=src/index.ts
 MEMORY=1000
 VERSION=recommended
 START=npm run start
-AUTORESTART=true
+AUTORESTART=false
