@@ -1,35 +1,29 @@
-import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, SlashCommandUserOption } from "discord.js"
+import { SlashCommandBuilder, AttachmentBuilder, PermissionFlagsBits } from "discord.js"
 import { SlashCommand } from "../../../types";
+import logger from "../../../util/beautyLog";
+import axios from "axios"
+
 
 
 
 const command : SlashCommand = {
-     command: new SlashCommandBuilder()
-    .setName("userinfo")
-    .setDefaultMemberPermissions(PermissionFlagsBits.SendMessages)
-    .addUserOption((option: SlashCommandUserOption) =>
-      option.setName("user").setDescription("Select a user (optional)")
-    )
-    .setDescription("Get information about a user on this server."),
+    command: new SlashCommandBuilder()
+    .setName("bang")
+    .setDescription("Shows the bang of Makima character")
+
+    ,
     execute: async interaction => {
+        try {
+            
 
-        const user = interaction.options.getUser("user") || interaction.user
-        const member = await interaction.guild?.members.fetch(user.id) 
-        if(!member) return interaction.reply("Member not found")
-        const icon = user.displayAvatarURL()
-        const tag = user.tag
-
-        const embed = new EmbedBuilder()
-        .setColor("Blue")
-        .setAuthor({name: "Pochi"})
-        .setThumbnail(icon)
-        .addFields({name: "Member", value: `${user}`, inline:false})
-        .addFields({name: "Roles", value: `${member?.roles.cache.map(role => role).join(' ')}`, inline: true})
-        .addFields({name: "Joined Discord", value: `${user.createdAt.toLocaleString()}`, inline:true})
-        .addFields({name: "Joined Server", value: `${member?.joinedAt?.toLocaleString()}`, inline:true})
-        .setFooter({text: tag})
-        interaction.reply({embeds: [embed]})
-        
+        const attachment = new AttachmentBuilder("./assets/makimaBang.jpg")
+        logger.info(`${interaction.client.ws.ping}`)
+        interaction.reply({
+            files: [attachment]
+        })
+        } catch(e) {
+            logger.error(`${e}`)
+        }
     },
     cooldown: 10
 }
