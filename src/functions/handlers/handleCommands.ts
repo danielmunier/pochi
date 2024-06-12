@@ -22,6 +22,7 @@ module.exports = (client: Client) => {
             loadCommands(join(dir, file));
           } else if(file.endsWith(".ts")) {
             const command: SlashCommand = require(join(dir, file)).default;
+            logger.info(`Loading command: ${command.command.name}`);
             slashCommands.push(command.command);
             client.slashCommands.set(command.command.name, command);
           }
@@ -33,7 +34,6 @@ module.exports = (client: Client) => {
     const rest = new REST({ version: "10" }).setToken(config.DISCORD_TOKEN);
 
     try {
-      console.log(slashCommands); 
       await rest.put(Routes.applicationCommands(config.DISCORD_CLIENT_ID), {
         body: slashCommands.map(command => command.toJSON())
       });
