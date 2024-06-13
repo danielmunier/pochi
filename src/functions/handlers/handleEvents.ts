@@ -1,7 +1,4 @@
 import { Client } from "discord.js";
-import { readdirSync } from "fs";
-import { join } from "path";
-import { BotEvent} from "../../types";
 import logger from "../../util/beautyLog";
 import fs from "fs"
 

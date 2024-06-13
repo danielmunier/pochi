@@ -12,7 +12,6 @@ module.exports = (client: Client) => {
     const slashCommands: SlashCommandBuilder[] = [];
     const commandsPath = resolve(__dirname, "../../slashCommands"); 
 
-    console.log(`Loading commands from: ${commandsPath}`); // Debugging
 
     const loadCommands = (dir: string) => {
       const files = readdirSync(dir);

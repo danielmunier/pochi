@@ -20,25 +20,12 @@ const client = new Client({
           ]
 })
 
-client.on('interactionCreate', async (interaction) => {
-    if (!interaction.isCommand()) return;
-    const command = client.slashCommands.get(interaction.commandName);
-    if (!command) return;
-
-    try {
-        await command.execute(interaction);
-    } catch (error) {
-        console.error(error);
-        await interaction.reply({
-            content: 'There was an error while executing this command!',
-            ephemeral: true,
-        });
-    }
-});
 
 client.slashCommands = new Collection<string, SlashCommand>()
 client.commands = new Collection<string, Command>()
 client.cooldowns = new Collection<string, number>()
+client.buttons = new Collection<string, string>()
+client.modals = new Collection<string, string>()
 
 
 const handlersDir = join(__dirname, "./functions/handlers")
@@ -51,5 +38,6 @@ readdirSync(handlersDir).forEach(handler => {
 client.login(config.DISCORD_TOKEN).then(()=> {
     client.handleEvents()
     client.handleCommands()
+    client.handleComponents()
 
 })

@@ -1,4 +1,7 @@
 {
     "lobby_image": "",
-    "gemini_system_instruction": ""
+    "gemini_system_instruction": "",
+    "sheetdb": {
+        "url": ""
+    }
 }

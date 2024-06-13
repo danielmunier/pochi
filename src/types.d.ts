@@ -35,8 +35,10 @@ declare module "discord.js" {
         slashCommands: Collection<string, SlashCommand>
         commands: Collection<string, Command>,
         cooldowns: Collection<string, number>,
+        buttons: Collection<string, number>
+        modals: Collection<string, number>,
         handleEvents: () => Promise<void>;
         handleCommands: () => Promise<void>;
-
+        handleComponents: () => Promise<void>;
     }
 }
