@@ -8,6 +8,7 @@ const command: SlashCommand = {
 
     command: new SlashCommandBuilder()
         .setName("lobby")
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .setDescription("Create ticket panel for support"),
     execute: interaction => {
         if (!interaction || !interaction.guild) return
