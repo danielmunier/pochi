@@ -64,11 +64,12 @@ const event: BotEvent = {
       
 
         
-        const prompt = message.content
+        let prompt = message.content
         prompt.replace(`<@${message.author.id}>`, "")
         // O usuário marca o bot, entao o prompt não pode possuir essa marcação
         prompt.replace(`<@!${message.client.user?.id}>`, "")
-        console.log(prompt)
+        const botMentionRegex = new RegExp(`<@!?${message.client.user?.id}>`, 'g');
+        prompt = prompt.replace(botMentionRegex, "").trim();
         const result = await chat.sendMessage(prompt);
         const response = result.response 
 

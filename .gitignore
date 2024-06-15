@@ -132,3 +132,4 @@ dist
 
 
 .events/counter.ts
+src/settings/pochi.json
