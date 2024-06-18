@@ -11,7 +11,7 @@ const event: BotEvent = {
 
         // Buttons
         if (interaction.isButton() && interaction.customId) {
-        const { customId } = interaction
+         const { customId } = interaction
 
            const button = client.buttons.get(customId)
            if(button) button.execute(interaction)
