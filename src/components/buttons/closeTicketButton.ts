@@ -1,5 +1,5 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, Client, TextChannel } from "discord.js";
-import logger from "../../util/beautyLog";
+import logger from "../../utils/beautyLog";
 
 module.exports = {
     data: {

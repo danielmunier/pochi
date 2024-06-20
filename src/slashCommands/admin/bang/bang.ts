@@ -1,6 +1,6 @@
 import { SlashCommandBuilder, AttachmentBuilder, PermissionFlagsBits } from "discord.js"
 import { SlashCommand } from "../../../types";
-import logger from "../../../util/beautyLog";
+import logger from "../../../utils/beautyLog";
 import axios from "axios"
 
 

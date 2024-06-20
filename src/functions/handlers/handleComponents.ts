@@ -1,5 +1,5 @@
 import { Collection, Client } from "discord.js";
-import logger from "../../util/beautyLog";
+import logger from "../../utils/beautyLog";
 
 const { readdirSync, existsSync } = require("fs");
 const path = require("path");

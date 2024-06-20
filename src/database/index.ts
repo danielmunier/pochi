@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import {config} from '../config';
-import logger from '../util/beautyLog';
+import logger from '../utils/beautyLog';
 
 
 mongoose.connect(config.MONGO_DB_URI)

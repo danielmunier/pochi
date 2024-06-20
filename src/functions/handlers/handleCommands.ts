@@ -4,7 +4,7 @@ import { readdirSync } from "fs";
 import { join, resolve } from "path";
 import { config } from "../../config";
 import { SlashCommand } from "../../types";
-import logger from "../../util/beautyLog";
+import logger from "../../utils/beautyLog";
 import fs from "fs"
 
 module.exports = (client: Client) => {

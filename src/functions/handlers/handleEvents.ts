@@ -1,5 +1,5 @@
 import { Client } from "discord.js";
-import logger from "../../util/beautyLog";
+import logger from "../../utils/beautyLog";
 import fs from "fs"
 
 module.exports = (client: Client) => {

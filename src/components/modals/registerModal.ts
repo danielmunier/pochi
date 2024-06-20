@@ -2,6 +2,8 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Client, EmbedBuilder, Mod
 import config from "../../settings/pochi.json"
 import axios from "axios"
 
+const GuildConfig = require("../../database/schemas/guildSchema")
+const {certifyGuildConfig} = require("../../utils/guildUtils")
 
 
 
@@ -13,11 +15,30 @@ module.exports = {
 
         
         if(!interaction.isModalSubmit()) return 
+        const guildData = await certifyGuildConfig(interaction.guild)
+        if(!guildData) {
+            interaction.reply({content: "Houve um erro ao enviar a sua solicitação de entrada: O servidor ainda será configurado para o recebimento de formulários!", ephemeral: true})
+            return 
+        }
+
+        const warnChannelId = guildData.formEntryConfig.formChannelId
         
-        const filterUserEntry = interaction.member.guild.channels.cache.get("1229905956368941167") as TextChannel
+        if(!warnChannelId) {
+            console.log("O canal para envio dos formulários ainda não foi configurado!")
+            interaction.reply({content: "Houve um erro ao enviar a sua solicitação de entrada: O canal de recebimento de formulários ainda não foi definido!", ephemeral: true})
+            return
+        }
+        const filterUserEntryChannel = interaction.member.guild.channels.cache.get(warnChannelId) as TextChannel
+
+        if(!filterUserEntryChannel) {
+            console.log("O canal para envio dos formulários ainda não foi configurado!") 
+            interaction.reply({content: "Houve um erro ao enviar a sua solicitação de entrada: O canal de recebimento de formulários ainda não foi definido!", ephemeral: true})
+            return 
+        }
 
 
-        const userId = interaction.member
+
+        const user = interaction.member
         const name = interaction.fields.getTextInputValue("name")
         const socialMedia = interaction.fields.getTextInputValue("social_media")
         const inviteOrigin = interaction.fields.getTextInputValue("invite_origin")
@@ -25,7 +46,7 @@ module.exports = {
         const age = interaction.fields.getTextInputValue("age")
 
         const data = {
-            userId: userId,
+            userId: user.id,
             name: name,
             social_media: socialMedia,
             invite_origin: inviteOrigin,
@@ -55,19 +76,19 @@ module.exports = {
 
         const embed = new EmbedBuilder()
         .setTitle(interaction.guild.name)
-        .setDescription(`UserId: ${userId}\n \n **Nome**: ${name}\n**Social Media**: ${socialMedia}\n**Origem do convite**: ${inviteOrigin}\n**Intencao**: ${intention}\n**Idade**: ${age}`)
+        .setDescription(`UserId: ${user}\n \n **Nome**: ${name}\n**Social Media**: ${socialMedia}\n**Origem do convite**: ${inviteOrigin}\n**Intencao**: ${intention}\n**Idade**: ${age}`)
         .setColor("DarkBlue")
         .setTimestamp()
 
 
 
-        filterUserEntry.send({
+        filterUserEntryChannel.send({
             embeds: [embed],
             components: [row]
         })
 
-
-       
+        console.log(data)
+       // Envia para um formulário do Google Sheets
         axios.post(config.sheetdb.url, data, {
             headers: {
               'Content-Type': 'application/json',
