@@ -24,7 +24,7 @@ const event: BotEvent = {
         const member = newPresence.member as GuildMember;
         if (!member || !member.presence) return;
         const newCustomStatus = member.presence.activities.find(activity => activity.name === "Custom Status")?.state;
-        const oldCustomStatus = oldPresence?.member?.presence?.activities.find((activity: { name: string; }) => activity.name === "Custom Status")?.state;
+        const oldCustomStatus = oldPresence?.member?.presence?.activities.find((activity: { name: string; }) => activity.name === "Custom Status")?.state
 
 
         const guildData = await certifyGuildConfig(newPresence.guild);
