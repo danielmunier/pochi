@@ -20,7 +20,8 @@ async function certifyGuildConfig(guild: Guild) {
                 },
                 formEntryConfig: {
                     formChannelId: null,
-                    rolesMemberApproved: []
+                    rolesMemberApproved: [],
+                    rolesVerification: []
                 },
                 lobbyConfig: {
                     lobby_command_image: null

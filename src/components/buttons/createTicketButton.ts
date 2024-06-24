@@ -9,7 +9,7 @@ module.exports = {
     async execute(interaction: any, client: Client) {
         try {
             let guildData = await certifyGuildConfig(interaction.guild);
-
+            console.log("ID: " + guildData.ticketConfig.ticketCategoryId)
             if (!guildData.ticketConfig.ticketCategoryId) {
                 let ticketCategory = interaction.guild.channels.cache.find((channel: { name: string; type: ChannelType; }) => channel.name === 'tickets' && channel.type === ChannelType.GuildCategory); // Procura se há alguma categoria com nome "tickets"
 

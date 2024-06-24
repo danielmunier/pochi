@@ -36,6 +36,13 @@ const guildConfigSchema = new mongoose.Schema({
                 required: false,
                 description: "IDs dos cargos dos membros aprovados"
             }
+        ],
+        rolesVerification: [
+            {
+                type: String,
+                required: false,
+                description: "IDs dos cargos de verificação"
+            }
         ]
         
     },

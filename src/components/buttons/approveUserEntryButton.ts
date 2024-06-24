@@ -43,6 +43,21 @@ module.exports = {
             
             const rolesToAdd = guildData.formEntryConfig.rolesMemberApproved; 
 
+            // Cargo ou cargos em que o usuário recebe quando entra o servidor. Dai quando o admin aprova o bot remove esses cargos para que o usuário nao tenha mais acesso ao canal de "verificação"
+
+            const verificationRolesToRemove = guildData.formEntryConfig.rolesVerification;
+
+            for (const roleId of verificationRolesToRemove) {
+                const role = interaction.guild.roles.cache.get(roleId);
+                if (role) {
+                    await member.roles.remove(role);
+                } else {
+                    throw new Error(`Cargo com ID ${roleId} não encontrado.`);
+                }
+            }
+
+            //1250103900330004580
+
             if(!rolesToAdd || rolesToAdd.length === 0) {
                 throw new Error("Nenhum cargo foi configurado para adicionar ao membro.");
             }
