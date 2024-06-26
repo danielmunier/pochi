@@ -56,7 +56,7 @@ module.exports = {
                 }
             }
 
-            //1250103900330004580
+           
 
             if(!rolesToAdd || rolesToAdd.length === 0) {
                 throw new Error("Nenhum cargo foi configurado para adicionar ao membro.");

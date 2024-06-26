@@ -1,5 +1,4 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Client, EmbedBuilder, ModalSubmitFields, TextChannel } from "discord.js";
-import config from "../../settings/pochi.json"
 import axios from "axios"
 
 const GuildConfig = require("../../database/schemas/guildSchema")
@@ -87,9 +86,11 @@ module.exports = {
             components: [row]
         })
 
-        console.log(data)
+
+        const sheetdb = guildData.sheetdb.url 
+        if(!sheetdb) return 
        // Envia para um formulário do Google Sheets
-        axios.post(config.sheetdb.url, data, {
+        axios.post(sheetdb, data, {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${process.env.SHEETDB_TOKEN}`

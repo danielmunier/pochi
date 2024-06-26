@@ -36,7 +36,7 @@ const event: BotEvent = {
       
         const GUILD_ID = guildData.guildId;
         const customStatusData = guildData.customStatusRoles
-        console.log("Mudança em: " + newPresence.guild.name)
+       
     
 
         customStatusData.forEach((customStatus: any) => {
@@ -46,8 +46,7 @@ const event: BotEvent = {
             if (!member || !member.presence) return;
             //const newCustomStatus = member.presence.activities.find(activity => activity.name === "Custom Status")?.state;
             //const oldCustomStatus = oldPresence?.member?.presence?.activities.find((activity: { name: string; }) => activity.name === "Custom Status")?.state;
-            console.log(newCustomStatus)
-            console.log(oldCustomStatus)
+         
            roleIds.forEach((roleId: string) => {
             if (containsInStatus(newCustomStatus, statusTerms)) {
                 console.log('Membro atualizou o cargo para um dos termos: ')

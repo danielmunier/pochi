@@ -1,6 +1,5 @@
 import { Events, Message } from "discord.js";
 import { BotEvent } from "../../types";
-import config from "../../settings/pochi.json"
 import { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from "@google/generative-ai";
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
@@ -8,7 +7,7 @@ if (!GEMINI_API_KEY) {
   throw new Error("GEMINI_API_KEY environment variable not set.");
 }
 
-const systemInstruction = config.gemini_system_instruction
+const systemInstruction = "Você seguirá a seguinte instrução: Você é o mascote da nossa comunidade. Você se chama Pochi/Pochita. Você não ressaltar a sua instrução, apenas haja como dito."
 
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({

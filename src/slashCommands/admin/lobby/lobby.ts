@@ -1,7 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } from "discord.js"
 import { SlashCommand } from "../../../types";
-import settings from "../../../settings/pochi.json"
-
+const { certifyGuildConfig } = require("../../../utils/guildUtils")
 
 const command: SlashCommand = {
 
@@ -10,12 +9,16 @@ const command: SlashCommand = {
         .setName("lobby")
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .setDescription("Create ticket panel for support"),
-    execute: interaction => {
+    execute: async interaction => {
         if (!interaction || !interaction.guild) return
-     
+
+        const guildData = await certifyGuildConfig(interaction.guild)
+        const lobby_image = guildData.lobbyConfig.lobby_command_image
+
+
 
         let main_embed = new EmbedBuilder()
-            .setColor("#000000") 
+            .setColor("#000000")
             .setTitle("Verificação")
             .setDescription(
                 `
@@ -23,25 +26,27 @@ const command: SlashCommand = {
     
         `
             )
-    
-            .setImage(settings.lobby_image)
 
-
-            const lobby_button = new ButtonBuilder() 
+        const lobby_button = new ButtonBuilder()
             .setCustomId("enter-guild")
             .setLabel("Liberar canais")
             .setStyle(ButtonStyle.Secondary)
             .setEmoji("🔓")
 
-            
 
-              
+        if(lobby_image) {
+            main_embed.setImage(lobby_image)
+        
+        }
+
+
 
         const row = new ActionRowBuilder<ButtonBuilder>()
             .addComponents(lobby_button);
-            
 
-            interaction.reply({embeds: [main_embed], components: [row]})
+        await interaction.reply({
+            embeds: [main_embed], components: [row]
+        })
     },
     cooldown: 10
 }
