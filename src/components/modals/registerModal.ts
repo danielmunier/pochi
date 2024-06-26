@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Client, EmbedBuilder, ModalSubmitFields, TextChannel } from "discord.js";
+import { ActionRowBuilder, BaseInteraction, ButtonBuilder, ButtonStyle, Client, EmbedBuilder, ModalSubmitFields, TextChannel } from "discord.js";
 import axios from "axios"
 
 const GuildConfig = require("../../database/schemas/guildSchema")
@@ -10,7 +10,7 @@ module.exports = {
     data: {
         id: "register-modal"
     },
-    async execute(interaction: any, client: any) {
+    async execute(interaction: any, client: Client) {
 
         
         if(!interaction.isModalSubmit()) return 
@@ -27,6 +27,7 @@ module.exports = {
             interaction.reply({content: "Houve um erro ao enviar a sua solicitação de entrada: O canal de recebimento de formulários ainda não foi definido!", ephemeral: true})
             return
         }
+
         const filterUserEntryChannel = interaction.member.guild.channels.cache.get(warnChannelId) as TextChannel
 
         if(!filterUserEntryChannel) {
