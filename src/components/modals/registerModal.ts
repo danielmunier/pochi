@@ -15,6 +15,7 @@ module.exports = {
         
         if(!interaction.isModalSubmit()) return 
         const guildData = await certifyGuildConfig(interaction.guild)
+        console.log(guildData)
         if(!guildData) {
             interaction.reply({content: "Houve um erro ao enviar a sua solicitação de entrada: O servidor ainda será configurado para o recebimento de formulários!", ephemeral: true})
             return 
