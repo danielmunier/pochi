@@ -13,7 +13,7 @@ logger.info("Bot is starting")
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildMessages, GatewayIntentBits.DirectMessages,
-        GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMembers],
+        GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessageReactions],
         partials: [
             Partials.Channel,
             Partials.Message

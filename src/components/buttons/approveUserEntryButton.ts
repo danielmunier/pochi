@@ -1,7 +1,8 @@
 import { Client } from "discord.js";
 import logger from "../../utils/beautyLog";
-const { certifyGuildConfig } = require("../../utils/guildUtils");
-
+import { certifyGuildConfig } from "../../utils/guildUtils";
+import { FormEntryConfig, IFormEntryConfig } from "../../database/schemas/formEntrySchema";
+import { GuildConfig, IGuildConfig } from "../../database/schemas/guildSchema";
 
 module.exports = {
     data: {
@@ -23,9 +24,11 @@ module.exports = {
             }
          
             const userId = userIdMatch[1];
-            const guildData = await certifyGuildConfig(interaction.guild);
-            if(!guildData) {
-                throw new Error("O servidor não foi encontrado na base de dados.");
+            
+            // Certifica a configuração da guilda
+            const guildData: IGuildConfig | null = await certifyGuildConfig(interaction.guild);
+            if (!guildData) {
+                throw new Error("Configuração da guilda não encontrada.");
             }
 
             // Busca o membro associado ao ID do usuário
@@ -40,45 +43,43 @@ module.exports = {
                 throw new Error("Membro não encontrado no servidor.");
             }
 
-            
-            const rolesToAdd = guildData.formEntryConfig.rolesMemberApproved; 
+            // Busca a configuração de entrada de formulário da guilda
+            const formEntryConfig: IFormEntryConfig | null = await FormEntryConfig.findOne({ guildId: guildData.guildId });
+            if (!formEntryConfig) {
+                throw new Error("Configuração de entrada de formulário não encontrada para a guilda.");
+            }
 
-            // Cargo ou cargos em que o usuário recebe quando entra o servidor. Dai quando o admin aprova o bot remove esses cargos para que o usuário nao tenha mais acesso ao canal de "verificação"
-
-            const verificationRolesToRemove = guildData.formEntryConfig.rolesVerification;
-
+            // Remove os cargos de verificação do membro, se houver
+            const verificationRolesToRemove = formEntryConfig.rolesVerification;
             for (const roleId of verificationRolesToRemove) {
                 const role = interaction.guild.roles.cache.get(roleId);
                 if (role) {
                     await member.roles.remove(role);
                 } else {
-                    throw new Error(`Cargo com ID ${roleId} não encontrado.`);
+                    console.log(`Cargo com ID ${roleId} não encontrado.`)
                 }
             }
 
-           
-
-            if(!rolesToAdd || rolesToAdd.length === 0) {
-                throw new Error("Nenhum cargo foi configurado para adicionar ao membro.");
+            // Adiciona os cargos de membro aprovado ao membro
+            const rolesToAdd = formEntryConfig.rolesMemberApproved;
+            if (!rolesToAdd || rolesToAdd.length === 0) {
+                throw new Error("Nenhum cargo foi configurado para adicionar ao membro aprovado.");
             }
 
-            // Remove os cargos antigos do membro
-
-            // Adiciona os cargos ao membro
             for (const roleId of rolesToAdd) {
                 const role = interaction.guild.roles.cache.get(roleId);
                 if (role) {
                     await member.roles.add(role);
                 } else {
-                    throw new Error(`Cargo com ID ${roleId} não encontrado.`);
+                    console.log(`Cargo com ID ${roleId} não encontrado.`)
                 }
             }
 
             // Responde ao usuário que aprovou o membro
             await interaction.reply({ content: `Usuário ${member.user.tag} foi aprovado com sucesso.`, ephemeral: false });
 
-        } catch (e) {
-            logger.error(`Erro ao aprovar usuário: ${e}`);
+        } catch (error) {
+            logger.error(`Erro ao aprovar usuário: ${error}`);
         }
     }
 };

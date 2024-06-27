@@ -1,47 +1,62 @@
 import { Guild } from "discord.js";
+import { GuildConfig, IGuildConfig } from "../database/schemas/guildSchema";
+import { CustomStatusRole, ICustomStatusRole } from "../database/schemas/customStatusSchema";
+import { FormEntryConfig, IFormEntryConfig } from "../database/schemas/formEntrySchema";
+import { TicketConfig, ITicketConfig } from "../database/schemas/ticketConfigSchema";
+import { LobbyConfig, ILobbyConfig } from "../database/schemas/lobbyConfigSchema";
+import logger from "./beautyLog";
 
-const GuildConfig = require("../database/schemas/guildSchema");
-const logger = require("./beautyLog");
-
-async function certifyGuildConfig(guild: Guild) {
+export async function certifyGuildConfig(guild: Guild): Promise<IGuildConfig> {
     try {
         let guildConfig = await GuildConfig.findOne({ guildId: guild.id });
 
         if (!guildConfig) {
+            const customStatusRole = new CustomStatusRole({
+                guildId: guild.id,
+                statusTerms: [],
+                roleIds: [],
+                warnChannelId: null
+            });
+            await customStatusRole.save();
+
+            const formEntryConfig = new FormEntryConfig({
+                guildId: guild.id,
+                formChannelId: null,
+                rolesMemberApproved: [],
+                rolesVerification: []
+            });
+            await formEntryConfig.save();
+
+            const ticketConfig = new TicketConfig({
+                guildId: guild.id,
+                ticketCategoryId: null
+            });
+            await ticketConfig.save();
+
+            const lobbyConfig = new LobbyConfig({
+                guildId: guild.id,
+                lobby_command_image: null
+            });
+            await lobbyConfig.save();
+
             guildConfig = new GuildConfig({
                 guildId: guild.id,
-                customStatusRoles: [{
-                    statusTerms: [],  // Inicialmente vazio
-                    roleIds: [],
-                    warnChannelId: null  // Inicialmente vazio
-                }],  // Inicialmente vazio
-                ticketConfig: {
-                    ticketCategoryId: null
-                },
-                formEntryConfig: {
-                    formChannelId: null,
-                    rolesMemberApproved: [],
-                    rolesVerification: []
-                },
-                lobbyConfig: {
-                    lobby_command_image: null
-                },
+                customStatusRoles: [customStatusRole._id],
+                formEntryConfig: formEntryConfig._id,
+                ticketConfig: ticketConfig._id,
+                lobbyConfig: lobbyConfig._id,
                 sheetdb: {
                     url: null
                 }
             });
-
             await guildConfig.save();
-            console.log(`Pré-configuração criada para a guilda ${guild.name}`);
 
-            return guildConfig;
+            logger.info(`Pré-configuração criada para a guilda ${guild.name}`);
         }
 
         return guildConfig;
     } catch (error) {
-        console.log(error)
+        console.error(error);
         throw error;
     }
 }
-
-module.exports = { certifyGuildConfig };

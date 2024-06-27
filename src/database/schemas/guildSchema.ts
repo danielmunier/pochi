@@ -1,66 +1,27 @@
-const mongoose = require('mongoose');
+import mongoose, { Schema, Document } from 'mongoose';
 
-const guildConfigSchema = new mongoose.Schema({
+export interface IGuildConfig extends Document {
+    guildId: string;
+    customStatusRoles: mongoose.Schema.Types.ObjectId[];
+    formEntryConfig: mongoose.Schema.Types.ObjectId;
+    ticketConfig: mongoose.Schema.Types.ObjectId;
+    lobbyConfig: mongoose.Schema.Types.ObjectId;
+    sheetdb: {
+        url: string | null;
+    };
+}
+
+const guildConfigSchema: Schema = new Schema({
     guildId: {
         type: String,
         required: true,
         unique: true,
         description: "ID da guilda"
     },
-    customStatusRoles: [{
-        statusTerms: {
-            type: [String],
-            required: true,
-            description: "Lista de termos de status personalizados a serem detectados"
-        },
-        roleIds: {
-            type: [String],
-            required: true,
-            description: "Lista de IDs de cargos atribuídos ao membro quando eles têm o status personalizado"
-        },
-        warnChannelId: {
-            type: String,
-            required: false,
-            description: "ID do canal onde avisos sobre mudanças de status personalizado são enviados"
-        }
-    }],
-    formEntryConfig: {
-        formChannelId: {
-            type: String,
-            required: false,
-            description: "ID do canal onde os formulários de entrada são enviados"
-        },
-        rolesMemberApproved: [
-            {
-                type: String,
-                required: false,
-                description: "IDs dos cargos dos membros aprovados"
-            }
-        ],
-        rolesVerification: [
-            {
-                type: String,
-                required: false,
-                description: "IDs dos cargos de verificação"
-            }
-        ]
-        
-    },
-    ticketConfig: {
-        ticketCategoryId: {
-            type: String,
-            required: false,
-            description: "ID da categoria onde os canais de tickets serão criados"
-        }
-    },
-    lobbyConfig: {
-        lobby_command_image: {
-            type: String,
-            required: false,
-            description: "URL da imagem do lobby da guilda"
-        },
-        
-    },
+    customStatusRoles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'CustomStatusRole' }],
+    formEntryConfig: { type: mongoose.Schema.Types.ObjectId, ref: 'FormEntryConfig' },
+    ticketConfig: { type: mongoose.Schema.Types.ObjectId, ref: 'TicketConfig' },
+    lobbyConfig: { type: mongoose.Schema.Types.ObjectId, ref: 'LobbyConfig' },
     sheetdb: {
         url: {
             type: String,
@@ -70,4 +31,4 @@ const guildConfigSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('GuildConfig', guildConfigSchema);
+export const GuildConfig = mongoose.model<IGuildConfig>('GuildConfig', guildConfigSchema);

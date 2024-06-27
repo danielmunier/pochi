@@ -19,7 +19,7 @@ module.exports = (client: Client) => {
             for (const file of eventsFiles) {
                 const event = require(`../../events/${folder}/${file}`)
                   logger.info(`[ACTIVADED] [EVENT] ${file}`)
-
+                if(!event.active) return
                   if(event.once)  {
                   client.once(event.name, (...args) => event.execute(...args, client))
                   } else {

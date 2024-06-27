@@ -18,9 +18,10 @@ const command : SlashCommand = {
 
         const attachment = new AttachmentBuilder("./assets/makimaBang.jpg")
         logger.info(`${interaction.client.ws.ping}`)
-        interaction.reply({
+         interaction.reply({
             files: [attachment]
         })
+        const message = await interaction.fetchReply()
         } catch(e) {
             logger.error(`${e}`)
         }

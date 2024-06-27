@@ -27,8 +27,10 @@ const event: BotEvent = {
             const { customId } = interaction
             const modal = client.modals.get(customId)
             if(modal) modal.execute(interaction)
-
     }
+
+
+
 }
 }
 
