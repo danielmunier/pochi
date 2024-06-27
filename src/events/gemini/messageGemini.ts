@@ -45,7 +45,7 @@ const event: BotEvent = {
     execute: async (message: Message) => {
         try {
 
-          const guilds = ["1209632813792628746", "1214724025348001843", "808756652937052201"]
+          const guilds = ["1209632813792628746"]
         if (!message.mentions.has(message.client.user!) || !guilds.includes(`${message.guildId}`)) {
             return; 
           }
