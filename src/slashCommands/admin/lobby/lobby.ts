@@ -1,6 +1,7 @@
 import { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } from "discord.js"
 import { SlashCommand } from "../../../types";
 import { LobbyConfig } from "../../../database/schemas/lobbyConfigSchema";
+import prisma from "../../../utils/prismadb";
 const { certifyGuildConfig } = require("../../../utils/guildUtils")
 
 const command: SlashCommand = {
@@ -14,8 +15,7 @@ const command: SlashCommand = {
         if (!interaction || !interaction.guild) return
 
         const guildData = await certifyGuildConfig(interaction.guild)
-        const GUILD_ID = guildData.guildId
-        const lobby_config = await LobbyConfig.findOne({guildId: GUILD_ID})
+        const lobby_config = await prisma.lobbyConfig.findUnique({ where: { guildId: guildData.guildId } })
 
 
         let main_embed = new EmbedBuilder()
@@ -35,9 +35,9 @@ const command: SlashCommand = {
             .setEmoji("🔓")
 
 
-        if(lobby_config?.lobby_command_image) {
-            main_embed.setImage(lobby_config?.lobby_command_image)
-        
+        if (lobby_config?.lobbyCommandImage) {
+            main_embed.setImage(lobby_config?.lobbyCommandImage)
+
         }
 
 

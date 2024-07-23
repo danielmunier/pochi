@@ -26,7 +26,7 @@ module.exports = {
             const userId = userIdMatch[1];
             
             // Certifica a configuração da guilda
-            const guildData: IGuildConfig | null = await certifyGuildConfig(interaction.guild);
+            const guildData = await certifyGuildConfig(interaction.guild);
             if (!guildData) {
                 throw new Error("Configuração da guilda não encontrada.");
             }

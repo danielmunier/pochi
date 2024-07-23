@@ -2,6 +2,7 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, Client, Text
 import logger from "../../utils/beautyLog";
 import { TicketConfig } from "../../database/schemas/ticketConfigSchema";
 import { certifyGuildConfig } from "../../utils/guildUtils";
+import prisma from "../../utils/prismadb"
 
 module.exports = {
     data: {
@@ -18,8 +19,7 @@ module.exports = {
             }
 
             // Encontrar a configuração do ticket específico
-            const ticketConfig = await TicketConfig.findOne({ guildId: guildData.guildId });
-            console.log(ticketConfig)
+            const ticketConfig = await prisma.ticketConfig.findUnique({where: {guildId: guildData.guildId}})
             if (!ticketConfig) {
                 logger.error(`Configuração de ticket não encontrada para ${interaction.guild.name}`);
                 return;
@@ -34,7 +34,10 @@ module.exports = {
                     type: ChannelType.GuildCategory
                 });
                 ticketConfig.ticketCategoryId = ticketCategory.id;
-                await ticketConfig.save();
+                await prisma.ticketConfig.update({
+                    where: { guildId: guildData.guildId },
+                    data: { ticketCategoryId: ticketCategory.id }
+                });
                 logger.info(`Categoria "tickets" criada para a guilda ${interaction.guild.name}`);
             }
 

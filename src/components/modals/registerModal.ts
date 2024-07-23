@@ -1,6 +1,7 @@
 import { Client, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, TextChannel } from "discord.js";
 import axios from "axios";
 import logger from "../../utils/beautyLog";
+import prisma from "../../utils/prismadb"
 import { certifyGuildConfig } from "../../utils/guildUtils";
 import { FormEntryConfig, IFormEntryConfig } from "../../database/schemas/formEntrySchema";
 import { GuildConfig, IGuildConfig } from "../../database/schemas/guildSchema";
@@ -15,14 +16,14 @@ module.exports = {
             if (!interaction.isModalSubmit()) return;
 
             // Certifica a configuração da guilda
-            const guildData: IGuildConfig | null = await certifyGuildConfig(interaction.guild);
+            const guildData = await certifyGuildConfig(interaction.guild);
             if (!guildData) {
                 interaction.reply({ content: "Houve um erro ao enviar a sua solicitação de entrada: O servidor ainda será configurado para o recebimento de formulários!", ephemeral: true });
                 return;
             }
 
             // Verifica se o canal para envio dos formulários está configurado
-            const formEntryConfig: IFormEntryConfig | null = await FormEntryConfig.findOne({ guildId: interaction.guild.id });
+            const formEntryConfig = await prisma.formEntry.findFirst({where: {guildId: interaction.guild.id}})
             
             if (!formEntryConfig || !formEntryConfig.formChannelId) {
                 console.log(formEntryConfig)
@@ -88,20 +89,20 @@ module.exports = {
             // Verifica se há uma URL do Google Sheets configurada na guilda
              // Responde ao usuário que o registro foi concluído
             await interaction.reply({ content: `Obrigado por se cadastrar!`, ephemeral: true });
-            const sheetdb = guildData.sheetdb.url;
-            if (!sheetdb) return;
+            // const sheetdb = guildData.sheetdb.url;
+            // if (!sheetdb) return;
 
-            // Envia os dados para o Google Sheets via API
-            axios.post(sheetdb, data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${process.env.SHEETDB_TOKEN}`
-                }
-            }).then(response => {
-                console.log(response.data);
-            }).catch(error => {
-                console.error(error);
-            });
+            // // Envia os dados para o Google Sheets via API
+            // axios.post(sheetdb, data, {
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         'Authorization': `Bearer ${process.env.SHEETDB_TOKEN}`
+            //     }
+            // }).then(response => {
+            //     console.log(response.data);
+            // }).catch(error => {
+            //     console.error(error);
+            // });
 
            
 
