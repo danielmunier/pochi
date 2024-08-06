@@ -1,6 +1,5 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, Client, TextChannel } from "discord.js";
 import logger from "../../utils/beautyLog";
-import { TicketConfig } from "../../database/schemas/ticketConfigSchema";
 import { certifyGuildConfig } from "../../utils/guildUtils";
 import prisma from "../../utils/prismadb"
 

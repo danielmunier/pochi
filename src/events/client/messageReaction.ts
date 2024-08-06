@@ -1,4 +1,4 @@
-import { Client, Events } from "discord.js";
+import { Events } from "discord.js";
 import { BotEvent } from "../../types";
 const GuildConfig = require("../../database/schemas/guildSchema");
 

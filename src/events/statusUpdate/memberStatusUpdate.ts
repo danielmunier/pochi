@@ -29,7 +29,7 @@ const event: BotEvent = {
             }
 
             const customStatusData = await prisma.customStatusRole.findFirst({where: { guildId: guildData.guildId }})
-            console.log(customStatusData)
+            //console.log(customStatusData)
             // customStatusData = {
             //     id: '669ea952cd21c0598a57fef2',
             //     statusTerms: [],

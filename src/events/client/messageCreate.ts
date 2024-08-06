@@ -1,7 +1,5 @@
 import { Client, Events, Message } from "discord.js";
 import { BotEvent } from "../../types";
-import { certifyGuildConfig } from "../../utils/guildUtils";
-const GuildConfig = require("../../database/schemas/guildSchema");
 
 const event: BotEvent = {
     name: Events.MessageCreate,

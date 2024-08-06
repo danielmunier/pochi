@@ -1,10 +1,8 @@
 import { Client, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, TextChannel } from "discord.js";
-import axios from "axios";
 import logger from "../../utils/beautyLog";
 import prisma from "../../utils/prismadb"
 import { certifyGuildConfig } from "../../utils/guildUtils";
-import { FormEntryConfig, IFormEntryConfig } from "../../database/schemas/formEntrySchema";
-import { GuildConfig, IGuildConfig } from "../../database/schemas/guildSchema";
+
 
 module.exports = {
     data: {
