@@ -14,7 +14,7 @@ export async function certifyGuildConfig(guild: Guild) {
             },
         });
 
-        console.log('Current Guild Config:', guildConfig);
+       
 
         if (!guildConfig) {
             console.log(`Creating new configuration for guild ${guild.id}`);
@@ -77,7 +77,7 @@ export async function certifyGuildConfig(guild: Guild) {
 
             logger.info(`Pré-configuração criada para a guilda ${guild.name}`);
         } else {
-            logger.info(`Configuração já existente para a guilda ${guild.name}`);
+            //logger.info(`Configuração já existente para a guilda ${guild.name}`);
         }
 
         return guildConfig;

@@ -9,7 +9,6 @@ module.exports = {
     },
     async execute(interaction: any, client: Client) {
         try {
-            // Certificar a configuração da guilda
             let guildData = await certifyGuildConfig(interaction.guild);
 
             if (!guildData) {
@@ -17,14 +16,12 @@ module.exports = {
                 return;
             }
 
-            // Encontrar a configuração do ticket específico
             const ticketConfig = await prisma.ticketConfig.findUnique({where: {guildId: guildData.guildId}})
             if (!ticketConfig) {
                 logger.error(`Configuração de ticket não encontrada para ${interaction.guild.name}`);
                 return;
             }
 
-            // Verificar se a categoria de ticket existe
             let ticketCategory = interaction.guild.channels.cache.get(ticketConfig.ticketCategoryId);
 
             if (!ticketCategory) {
@@ -40,7 +37,6 @@ module.exports = {
                 logger.info(`Categoria "tickets" criada para a guilda ${interaction.guild.name}`);
             }
 
-            // Verificar se já existe um canal de ticket para o usuário
             const ticketChannelExists = interaction.guild.channels.cache.find((c: { name: string; }) => c.name === `ticket-${interaction.user.username}`);
 
             if (ticketChannelExists) {
@@ -53,7 +49,6 @@ module.exports = {
 
             logger.info(`Criando canal de ticket para ${interaction.user.username}`);
 
-            // Criar o canal de ticket dentro da categoria
             const channel: TextChannel = await interaction.guild.channels.create({
                 name: `ticket-${interaction.user.username}`,
                 type: ChannelType.GuildText,

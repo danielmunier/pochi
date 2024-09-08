@@ -27,8 +27,8 @@ const path = require("path");
             const modal = require(`../../components/${folder}/${file}`);
   
             client.modals.set(modal.data.id, modal);
-            logger.info(`[ACTIVADED] [MODAL] ${modal.data.id}`)
           }
+          logger.info(`[ACTIVADED] [MODALS]`)
           break;
 
 
@@ -38,8 +38,8 @@ const path = require("path");
             
             if(!button.data) continue
             client.buttons.set(button.data.id, button);
-            logger.info(`[ACTIVADED] [BUTTON] ${button.data.id}`)
           }
+          logger.info(`[ACTIVADED] [BUTTONS]`)
   
         default:
         
