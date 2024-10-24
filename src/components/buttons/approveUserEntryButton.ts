@@ -1,8 +1,8 @@
 import { Client } from "discord.js";
 import logger from "../../utils/beautyLog";
 import { certifyGuildConfig } from "../../utils/guildUtils";
-import { FormEntryConfig, IFormEntryConfig } from "../../database/schemas/formEntrySchema";
-import { GuildConfig, IGuildConfig } from "../../database/schemas/guildSchema";
+import prisma from "../../utils/prismadb";
+
 
 module.exports = {
     data: {
@@ -15,14 +15,14 @@ module.exports = {
             }
 
             const embedDescription = interaction.message.embeds[0].description;
-            
+
             const userIdMatch = embedDescription.match(/UserId: <@(\d+)>/);
             if (!userIdMatch) {
                 throw new Error("ID do usuário não foi encontrado na descrição do Embed");
             }
-         
+
             const userId = userIdMatch[1];
-            
+
             const guildData = await certifyGuildConfig(interaction.guild);
             if (!guildData) {
                 throw new Error("Configuração da guilda não encontrada.");
@@ -39,7 +39,11 @@ module.exports = {
                 throw new Error("Membro não encontrado no servidor.");
             }
 
-            const formEntryConfig: IFormEntryConfig | null = await FormEntryConfig.findOne({ guildId: guildData.guildId });
+            const formEntryConfig = await prisma.formEntry.findFirst({
+                where: {
+                    guildId: guildData.guildId
+                }
+            });
             if (!formEntryConfig) {
                 throw new Error("Configuração de entrada de formulário não encontrada para a guilda.");
             }

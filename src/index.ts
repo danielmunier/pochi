@@ -5,7 +5,6 @@ import { readdirSync } from "fs";
 import { Command, SlashCommand } from "./types";
 import logger from "./utils/beautyLog";
 
-require("./database/index")
 logger.info("Bot is starting")
 
 

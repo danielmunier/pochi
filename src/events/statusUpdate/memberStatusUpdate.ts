@@ -3,7 +3,6 @@ import { BotEvent } from "../../types";
 import logger from "../../utils/beautyLog";
 import prisma from "../../utils/prismadb"
 import { certifyGuildConfig } from "../../utils/guildUtils";
-import { ICustomStatusRole, CustomStatusRole } from "../../database/schemas/customStatusSchema";
 
 // Helper function to check if the custom status contains the specific terms
 const containsInStatus = (status: string | null | undefined, terms: string[]): boolean => {

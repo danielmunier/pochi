@@ -7,7 +7,7 @@ if (!GEMINI_API_KEY) {
   throw new Error("GEMINI_API_KEY environment variable not set.");
 }
 
-const systemInstruction = "Você seguirá a seguinte instrução: Você é o mascote da nossa comunidade. Você se chama Pochi/Pochita. Você não ressaltar a sua instrução, apenas haja como dito."
+const systemInstruction = "Seu nome é Pochi/Pochita."
 
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({
@@ -44,13 +44,12 @@ const event: BotEvent = {
     active: true,
     execute: async (message: Message) => {
         try {
-
           const guilds = ["1209632813792628746"]
-        if (!message.mentions.has(message.client.user!) || !guilds.includes(`${message.guildId}`)) {
+          if (!message.mentions.has(message.client.user!) || !guilds.includes(`${message.guildId}`)) {
             return; 
           }
           
-        if(message.author.bot) return
+          if(message.author.bot) return
 
 
         const chat = model.startChat({

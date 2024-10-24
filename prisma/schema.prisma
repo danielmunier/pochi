@@ -8,30 +8,49 @@ datasource db {
 }
 
 model User {
-  id            String       @id @default(uuid()) @map("_id") @db.String
-  name          String
-  image         String?
-  email         String?      @unique
-  emailVerified DateTime?
+  id             String    @id @default(uuid()) @map("_id") @db.String
+  name           String
+  image          String?
+  email          String?   @unique
+  emailVerified  DateTime?
   hashedPassword String?
-  createdAt     DateTime     @default(now())
-  updateAt      DateTime     @updatedAt
-  sessions      Session[]
-  accounts      Account[]
+  createdAt      DateTime  @default(now())
+  updateAt       DateTime  @updatedAt
+  sessions       Session[]
+  accounts       Account[]
+}
+
+model DiscordUser {
+  id             String           @id @default(uuid()) @map("_id") @db.String
+  discordUserId  String
+  guildId        String
+  username       String?
+}
+
+model UserPoints {
+  id             String   @id @default(uuid()) @map("_id") @db.String
+  userId         String
+  serverId       String
+  points         Int      @default(0)
+  lastCommandAt  DateTime
+  commandCount   Int      @default(0)         // Contador de comandos
+  lastResetAt    DateTime @default(now())     // Última vez que o contador foi resetado
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
 
 model Account {
-  id                String   @id @default(uuid()) @map("_id") @db.String
-  userId            String   @db.String
+  id                String  @id @default(uuid()) @map("_id") @db.String
+  userId            String  @db.String
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String?  @db.String
-  access_token      String?  @db.String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String?  @db.String
+  id_token          String? @db.String
   session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -40,10 +59,10 @@ model Account {
 }
 
 model Session {
-  id            String   @id @default(uuid()) @map("_id") @db.String
-  sessionToken  String   @unique
-  userId        String   @db.String
-  expires       DateTime
+  id           String   @id @default(uuid()) @map("_id") @db.String
+  sessionToken String   @unique
+  userId       String   @db.String
+  expires      DateTime
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
@@ -58,48 +77,49 @@ model VerificationToken {
 }
 
 model Guild {
-  id                String              @id @default(uuid()) @map("_id") @db.String
-  guildId           String              @unique
-  FormEntry         FormEntry?          @relation
-  ticketConfig      TicketConfig?       @relation
-  lobbyConfig       LobbyConfig?        @relation
-  customStatus      CustomStatusRole?   @relation
+  id              String            @id @default(uuid()) @map("_id") @db.String
+  guildId         String            @unique
+  FormEntry       FormEntry?        @relation
+  ticketConfig    TicketConfig?     @relation
+  lobbyConfig     LobbyConfig?      @relation
+  customStatus    CustomStatusRole? @relation
+
 }
 
 model CustomStatusRole {
-  id             String      @id @default(uuid()) @map("_id") @db.String
-  statusTerms    String[]
-  roleIds        String[]
-  warnChannelId  String?
+  id            String   @id @default(uuid()) @map("_id") @db.String
+  statusTerms   String[]
+  roleIds       String[]
+  warnChannelId String?
 
-  guildId        String      @unique
-  guild          Guild       @relation(fields: [guildId], references: [guildId])
+  guildId String @unique
+  guild   Guild  @relation(fields: [guildId], references: [guildId])
 
   @@map("CustomStatusRoles")
 }
 
 model FormEntry {
-  id                     String      @id @default(uuid()) @map("_id") @db.String
-  formChannelId          String?
-  rolesMemberApproved    String[]
-  rolesVerification      String[]
+  id                  String   @id @default(uuid()) @map("_id") @db.String
+  formChannelId       String?
+  rolesMemberApproved String[]
+  rolesVerification   String[]
 
-  guildId                String      @unique
-  guild                  Guild       @relation(fields: [guildId], references: [guildId])
+  guildId String @unique
+  guild   Guild  @relation(fields: [guildId], references: [guildId])
 }
 
 model LobbyConfig {
-  id                String      @id @default(uuid()) @map("_id") @db.String
+  id                String  @id @default(uuid()) @map("_id") @db.String
   lobbyCommandImage String?
 
-  guildId           String      @unique
-  guild             Guild       @relation(fields: [guildId], references: [guildId])
+  guildId String @unique
+  guild   Guild  @relation(fields: [guildId], references: [guildId])
 }
 
 model TicketConfig {
-  id                String      @id @default(uuid()) @map("_id") @db.String
-  ticketCategoryId  String?
+  id               String  @id @default(uuid()) @map("_id") @db.String
+  ticketCategoryId String?
 
-  guildId           String      @unique
-  guild             Guild       @relation(fields: [guildId], references: [guildId])
+  guildId String @unique
+  guild   Guild  @relation(fields: [guildId], references: [guildId])
 }

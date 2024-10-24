@@ -21,7 +21,7 @@ module.exports = (client: Client) => {
             loadCommands(join(dir, file));
           } else if(file.endsWith(".ts")) {
             const command: SlashCommand = require(join(dir, file)).default;
-            logger.info(`[ACTIVADED] [EVENT] ${command.command.name}`);
+            logger.info(`[ACTIVADED] [COMMAND] ${command.command.name}`);
             slashCommands.push(command.command);
             client.slashCommands.set(command.command.name, command);
           }

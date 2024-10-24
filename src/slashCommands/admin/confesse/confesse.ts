@@ -7,37 +7,32 @@ const command: SlashCommand = {
 
 
     command: new SlashCommandBuilder()
-        .setName("lobby")
+        .setName("confesse")
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
-        .setDescription("Create ticket panel for support"),
+        .setDescription("Embed de confissões"),
     execute: async interaction => {
         if (!interaction || !interaction.guild) return
 
         const guildData = await certifyGuildConfig(interaction.guild)
-        const lobby_config = await prisma.lobbyConfig.findUnique({ where: { guildId: guildData.guildId } })
 
 
         let main_embed = new EmbedBuilder()
-            .setColor("#000000")
-            .setTitle("Verificação")
-            .setDescription(
-                `
-        Clique no botão abaixo e preencha nosso formulário que em breve um administrador irá aprovar o seu acesso.
-    
-        `
-            )
+        .setColor("#FF4500") // Uma cor vibrante para chamar atenção
+        .setTitle("🔒 Confissões Anônimas")
+        .setDescription(
+            `✨ **Confesse aqui seu segredo mais profundo...**  
+            Sua mensagem será enviada anonimamente para o canal de conversa.  
+            *Ninguém saberá que foi você... ou saberão?*`
+        )
+        .setFooter({ text: "⚠️ Por favor, respeite as regras do servidor" })
+        .setTimestamp();
 
         const lobby_button = new ButtonBuilder()
-            .setCustomId("enter-guild")
-            .setLabel("Liberar canais")
+            .setCustomId("confess-button")
+            .setLabel("Clique aqui")
             .setStyle(ButtonStyle.Secondary)
-            .setEmoji("🔓")
+            .setEmoji("❤")
 
-
-        if (lobby_config?.lobbyCommandImage) {
-            main_embed.setImage(lobby_config?.lobbyCommandImage)
-
-        }
 
 
 
