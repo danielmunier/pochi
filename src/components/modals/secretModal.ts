@@ -18,6 +18,7 @@ module.exports = {
 
             const channel = interaction.guild.channels.cache.get("1284224086758789244")
             const text = interaction.fields.getTextInputValue("confess-input");
+            logger.info(`${interaction.user.id}[${interaction.user.username}: ${text}]`)
             channel?.send({ content: text })
 
             interaction.reply({ content: "Sua mensagem foi enviada com sucesso!", ephemeral: true })
