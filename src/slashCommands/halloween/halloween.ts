@@ -16,21 +16,21 @@ const treats = [
     { name: 'M&Ms', points: 100 },
     { name: 'Dinheiro achado no bolso', points: 30 },
     { name: 'Lindt', points: 150 },
-    { name: 'Feastables MrBeast Milk', points: 200 }
+    { name: 'Feastables MrBeast Milk', points: 180 }
 ];
 
 const tricks = [
-    { name: 'Derrota na Ranked', points: -5 },
-    { name: 'Panfleto de Político', points: -10 },
+    { name: 'Derrota na ranked', points: -5 },
+    { name: 'Panfleto de campanha política', points: -10 },
     { name: 'Vácuo na DM do insta', points: -10 },
-    { name: 'Papel com merda', points: -20 },
+    { name: 'Papel com merda de diarreia', points: -20 },
     { name: 'Chifre', points: -40 },
     { name: 'Ligação de cobrança', points: -60 },
     { name: 'Comprovante de pagamento falso', points: -60 },
     { name: 'Saco de pipoca queimada', points: -60 },
     { name: 'Camisinha usada', points: -80 },
     { name: 'Foto da pica no grupo da família', points: -80 },
-    { name: 'Mensagem da ex', points: -150 }
+    { name: 'Mensagem da ex', points: -180 }
 ];
 
 const halloweenEmojis = ['🎃', '👻', '🍬', '💀', '🧡', '🦇', '🕷️', '🧛🏻‍♀️', '🪓', '🕯️', '🔮'];
@@ -100,7 +100,8 @@ const command: SlashCommand = {
                 });
 
             interaction.reply({
-                content: `${randomEmoji} Você ${isTreat ? 'ganhou' : 'sofreu'} ***${result.name}*** (${result.points} pontos). Pontuação atual: ${updatedUserPoints.points}`
+                content: `${randomEmoji} Você ${isTreat ? 'ganhou' : 'sofreu'} ***${result.name}*** (${result.points} pontos). 
+                Pontuação atual: ${updatedUserPoints.points}`
             });
 
         } catch (e) {
