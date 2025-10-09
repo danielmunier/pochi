@@ -1,151 +1,233 @@
-# Pochi Bot 🤖
+# 🤖 Pochi Bot - Discord Bot Escalável
 
-Bot Discord com arquitetura de microserviços, preparado para evoluir de TypeScript para Python.
+Um bot Discord moderno e escalável, construído com TypeScript e arquitetura preparada para evolução para microserviços Python.
 
-## 🚀 Características
+## 🚀 Características Principais
 
-- ✅ **Slash Commands** - Interface nativa do Discord
-- ✅ **Auto-loading** - Comandos e eventos carregados automaticamente
-- ✅ **Microserviços** - Preparado para APIs Python
-- ✅ **TypeScript** - Type safety e melhor desenvolvimento
-- ✅ **Bun** - Runtime rápido e moderno
-- ✅ **Docker** - Deploy fácil
+### 🎯 **Sistema de Logs Avançado**
+- **Multi-Guild**: Cada servidor tem seu próprio canal de logs
+- **Eventos Completos**: Captura entrada/saída de membros, eventos de voz, mensagens, etc.
+- **Configuração Fácil**: Comando slash para configurar canais de logs
+- **Embeds Bonitos**: Logs formatados com cores e informações detalhadas
 
-## 📁 Estrutura do Projeto
+### 🏗️ **Arquitetura Escalável**
+- **Modular**: Serviços independentes e reutilizáveis
+- **Preparado para Microserviços**: Fácil migração para Python
+- **Event-Driven**: Sistema baseado em eventos
+- **Multi-Tenant**: Suporte a múltiplos servidores simultâneos
 
-```
-pochi-bot/
-├── src/
-│   ├── commands/           # Slash Commands
-│   │   ├── moderation/     # Comandos de moderação
-│   │   ├── music/          # Comandos de música
-│   │   └── economy/        # Comandos de economia
-│   ├── events/             # Eventos do Discord
-│   ├── services/           # Clientes para APIs Python
-│   ├── utils/              # Utilitários (handlers)
-│   └── main.ts             # Ponto de entrada
-├── services/               # Microserviços Python (futuro)
-├── docker-compose.yml      # Orquestração
-└── package.json
-```
+### 🛠️ **Funcionalidades Atuais**
+- **Comandos de Moderação**: Ban, kick, logs
+- **Sistema de Economia**: Balance e transações
+- **Sistema de Música**: Reprodução de áudio
+- **Comandos Gerais**: Ping, pong, testlog
+- **Sistema de Logs**: Captura todos os eventos do Discord
 
-## 🛠️ Instalação
+## 📋 Eventos Capturados
 
-### 1. Clone o repositório
+### 👥 **Membros**
+- Entrada no servidor
+- Saída do servidor
+- Atualizações de perfil
+
+### 🎵 **Canais de Voz**
+- Entrada em canal de voz
+- Saída de canal de voz
+- Mudança entre canais
+- Mudanças de estado (mute, deafen, stream, etc.)
+
+### 💬 **Mensagens**
+- Mensagens deletadas
+- Mensagens editadas
+- Reações em mensagens
+
+## 🚀 Como Usar
+
+### 1. **Instalação**
 ```bash
-git clone <seu-repo>
-cd pochi-bot
-```
+# Clone o repositório
+git clone https://github.com/seu-usuario/pochi-py.git
+cd pochi-py
 
-### 2. Instale o Bun
-```bash
-curl -fsSL https://bun.sh/install | bash
-```
-
-### 3. Instale dependências
-```bash
+# Instale as dependências
 bun install
-```
 
-### 4. Configure variáveis de ambiente
-```bash
+# Configure as variáveis de ambiente
 cp env.example .env
-# Edite o .env com suas configurações
+# Edite o .env com seu token do Discord
 ```
 
-### 5. Execute o bot
+### 2. **Configuração**
 ```bash
-# Desenvolvimento
-bun run dev
-
-# Produção
+# Compile o projeto
 bun run build
+
+# Inicie o bot
 bun run start
 ```
 
+### 3. **Configurar Logs**
+Use o comando slash para configurar o canal de logs em cada servidor:
+```
+/setlogchannel canal:#logs
+```
+
+## 🏗️ Arquitetura Atual
+
+```
+src/
+├── commands/           # Comandos slash organizados por categoria
+│   ├── economy/       # Sistema de economia
+│   ├── general/       # Comandos gerais
+│   ├── moderation/    # Comandos de moderação
+│   └── music/         # Sistema de música
+├── events/            # Eventos do Discord
+│   ├── guildMemberAdd.ts
+│   ├── voiceStateUpdate.ts
+│   └── ...
+├── services/          # Serviços de negócio
+│   ├── loggingService.ts
+│   ├── economyService.ts
+│   └── ...
+├── utils/             # Utilitários
+│   ├── commandHandler.ts
+│   ├── eventHandler.ts
+│   └── guildManager.ts
+└── main.ts           # Ponto de entrada
+```
+
+## 🔄 Evolução para Microserviços
+
+A arquitetura atual foi projetada para facilitar a migração para microserviços Python:
+
+### **Arquitetura Atual (Monolítica)**
+```
+┌─────────────────────────────────────┐
+│           Discord Bot               │
+│  ┌─────────┐ ┌─────────┐ ┌─────────┐│
+│  │ Logging │ │Economy  │ │ Music   ││
+│  │Service  │ │Service  │ │Service  ││
+│  └─────────┘ └─────────┘ └─────────┘│
+└─────────────────────────────────────┘
+```
+
+### **Arquitetura Futura (Microserviços)**
+```
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│   Discord   │    │   Logging   │    │  Economy    │
+│    Bot      │◄──►│  Service    │◄──►│  Service    │
+│ (Gateway)   │    │  (Python)   │    │  (Python)   │
+└─────────────┘    └─────────────┘    └─────────────┘
+       │                   │                   │
+       └───────────────────┼───────────────────┘
+                           │
+                   ┌─────────────┐
+                   │   Message   │
+                   │   Broker    │
+                   │ (Redis/RMQ) │
+                   └─────────────┘
+```
+
+### **Vantagens da Arquitetura Atual**
+
+1. **Serviços Independentes**: Cada serviço tem responsabilidade única
+2. **Interfaces Bem Definidas**: Fácil extração para APIs REST/gRPC
+3. **Event-Driven**: Sistema baseado em eventos facilita comunicação assíncrona
+4. **Configuração Centralizada**: Fácil migração de configurações
+5. **Logging Unificado**: Sistema de logs já preparado para múltiplos serviços
+
+### **Plano de Migração**
+
+1. **Fase 1**: Extrair `LoggingService` para microserviço Python
+2. **Fase 2**: Migrar `EconomyService` para microserviço Python
+3. **Fase 3**: Extrair `MusicService` para microserviço Python
+4. **Fase 4**: Implementar message broker (Redis/RabbitMQ)
+5. **Fase 5**: Bot vira apenas gateway de comandos
+
+## 🛠️ Tecnologias
+
+- **TypeScript**: Linguagem principal
+- **Discord.js**: Biblioteca do Discord
+- **Bun**: Runtime e package manager
+- **Prisma**: ORM para banco de dados
+- **Docker**: Containerização
+
+## 📊 Comandos Disponíveis
+
+### **Moderação**
+- `/ban` - Banir usuário
+- `/kick` - Expulsar usuário
+- `/setlogchannel` - Configurar canal de logs
+
+### **Economia**
+- `/balance` - Ver saldo do usuário
+
+### **Música**
+- `/play` - Reproduzir música
+
+### **Geral**
+- `/ping` - Testar latência
+- `/pong` - Resposta ao ping
+- `/testlog` - Testar sistema de logs
+
 ## 🔧 Configuração
 
-### Variáveis de Ambiente (.env)
+### **Variáveis de Ambiente**
 ```env
-DISCORD_TOKEN=seu_token_discord
-CLIENT_ID=seu_client_id
-GUILD_ID=seu_guild_id  # Opcional para desenvolvimento
+DISCORD_TOKEN=seu_token_aqui
+DATABASE_URL=postgresql://user:pass@localhost:5432/pochi
 ```
 
+### **Intents Necessárias**
+- `Guilds` - Informações básicas
+- `GuildMembers` - Eventos de membros
+- `GuildMessages` - Eventos de mensagens
+- `GuildVoiceStates` - Estados de voz
+- `MessageContent` - Conteúdo das mensagens
 
-## 📋 Comandos Disponíveis
+## 🚀 Deploy
 
-### 🛡️ Moderação
-- `/ban <user> [reason]` - Bane um usuário
-- `/kick <user> [reason]` - Expulsa um usuário
-
-### 🎵 Música
-- `/play <song>` - Toca uma música
-
-### 💰 Economia
-- `/balance [user]` - Verifica saldo
-
-## 🏗️ Arquitetura
-
-### Atual (TypeScript)
-```
-Discord Bot (TypeScript)
-├── Slash Commands
-├── Event Handlers
-└── Service Clients (preparados para Python)
-```
-
-### Futuro (Microserviços)
-```
-Discord Bot (Gateway)
-├── Moderation Service (Python)
-├── Music Service (Python)
-├── Economy Service (Python)
-└── Event Bus (Redis)
-```
-
-## 🐳 Docker
-
-### Desenvolvimento
+### **Docker**
 ```bash
+# Build da imagem
+docker build -t pochi-bot .
+
+# Executar container
+docker run -d --name pochi-bot pochi-bot
+```
+
+### **Docker Compose**
+```bash
+# Iniciar todos os serviços
 docker-compose up -d
 ```
 
-### Produção
-```bash
-docker-compose -f docker-compose.prod.yml up -d
-```
+## 📈 Roadmap
 
-## 🔄 Roadmap
-
-- [x] Bot TypeScript básico
-- [x] Slash Commands
-- [x] Auto-loading de comandos/eventos
-- [x] Estrutura para microserviços
-- [ ] Serviços Python (FastAPI)
-- [ ] Event Bus (Redis)
-- [ ] Database (PostgreSQL)
-- [ ] Deploy automatizado
+- [ ] **v1.1**: Sistema de permissões avançado
+- [ ] **v1.2**: Dashboard web para configuração
+- [ ] **v2.0**: Migração para microserviços Python
+- [ ] **v2.1**: API REST para integrações
+- [ ] **v2.2**: Sistema de plugins
+- [ ] **v3.0**: Interface web completa
 
 ## 🤝 Contribuição
 
 1. Fork o projeto
-2. Crie uma branch (`git checkout -b feature/nova-feature`)
-3. Commit suas mudanças (`git commit -m 'Add nova feature'`)
-4. Push para a branch (`git push origin feature/nova-feature`)
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
 5. Abra um Pull Request
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
 ## 🆘 Suporte
 
-Se você encontrar algum problema ou tiver dúvidas:
-
-1. Verifique as [Issues](../../issues) existentes
-2. Crie uma nova issue se necessário
-3. Entre em contato via Discord
+- **Discord**: [Servidor de Suporte](https://discord.gg/seu-servidor)
+- **Issues**: [GitHub Issues](https://github.com/seu-usuario/pochi-py/issues)
+- **Documentação**: [Wiki](https://github.com/seu-usuario/pochi-py/wiki)
 
 ---
 

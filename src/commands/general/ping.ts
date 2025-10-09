@@ -5,12 +5,13 @@ export const data = new SlashCommandBuilder()
   .setDescription('🏓 Bong! Mostra a latência do bot');
 
 export async function execute(interaction: ChatInputCommandInteraction) {
-  const sent = await interaction.reply({ 
-    content: '🏓 Bong! Calculando latência...', 
-    fetchReply: true 
+  const startTime = Date.now();
+  
+  await interaction.reply({ 
+    content: '🏓 Bong! Calculando latência...'
   });
 
-  const latency = sent.createdTimestamp - interaction.createdTimestamp;
+  const latency = Date.now() - startTime;
   const apiLatency = Math.round(interaction.client.ws.ping);
 
   const embed = new EmbedBuilder()

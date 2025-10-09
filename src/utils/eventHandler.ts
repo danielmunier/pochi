@@ -26,6 +26,9 @@ export class EventHandler {
       (file.endsWith('.ts') || file.endsWith('.js')) && !file.endsWith('.d.ts')
     );
     
+    let loadedCount = 0;
+    let failedCount = 0;
+    
     for (const file of eventFiles) {
       const filePath = path.join(eventsPath, file);
       
@@ -39,15 +42,17 @@ export class EventHandler {
             this.client.on(event.name, (...args) => event.execute(...args));
           }
           
-          console.log(`✅ Evento carregado: ${event.name}`);
+          loadedCount++;
         } else {
           console.log(`⚠️ Evento ${file} não tem propriedades 'name' ou 'execute'`);
+          failedCount++;
         }
       } catch (error) {
         console.error(`❌ Erro ao carregar evento ${file}:`, error);
+        failedCount++;
       }
     }
     
-    console.log(`📊 Total de eventos carregados: ${eventFiles.length}`);
+    console.log(`📊 Eventos: ${loadedCount} carregados, ${failedCount} falharam`);
   }
 }

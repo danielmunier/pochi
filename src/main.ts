@@ -2,6 +2,7 @@ import { Client, GatewayIntentBits } from 'discord.js';
 import { CommandHandler } from './utils/commandHandler';
 import { EventHandler } from './utils/eventHandler';
 import { GuildManager } from './utils/guildManager';
+import { LoggingService } from './services/loggingService';
 import * as dotenv from 'dotenv';
 
 // Carrega variáveis de ambiente
@@ -16,12 +17,19 @@ class PochiBot {
   private commandHandler: CommandHandler;
   private eventHandler: EventHandler;
   private guildManager: GuildManager;
+  private loggingService: LoggingService;
 
   constructor() {
     // Configuração do bot
     this.client = new Client({
       intents: [
-        GatewayIntentBits.Guilds
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.GuildMessageReactions,
+        GatewayIntentBits.GuildVoiceStates,
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildPresences
       ]
     });
 
@@ -29,10 +37,12 @@ class PochiBot {
     this.commandHandler = new CommandHandler(this.client);
     this.eventHandler = new EventHandler(this.client);
     this.guildManager = new GuildManager();
+    this.loggingService = new LoggingService(this.client);
     
     // Adiciona handlers ao client para acesso global
     (this.client as any).commandHandler = this.commandHandler;
     (this.client as any).guildManager = this.guildManager;
+    (this.client as any).loggingService = this.loggingService;
   }
 
   /**

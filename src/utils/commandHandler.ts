@@ -27,6 +27,8 @@ export class CommandHandler {
     }
 
     const commandFolders = fs.readdirSync(commandsPath);
+    let loadedCount = 0;
+    let failedCount = 0;
     
     for (const folder of commandFolders) {
       const folderPath = path.join(commandsPath, folder);
@@ -45,17 +47,19 @@ export class CommandHandler {
           
           if ('data' in command && 'execute' in command) {
             this.commands.set(command.data.name, command);
-            console.log(`✅ Comando carregado: ${command.data.name}`);
+            loadedCount++;
           } else {
             console.log(`⚠️ Comando ${file} não tem propriedades 'data' ou 'execute'`);
+            failedCount++;
           }
         } catch (error) {
           console.error(`❌ Erro ao carregar comando ${file}:`, error);
+          failedCount++;
         }
       }
     }
     
-    console.log(`📊 Total de comandos carregados: ${this.commands.size}`);
+    console.log(`📊 Comandos: ${loadedCount} carregados, ${failedCount} falharam`);
   }
 
   /**
