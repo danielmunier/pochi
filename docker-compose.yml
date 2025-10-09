@@ -1,0 +1,82 @@
+# Docker Compose para microserviços Python (futuro)
+version: '3.8'
+
+services:
+  # Bot Discord (TypeScript)
+  discord-bot:
+    build: .
+    environment:
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+      - CLIENT_ID=${CLIENT_ID}
+      - GUILD_ID=${GUILD_ID}
+      - MODERATION_SERVICE_URL=http://moderation:8000
+      - MUSIC_SERVICE_URL=http://music:8000
+      - ECONOMY_SERVICE_URL=http://economy:8000
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - postgres
+    restart: unless-stopped
+
+  # Redis para Event Bus
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+  # PostgreSQL para banco de dados
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=discord_bot
+      - POSTGRES_USER=bot_user
+      - POSTGRES_PASSWORD=bot_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # Serviço de Moderação (Python - futuro)
+  # moderation:
+  #   build: ./services/moderation
+  #   ports:
+  #     - "8001:8000"
+  #   environment:
+  #     - DATABASE_URL=postgresql://bot_user:bot_password@postgres:5432/discord_bot
+  #     - REDIS_URL=redis://redis:6379
+  #   depends_on:
+  #     - postgres
+  #     - redis
+  #   restart: unless-stopped
+
+  # Serviço de Música (Python - futuro)
+  # music:
+  #   build: ./services/music
+  #   ports:
+  #     - "8002:8000"
+  #   environment:
+  #     - DATABASE_URL=postgresql://bot_user:bot_password@postgres:5432/discord_bot
+  #     - REDIS_URL=redis://redis:6379
+  #   depends_on:
+  #     - postgres
+  #     - redis
+  #   restart: unless-stopped
+
+  # Serviço de Economia (Python - futuro)
+  # economy:
+  #   build: ./services/economy
+  #   ports:
+  #     - "8003:8000"
+  #   environment:
+  #     - DATABASE_URL=postgresql://bot_user:bot_password@postgres:5432/discord_bot
+  #     - REDIS_URL=redis://redis:6379
+  #   depends_on:
+  #     - postgres
+  #     - redis
+  #   restart: unless-stopped
+
+volumes:
+  postgres_data:

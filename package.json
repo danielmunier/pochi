@@ -1,0 +1,26 @@
+{
+  "name": "pochi-bot",
+  "version": "1.0.0",
+  "description": "Discord Bot com arquitetura de microserviços",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "bun run tsc",
+    "start": "bun run dist/main.js",
+    "dev": "bun run src/main.ts",
+    "deploy": "bun run build && bun run start"
+  },
+  "keywords": ["discord", "bot", "microservices", "typescript"],
+  "author": "Seu Nome",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "@discordjs/rest": "^2.2.0",
+    "discord-api-types": "^0.37.61",
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.4",
+    "typescript": "^5.3.3"
+  }
+}

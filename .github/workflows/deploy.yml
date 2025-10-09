@@ -1,0 +1,109 @@
+name: 🚀 Deploy Pochi Bot
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch: # Permite deploy manual
+
+env:
+  NODE_ENV: production
+
+jobs:
+  test:
+    name: 🧪 Test & Build
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+    
+    - name: 🔧 Setup Bun
+      uses: oven-sh/setup-bun@v1
+      with:
+        bun-version: latest
+    
+    - name: 📦 Install dependencies
+      run: bun install --frozen-lockfile
+    
+    - name: 🏗️ Build project
+      run: bun run build
+    
+    - name: ✅ Build completed
+      run: echo "Build successful!"
+
+  deploy:
+    name: 🚀 Deploy to VPS
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+    
+    - name: 🔧 Setup Bun
+      uses: oven-sh/setup-bun@v1
+      with:
+        bun-version: latest
+    
+    - name: 📦 Install dependencies
+      run: bun install --frozen-lockfile
+    
+    - name: 🏗️ Build project
+      run: bun run build
+    
+    - name: 🚀 Deploy to VPS
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USERNAME }}
+        key: ${{ secrets.VPS_SSH_KEY }}
+        port: ${{ secrets.VPS_PORT || 22 }}
+        script: |
+          echo "🚀 Iniciando deploy do Pochi Bot..."
+          
+          # Navega para o diretório do bot
+          cd ${{ secrets.BOT_PATH || '/home/bot/pochi-bot' }}
+          
+          # Backup do código atual
+          echo "💾 Fazendo backup..."
+          cp -r . ../backup-$(date +%Y%m%d-%H%M%S) || true
+          
+          # Atualiza código
+          echo "📥 Atualizando código..."
+          git fetch origin
+          git reset --hard origin/main
+          
+          # Instala dependências
+          echo "📦 Instalando dependências..."
+          bun install --frozen-lockfile
+          
+          # Build do projeto
+          echo "🏗️ Fazendo build..."
+          bun run build
+          
+          # Reinicia o bot
+          echo "🔄 Reiniciando bot..."
+          pm2 restart pochi-bot || pm2 start dist/main.js --name pochi-bot
+          
+          # Verifica status
+          echo "✅ Verificando status..."
+          pm2 status
+          
+          echo "🎉 Deploy concluído com sucesso!"
+
+    - name: 📢 Notify Discord
+      if: always()
+      uses: Ilshidur/action-discord@master
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      with:
+        args: |
+          🚀 **Deploy do Pochi Bot**
+          
+          **Status:** ${{ job.status }}
+          **Branch:** ${{ github.ref_name }}
+          **Commit:** ${{ github.sha }}
+          **Autor:** ${{ github.actor }}
+          
+          ${{ job.status == 'success' && '✅ Deploy realizado com sucesso!' || '❌ Deploy falhou!' }}
