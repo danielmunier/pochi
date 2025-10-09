@@ -1,4 +1,4 @@
-import { Collection, ChatInputCommandInteraction, Events } from 'discord.js';
+import { Collection, ChatInputCommandInteraction, Events, ClientEvents } from 'discord.js';
 
 // Extensão do Client para incluir commands
 declare module 'discord.js' {
@@ -15,7 +15,7 @@ export interface Command {
 
 // Interface para eventos
 export interface Event {
-  name: Events;
+  name: keyof ClientEvents;
   once?: boolean;
   execute: (...args: any[]) => Promise<void>;
 }

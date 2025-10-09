@@ -34,7 +34,7 @@ export class CommandHandler {
       if (!fs.statSync(folderPath).isDirectory()) continue;
       
       const commandFiles = fs.readdirSync(folderPath).filter(file => 
-        file.endsWith('.ts') || file.endsWith('.js')
+        (file.endsWith('.ts') || file.endsWith('.js')) && !file.endsWith('.d.ts')
       );
       
       for (const file of commandFiles) {

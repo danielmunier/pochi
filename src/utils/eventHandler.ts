@@ -23,7 +23,7 @@ export class EventHandler {
     }
 
     const eventFiles = fs.readdirSync(eventsPath).filter(file => 
-      file.endsWith('.ts') || file.endsWith('.js')
+      (file.endsWith('.ts') || file.endsWith('.js')) && !file.endsWith('.d.ts')
     );
     
     for (const file of eventFiles) {

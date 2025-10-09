@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, EmbedBuilder } from 'discord.js';
-import { EconomyService } from '../../services/economyService';
+import { EconomyService, UserBalance } from '../../services/economyService';
 
 const economyService = new EconomyService();
 
@@ -23,7 +23,7 @@ export async function execute(interaction: ChatInputCommandInteraction) {
     const result = await economyService.getUserBalance(targetUser.id, interaction.guildId!);
 
     if (result.success && result.data) {
-      const { balance, level, xp } = result.data;
+      const { balance, level, xp } = result.data as UserBalance;
       
       const embed = new EmbedBuilder()
         .setTitle(`💰 Saldo de ${targetUser.username}`)
