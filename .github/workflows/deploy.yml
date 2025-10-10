@@ -47,6 +47,7 @@ jobs:
           # host_fingerprint: ${{ secrets.VPS_FINGERPRINT }}  
           script_stop: true
           envs: GIT_BRANCH=${{ github.ref_name }},BOT_PATH=${{ secrets.BOT_PATH }}
+          envs_separator: ","
           script: |
             set -eo pipefail
             echo "🚀 Iniciando deploy do Pochi Bot..."
@@ -70,9 +71,11 @@ jobs:
             ts="$(date +%Y%m%d-%H%M%S)"
             tar --exclude='./node_modules' --exclude='./.git' --exclude='./dist' -czf "../backup-pochi-$ts.tar.gz" . || true
 
-            echo "📥 Atualizando código (branch: ${GIT_BRANCH})..."
+            # Usar branch padrão se não definida
+            BRANCH="${GIT_BRANCH:-main}"
+            echo "📥 Atualizando código (branch: ${BRANCH})..."
             git fetch origin
-            git reset --hard "origin/${GIT_BRANCH}"
+            git reset --hard "origin/${BRANCH}"
 
             echo "📦 Instalando dependências..."
             bun install --frozen-lockfile
