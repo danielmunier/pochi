@@ -6,7 +6,7 @@
   <br><br>
 </div>
 
-[![Pochi Bot](https://raw.githubusercontent.com/danielmunier/pochi/main/public/pochita-banner.png)](https://github.com/danielmunier/pochi)
+[![Pochi Bot](https://raw.githubusercontent.com/danielmunier/pochi/main/public/pochita-banner.jpg)](https://github.com/danielmunier/pochi)
 
 
 
