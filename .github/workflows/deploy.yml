@@ -48,12 +48,12 @@ jobs:
           script_stop: true
           envs: GIT_BRANCH=${{ github.ref_name }},BOT_PATH=${{ secrets.BOT_PATH }}
           script: |
-            set -euo pipefail
+            set -eo pipefail
             echo "🚀 Iniciando deploy do Pochi Bot..."
             
-            # Debug: verificar variáveis
-            echo "🔍 Debug - BOT_PATH recebido: '${BOT_PATH}'"
-            echo "🔍 Debug - GIT_BRANCH: '${GIT_BRANCH}'"
+            # Debug: verificar variáveis (usando sintaxe segura)
+            echo "🔍 Debug - BOT_PATH recebido: '${BOT_PATH:-NÃO_DEFINIDO}'"
+            echo "🔍 Debug - GIT_BRANCH: '${GIT_BRANCH:-NÃO_DEFINIDO}'"
             echo "🔍 Debug - PWD atual: $(pwd)"
             echo "🔍 Debug - Listando /home:"
             ls -la /home/ || echo "Erro ao listar /home"
