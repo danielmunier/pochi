@@ -47,7 +47,6 @@ jobs:
           # host_fingerprint: ${{ secrets.VPS_FINGERPRINT }}  
           script_stop: true
           envs: GIT_BRANCH=${{ github.ref_name }},BOT_PATH=${{ secrets.BOT_PATH }}
-          envs_separator: ","
           script: |
             set -eo pipefail
             echo "🚀 Iniciando deploy do Pochi Bot..."
@@ -85,6 +84,10 @@ jobs:
 
             echo "📦 Instalando PM2 se necessário..."
             bun install -g pm2 || echo "PM2 já instalado"
+            
+            # Adiciona PM2 ao PATH
+            export PATH="/home/ubuntu/snap/bun-js/77/.bun/bin:$PATH"
+            echo "🔍 PM2 path: $(which pm2 || echo 'PM2 não encontrado no PATH')"
 
             echo "🔄 PM2 reload..."
             # zero-downtime se possível
