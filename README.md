@@ -1,4 +1,13 @@
 <a name="top"></a>
+
+<div align="center">
+  <h3>🌐 Language / Idioma</h3>
+  <a href="README.md">🇧🇷 Português</a> • 
+  <a href="README-en.md">🇺🇸 English</a>
+  <br><br>
+  <em>💡 Use os links acima para alternar entre idiomas / Use the links above to switch languages</em>
+</div>
+
 [![Pochi Bot](https://raw.githubusercontent.com/danielmunier/pochi/main/public/pochita-banner.png)](https://github.com/danielmunier/pochi)
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-4.9%2B-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -6,7 +15,7 @@
 [![Bun](https://img.shields.io/badge/Bun-1.0%2B-000000?logo=bun&logoColor=white)](https://bun.sh/)
 [![Prisma](https://img.shields.io/badge/Prisma-5.x-2D3748?logo=prisma&logoColor=white)](https://www.prisma.io/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Private](https://img.shields.io/badge/Private-Project-red.svg)](https://github.com/danielmunier/pochi)
 [![GitHub release](https://img.shields.io/github/v/release/danielmunier/pochi)](#)
 [![GitHub last commit](https://img.shields.io/github/last-commit/danielmunier/pochi)](#)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Server-5865F2?logo=discord&logoColor=white)](https://discord.gg/grX8THxJ)
@@ -23,19 +32,15 @@
 ## 📋 Table of Contents
 - [About](#-about)
 - [Features](#-features)
-- [Architecture](#-architecture)
 - [Getting Started](#-getting-started)
 - [Commands](#-commands)
 - [Configuration](#-configuration)
 - [Deployment](#-deployment)
-- [Roadmap](#-roadmap)
-- [Contributing](#-contributing)
-- [License](#-license)
 - [Support](#-support)
 
 ## 🚀 About
 
-**Pochi Bot** é um bot Discord moderno e escalável, construído com TypeScript e arquitetura preparada para evolução para microserviços Python. Ele adere a altos padrões de flexibilidade, reutilização e confiabilidade, utilizando padrões de design de software bem conhecidos, incluindo arquiteturas modulares e hexagonais.
+**Pochi Bot** é um bot Discord moderno e escalável, construído com TypeScript e arquitetura preparada para evolução para microserviços Python. Ele adere a altos padrões de flexibilidade, reutilização e confiabilidade.
 
 ### **Principais Benefícios:**
 - **Modularidade**: Diferentes partes do bot podem funcionar independentemente, melhorando a modularidade e facilitando manutenção e atualizações.
@@ -66,23 +71,6 @@ O bot também suporta Injeção de Dependência através do container DI padrão
 - **Comandos Gerais**: Ping, pong, testlog
 - **Sistema de Logs**: Captura todos os eventos do Discord
 
-## 📊 Eventos Capturados
-
-### 👥 **Membros**
-- Entrada no servidor
-- Saída do servidor
-- Atualizações de perfil
-
-### 🎵 **Canais de Voz**
-- Entrada em canal de voz
-- Saída de canal de voz
-- Mudança entre canais
-- Mudanças de estado (mute, deafen, stream, etc.)
-
-### 💬 **Mensagens**
-- Mensagens deletadas
-- Mensagens editadas
-- Reações em mensagens
 
 ## 🚀 Getting Started
 
@@ -115,77 +103,6 @@ Use o comando slash para configurar o canal de logs em cada servidor:
 /setlogchannel canal:#logs
 ```
 
-## 🏗️ Architecture
-
-```
-src/
-├── commands/           # Comandos slash organizados por categoria
-│   ├── economy/       # Sistema de economia
-│   ├── general/       # Comandos gerais
-│   ├── moderation/    # Comandos de moderação
-│   └── music/         # Sistema de música
-├── events/            # Eventos do Discord
-│   ├── guildMemberAdd.ts
-│   ├── voiceStateUpdate.ts
-│   └── ...
-├── services/          # Serviços de negócio
-│   ├── loggingService.ts
-│   ├── economyService.ts
-│   └── ...
-├── utils/             # Utilitários
-│   ├── commandHandler.ts
-│   ├── eventHandler.ts
-│   └── guildManager.ts
-└── main.ts           # Ponto de entrada
-```
-
-## 🔄 Evolução para Microserviços
-
-A arquitetura atual foi projetada para facilitar a migração para microserviços Python:
-
-### **Arquitetura Atual (Monolítica)**
-```
-┌─────────────────────────────────────┐
-│           Discord Bot               │
-│  ┌─────────┐ ┌─────────┐ ┌─────────┐│
-│  │ Logging │ │Economy  │ │ Music   ││
-│  │Service  │ │Service  │ │Service  ││
-│  └─────────┘ └─────────┘ └─────────┘│
-└─────────────────────────────────────┘
-```
-
-### **Arquitetura Futura (Microserviços)**
-```
-┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   Discord   │    │   Logging   │    │  Economy    │
-│    Bot      │◄──►│  Service    │◄──►│  Service    │
-│ (Gateway)   │    │  (Python)   │    │  (Python)   │
-└─────────────┘    └─────────────┘    └─────────────┘
-       │                   │                   │
-       └───────────────────┼───────────────────┘
-                           │
-                   ┌─────────────┐
-                   │   Message   │
-                   │   Broker    │
-                   │ (Redis/RMQ) │
-                   └─────────────┘
-```
-
-### **Vantagens da Arquitetura Atual**
-
-1. **Serviços Independentes**: Cada serviço tem responsabilidade única
-2. **Interfaces Bem Definidas**: Fácil extração para APIs REST/gRPC
-3. **Event-Driven**: Sistema baseado em eventos facilita comunicação assíncrona
-4. **Configuração Centralizada**: Fácil migração de configurações
-5. **Logging Unificado**: Sistema de logs já preparado para múltiplos serviços
-
-### **Plano de Migração**
-
-1. **Fase 1**: Extrair `LoggingService` para microserviço Python
-2. **Fase 2**: Migrar `EconomyService` para microserviço Python
-3. **Fase 3**: Extrair `MusicService` para microserviço Python
-4. **Fase 4**: Implementar message broker (Redis/RabbitMQ)
-5. **Fase 5**: Bot vira apenas gateway de comandos
 
 ## 🛠️ Technologies
 
@@ -245,30 +162,10 @@ docker run -d --name pochi-bot pochi-bot
 docker-compose up -d
 ```
 
-## 📈 Roadmap
-
-- [ ] **v1.1**: Sistema de permissões avançado
-- [ ] **v1.2**: Dashboard web para configuração
-- [ ] **v2.0**: Migração para microserviços Python
-- [ ] **v2.1**: API REST para integrações
-- [ ] **v2.2**: Sistema de plugins
-- [ ] **v3.0**: Interface web completa
-
-## 🤝 Contributing
-
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
 ## 🆘 Support
 
-- **Discord**: [Servidor de Suporte](https://discord.gg/seu-servidor)
+- **Discord**: [Servidor de Suporte](https://discord.gg/grX8THxJ)
 - **Issues**: [GitHub Issues](https://github.com/danielmunier/pochi/issues)
 - **Documentação**: [Wiki](https://github.com/danielmunier/pochi/wiki)
 
