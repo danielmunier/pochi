@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  NODE_ENV: production
+  NODE_ENV: Production
 
 jobs:
   test:
