@@ -83,6 +83,9 @@ jobs:
             echo "🏗️ Build..."
             bun run build
 
+            echo "📦 Instalando PM2 se necessário..."
+            bun install -g pm2 || echo "PM2 já instalado"
+
             echo "🔄 PM2 reload..."
             # zero-downtime se possível
             pm2 describe pochi-bot >/dev/null 2>&1 && pm2 reload pochi-bot || pm2 start dist/main.js --name pochi-bot
