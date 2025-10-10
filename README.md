@@ -1,14 +1,12 @@
 <a name="top"></a>
 
 <div align="center">
-  <h3>🌐 Language / Idioma</h3>
-  <a href="README.md">🇧🇷 Português</a> • 
-  <a href="README-en.md">🇺🇸 English</a>
+  <a href="README.md">🇧🇷 </a> 
+  <a href="README-en.md">🇺🇸 </a>
   <br><br>
-  <em>💡 Use os links acima para alternar entre idiomas / Use the links above to switch languages</em>
 </div>
 
-[![Pochi Bot](https://raw.githubusercontent.com/danielmunier/pochi/main/public/pochita-banner.png)](https://github.com/danielmunier/pochi)
+<img src="https://raw.githubusercontent.com/danielmunier/pochi/main/public/pochita-banner.png" alt="Pochi Bot Banner" height="80">
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-4.9%2B-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Discord.js](https://img.shields.io/badge/Discord.js-14.x-5865F2?logo=discord&logoColor=white)](https://discord.js.org/)
