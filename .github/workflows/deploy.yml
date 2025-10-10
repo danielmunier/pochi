@@ -1,4 +1,4 @@
-name: 🚀 Deploy Pochi Bot
+name: 🚀 Deploy Pochi to VPS
 
 on:
   push:
