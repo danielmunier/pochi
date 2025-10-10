@@ -3,6 +3,10 @@ name: 🚀 Deploy Pochi to VPS
 on:
   push:
     branches: [ main, master ]
+    paths-ignore:
+      - 'README*.md'
+      - 'docs/**'
+      - '*.md'
   workflow_dispatch:
 
 env:
@@ -35,7 +39,10 @@ jobs:
     environment: Production
     needs: test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    if: |
+      (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') &&
+      !contains(github.event.head_commit.message, '[skip-deploy]') &&
+      !contains(github.event.head_commit.message, '[docs]')
     steps:
       - name: 🚀 Deploy to VPS
         uses: appleboy/ssh-action@v1.2.0
