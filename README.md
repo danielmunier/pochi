@@ -1,8 +1,51 @@
-# 🤖 Pochi Bot - Discord Bot Escalável
+<a name="top"></a>
+[![Pochi Bot](https://raw.githubusercontent.com/danielmunier/pochi/main/public/pochita-banner.png)](https://github.com/danielmunier/pochi)
 
-Um bot Discord moderno e escalável, construído com TypeScript e arquitetura preparada para evolução para microserviços Python.
+[![TypeScript](https://img.shields.io/badge/TypeScript-4.9%2B-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Discord.js](https://img.shields.io/badge/Discord.js-14.x-5865F2?logo=discord&logoColor=white)](https://discord.js.org/)
+[![Bun](https://img.shields.io/badge/Bun-1.0%2B-000000?logo=bun&logoColor=white)](https://bun.sh/)
+[![Prisma](https://img.shields.io/badge/Prisma-5.x-2D3748?logo=prisma&logoColor=white)](https://www.prisma.io/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![GitHub release](https://img.shields.io/github/v/release/danielmunier/pochi)](#)
+[![GitHub last commit](https://img.shields.io/github/last-commit/danielmunier/pochi)](#)
+[![Discord](https://img.shields.io/badge/Discord-Join%20Server-5865F2?logo=discord&logoColor=white)](https://discord.gg/grX8THxJ)
 
-## 🚀 Características Principais
+⭐ Star us on GitHub — your support motivates us a lot! 🙏😊
+
+[![Share](https://img.shields.io/badge/share-000000?logo=x&logoColor=white)](https://x.com/intent/tweet?text=Check%20out%20this%20Discord%20bot%20on%20GitHub:%20https://github.com/danielmunier/pochi%20%23DiscordBot%20%23TypeScript%20%23OpenSource)
+[![Share](https://img.shields.io/badge/share-1877F2?logo=facebook&logoColor=white)](https://www.facebook.com/sharer/sharer.php?u=https://github.com/danielmunier/pochi)
+[![Share](https://img.shields.io/badge/share-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/sharing/share-offsite/?url=https://github.com/danielmunier/pochi)
+[![Share](https://img.shields.io/badge/share-FF4500?logo=reddit&logoColor=white)](https://www.reddit.com/submit?title=Check%20out%20this%20Discord%20bot%20on%20GitHub:%20https://github.com/danielmunier/pochi)
+
+🔥 **Pochi Bot** - Um bot Discord moderno e escalável, construído com TypeScript e arquitetura preparada para evolução para microserviços
+
+## 📋 Table of Contents
+- [About](#-about)
+- [Features](#-features)
+- [Architecture](#-architecture)
+- [Getting Started](#-getting-started)
+- [Commands](#-commands)
+- [Configuration](#-configuration)
+- [Deployment](#-deployment)
+- [Roadmap](#-roadmap)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Support](#-support)
+
+## 🚀 About
+
+**Pochi Bot** é um bot Discord moderno e escalável, construído com TypeScript e arquitetura preparada para evolução para microserviços Python. Ele adere a altos padrões de flexibilidade, reutilização e confiabilidade, utilizando padrões de design de software bem conhecidos, incluindo arquiteturas modulares e hexagonais.
+
+### **Principais Benefícios:**
+- **Modularidade**: Diferentes partes do bot podem funcionar independentemente, melhorando a modularidade e facilitando manutenção e atualizações.
+- **Testabilidade**: Melhor separação de responsabilidades torna o código mais testável.
+- **Manutenibilidade**: Estrutura clara e separação facilitam melhor gerenciamento do código.
+- **Escalabilidade**: Arquitetura preparada para migração para microserviços Python.
+
+O bot também suporta Injeção de Dependência através do container DI padrão, auxiliando na organização e gerenciamento do código. Especificamente projetado para integração perfeita com Discord.js, o Pochi Bot emprega classes de serviço padrão, binding e mecanismos de roteamento, simplificando a integração de funcionalidades avançadas em seus servidores.
+
+## ✨ Features
 
 ### 🎯 **Sistema de Logs Avançado**
 - **Multi-Guild**: Cada servidor tem seu próprio canal de logs
@@ -23,7 +66,7 @@ Um bot Discord moderno e escalável, construído com TypeScript e arquitetura pr
 - **Comandos Gerais**: Ping, pong, testlog
 - **Sistema de Logs**: Captura todos os eventos do Discord
 
-## 📋 Eventos Capturados
+## 📊 Eventos Capturados
 
 ### 👥 **Membros**
 - Entrada no servidor
@@ -41,13 +84,13 @@ Um bot Discord moderno e escalável, construído com TypeScript e arquitetura pr
 - Mensagens editadas
 - Reações em mensagens
 
-## 🚀 Como Usar
+## 🚀 Getting Started
 
 ### 1. **Instalação**
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/pochi-py.git
-cd pochi-py
+git clone https://github.com/danielmunier/pochi.git
+cd pochi
 
 # Instale as dependências
 bun install
@@ -72,7 +115,7 @@ Use o comando slash para configurar o canal de logs em cada servidor:
 /setlogchannel canal:#logs
 ```
 
-## 🏗️ Arquitetura Atual
+## 🏗️ Architecture
 
 ```
 src/
@@ -144,7 +187,7 @@ A arquitetura atual foi projetada para facilitar a migração para microserviço
 4. **Fase 4**: Implementar message broker (Redis/RabbitMQ)
 5. **Fase 5**: Bot vira apenas gateway de comandos
 
-## 🛠️ Tecnologias
+## 🛠️ Technologies
 
 - **TypeScript**: Linguagem principal
 - **Discord.js**: Biblioteca do Discord
@@ -152,7 +195,7 @@ A arquitetura atual foi projetada para facilitar a migração para microserviço
 - **Prisma**: ORM para banco de dados
 - **Docker**: Containerização
 
-## 📊 Comandos Disponíveis
+## 📊 Commands
 
 ### **Moderação**
 - `/ban` - Banir usuário
@@ -170,7 +213,7 @@ A arquitetura atual foi projetada para facilitar a migração para microserviço
 - `/pong` - Resposta ao ping
 - `/testlog` - Testar sistema de logs
 
-## 🔧 Configuração
+## 🔧 Configuration
 
 ### **Variáveis de Ambiente**
 ```env
@@ -185,7 +228,7 @@ DATABASE_URL=postgresql://user:pass@localhost:5432/pochi
 - `GuildVoiceStates` - Estados de voz
 - `MessageContent` - Conteúdo das mensagens
 
-## 🚀 Deploy
+## 🚀 Deployment
 
 ### **Docker**
 ```bash
@@ -211,7 +254,7 @@ docker-compose up -d
 - [ ] **v2.2**: Sistema de plugins
 - [ ] **v3.0**: Interface web completa
 
-## 🤝 Contribuição
+## 🤝 Contributing
 
 1. Fork o projeto
 2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
@@ -223,12 +266,14 @@ docker-compose up -d
 
 Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
-## 🆘 Suporte
+## 🆘 Support
 
 - **Discord**: [Servidor de Suporte](https://discord.gg/seu-servidor)
-- **Issues**: [GitHub Issues](https://github.com/seu-usuario/pochi-py/issues)
-- **Documentação**: [Wiki](https://github.com/seu-usuario/pochi-py/wiki)
+- **Issues**: [GitHub Issues](https://github.com/danielmunier/pochi/issues)
+- **Documentação**: [Wiki](https://github.com/danielmunier/pochi/wiki)
 
 ---
 
 **Desenvolvido com ❤️ para a comunidade Discord**
+
+[Back to top](#top)
