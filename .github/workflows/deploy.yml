@@ -32,6 +32,7 @@ jobs:
 
   deploy:
     name: 🚀 Deploy to VPS
+    environment: Production
     needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
