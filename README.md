@@ -1,13 +1,14 @@
 <a name="top"></a>
 
-<div align="center">
-  <a href="README.md">🇧🇷 </a> 
-  <a href="README-en.md">🇺🇸 </a>
-  <br><br>
-</div>
+
 
 [![Pochi Bot](https://raw.githubusercontent.com/danielmunier/pochi/main/public/pochita-banner.jpg)](https://github.com/danielmunier/pochi)
 
+<div align="left">
+  <a href="README.md">🇧🇷</a> 
+  <a href="README-en.md">🇺🇸</a>
+  <br><br>
+</div>
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-4.9%2B-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Discord.js](https://img.shields.io/badge/Discord.js-14.x-5865F2?logo=discord&logoColor=white)](https://discord.js.org/)
@@ -15,7 +16,6 @@
 [![Prisma](https://img.shields.io/badge/Prisma-5.x-2D3748?logo=prisma&logoColor=white)](https://www.prisma.io/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 [![Private](https://img.shields.io/badge/Private-Project-red.svg)](https://github.com/danielmunier/pochi)
-[![GitHub release](https://img.shields.io/github/v/release/danielmunier/pochi)](#)
 [![GitHub last commit](https://img.shields.io/github/last-commit/danielmunier/pochi)](#)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Server-5865F2?logo=discord&logoColor=white)](https://discord.gg/grX8THxJ)
 
