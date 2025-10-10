@@ -6,7 +6,8 @@
   <br><br>
 </div>
 
-<img src="https://raw.githubusercontent.com/danielmunier/pochi/main/public/pochita-banner.png" alt="Pochi Bot Banner" height="80" width="100%">
+[![Pochi Bot](https://raw.githubusercontent.com/danielmunier/pochi/main/public/pochita-banner.png)](https://github.com/danielmunier/pochi)
+
 
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-4.9%2B-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
