@@ -52,7 +52,7 @@ jobs:
             echo "🚀 Iniciando deploy do Pochi Bot..."
 
             # Caminho (com fallback)
-            BOT_DIR="${BOT_PATH:-/home/bot/pochi-bot}"
+            BOT_DIR="${BOT_PATH:-/home/pochi}"
             cd "$BOT_DIR"
 
             echo "💾 Backup compacto..."
