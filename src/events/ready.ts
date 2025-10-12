@@ -20,10 +20,6 @@ export async function execute(client: Client) {
   // Define status inicial do bot
   activityService.updateActivity(true);
   
-  // Inicia rotação automática de atividades (opcional)
-  // Descomente a linha abaixo se quiser rotação automática a cada 30 segundos
-  // activityService.startRotation(30000);
-  
   console.log('🎯 Bot configurado e pronto para múltiplos servidores!');
   console.log('🔄 Sistema de atividade dinâmica ativado!');
 

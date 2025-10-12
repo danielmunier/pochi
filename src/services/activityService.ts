@@ -1,11 +1,5 @@
 import { Client, ActivityType } from 'discord.js';
 
-interface ActivityConfig {
-  name: string;
-  type: ActivityType;
-  emoji?: string;
-}
-
 interface BotStats {
   guilds: number;
   members: number;
@@ -15,24 +9,16 @@ export class ActivityService {
   private client: Client;
   private updateTimeout: NodeJS.Timeout | null = null;
   private lastUpdate: number = 0;
-  private readonly THROTTLE_MS = 30000; // 30 segundos de throttling (muito mais conservador)
-  private activityIndex = 0;
+  private readonly THROTTLE_MS = 30000; // 30 segundos de throttling
   private lastStats: BotStats | null = null;
   private pendingUpdate = false;
-  
-  private readonly activities: ActivityConfig[] = [
-    { name: 'servidores', type: ActivityType.Watching, emoji: '🚀' },
-    { name: 'membros', type: ActivityType.Watching, emoji: '👥' },
-    { name: 'comandos', type: ActivityType.Listening, emoji: '🎵' },
-    { name: 'música', type: ActivityType.Playing, emoji: '🎶' }
-  ];
 
   constructor(client: Client) {
     this.client = client;
   }
 
   /**
-   * Atualiza a atividade do bot com throttling agressivo e detecção de mudanças
+   * Atualiza a atividade do bot mostrando servidores e membros
    */
   public updateActivity(force = false): void {
     const now = Date.now();
@@ -77,30 +63,12 @@ export class ActivityService {
     // Atualiza cache de estatísticas
     this.lastStats = currentStats;
     
-    // Rotaciona entre diferentes tipos de atividade
-    const activity = this.activities[this.activityIndex];
-    this.activityIndex = (this.activityIndex + 1) % this.activities.length;
+    // Atividade fixa: servidores e membros
+    const activityText = `${currentStats.guilds} servidor${currentStats.guilds !== 1 ? 'es' : ''} • ${currentStats.members.toLocaleString('pt-BR')} membros`;
 
-    let activityText = '';
+    this.client.user?.setActivity(activityText, { type: ActivityType.Watching });
     
-    switch (activity.name) {
-      case 'servidores':
-        activityText = `${currentStats.guilds} servidor${currentStats.guilds !== 1 ? 'es' : ''} ${activity.emoji}`;
-        break;
-      case 'membros':
-        activityText = `${currentStats.members.toLocaleString('pt-BR')} membros ${activity.emoji}`;
-        break;
-      case 'comandos':
-        activityText = `comandos em ${currentStats.guilds} servidor${currentStats.guilds !== 1 ? 'es' : ''} ${activity.emoji}`;
-        break;
-      case 'música':
-        activityText = `música em ${currentStats.guilds} servidor${currentStats.guilds !== 1 ? 'es' : ''} ${activity.emoji}`;
-        break;
-    }
-
-    this.client.user?.setActivity(activityText, { type: activity.type });
-    
-    console.log(`🎯 Atividade atualizada: ${activityText} (${currentStats.guilds} servidores, ${currentStats.members} membros)`);
+    console.log(`🎯 Atividade atualizada: ${activityText}`);
   }
 
   /**
@@ -132,25 +100,6 @@ export class ActivityService {
    */
   public forceUpdate(): void {
     this.updateActivity(true);
-  }
-
-  /**
-   * Inicia rotação automática de atividades (opcional)
-   */
-  public startRotation(intervalMs = 30000): void {
-    setInterval(() => {
-      this.updateActivity(true);
-    }, intervalMs);
-  }
-
-  /**
-   * Para a rotação automática
-   */
-  public stopRotation(): void {
-    if (this.updateTimeout) {
-      clearTimeout(this.updateTimeout);
-      this.updateTimeout = null;
-    }
   }
 
   /**
