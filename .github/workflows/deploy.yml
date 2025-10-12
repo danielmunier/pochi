@@ -57,7 +57,7 @@ jobs:
             set -eo pipefail
             echo "🚀 Iniciando deploy do Pochi Bot..."
 
-            # Caminho fixo padrão — sem variáveis extras no GitHub
+            # Caminho fixo padrão (sem precisar definir variáveis no GitHub)
             BOT_DIR="/home/ubuntu/pochi"
             BRANCH="${GITHUB_REF_NAME:-main}"
 
@@ -68,32 +68,26 @@ jobs:
 
             echo "💾 Backup compacto..."
             ts="$(date +%Y%m%d-%H%M%S)"
-            tar --exclude='./node_modules' --exclude='./.git' --exclude='./dist' -czf "../backup-pochi-$ts.tar.gz" . || true
+            tar --exclude='./node_modules' --exclude='./.git' --exclude='./dist' \
+                -czf "../backup-pochi-$ts.tar.gz" . || true
 
             echo "📥 Atualizando código..."
             git fetch origin
             git reset --hard "origin/${BRANCH}"
 
-            echo "📦 Instalando dependências..."
+            echo "📦 Instalando dependências (Bun já faz cache automático)..."
             bun install --frozen-lockfile
 
             echo "🏗️ Build..."
             bun run build
 
-            # ✅ Node.js check e instalação segura (sem sudo obrigatório)
             echo "📦 Verificando Node.js..."
-            if ! command -v node >/dev/null 2>&1; then
-              echo "🧩 Node.js não encontrado. Tentando instalar (LTS)..."
-              if curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -; then
-                apt-get install -y nodejs || echo "⚠️ Falha ao instalar Node.js (sem sudo). Verifique permissões."
-              else
-                echo "⚠️ Não foi possível configurar NodeSource. Node.js não será atualizado."
-              fi
+            if command -v node >/dev/null 2>&1; then
+              echo "✅ Node.js detectado: $(node -v)"
             else
-              echo "✅ Node.js já está instalado: $(node -v)"
+              echo "⚠️ Node.js não encontrado. Se o bot precisar dele, instale manualmente no servidor."
             fi
 
-            # ✅ PM2 check e instalação segura
             echo "📦 Verificando PM2..."
             if ! command -v pm2 >/dev/null 2>&1; then
               echo "🧩 PM2 não encontrado. Instalando via Bun..."
@@ -102,13 +96,13 @@ jobs:
               echo "✅ PM2 já está instalado: $(pm2 -v)"
             fi
 
-            # Ajuste de PATH
             export PATH="/home/ubuntu/snap/bun-js/77/.bun/bin:$PATH"
             echo "🔍 PM2 path: $(which pm2 || echo 'PM2 não encontrado')"
             echo "🔍 Node version: $(node --version || echo 'Node não encontrado')"
 
             echo "🔄 PM2 reload..."
-            pm2 describe pochi-bot >/dev/null 2>&1 && pm2 reload pochi-bot || pm2 start dist/main.js --name pochi-bot --interpreter bun
+            pm2 describe pochi-bot >/dev/null 2>&1 && pm2 reload pochi-bot || \
+              pm2 start dist/main.js --name pochi-bot --interpreter bun
             pm2 save
 
             echo "✅ Status:"
