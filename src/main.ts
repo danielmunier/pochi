@@ -3,6 +3,7 @@ import { CommandHandler } from './utils/commandHandler';
 import { EventHandler } from './utils/eventHandler';
 import { GuildManager } from './utils/guildManager';
 import { LoggingService } from './services/loggingService';
+import { WebhookService } from './services/webhookService';
 import * as dotenv from 'dotenv';
 
 // Carrega variáveis de ambiente
@@ -18,6 +19,7 @@ class PochiBot {
   private eventHandler: EventHandler;
   private guildManager: GuildManager;
   private loggingService: LoggingService;
+  private webhookService: WebhookService;
 
   constructor() {
     // Configuração do bot
@@ -38,11 +40,16 @@ class PochiBot {
     this.eventHandler = new EventHandler(this.client);
     this.guildManager = new GuildManager();
     this.loggingService = new LoggingService(this.client);
+    this.webhookService = new WebhookService(process.env.WEBHOOK_URL || '', {
+      defaultUsername: 'Pochi Bot',
+      defaultAvatarUrl: ''
+    });
     
     // Adiciona handlers ao client para acesso global
     (this.client as any).commandHandler = this.commandHandler;
     (this.client as any).guildManager = this.guildManager;
     (this.client as any).loggingService = this.loggingService;
+    (this.client as any).webhookService = this.webhookService;
   }
 
   /**

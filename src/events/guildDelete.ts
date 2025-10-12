@@ -11,4 +11,17 @@ export async function execute(guild: Guild) {
     guildManager.removeGuild(guild.id);
     console.log(`🗑️ Dados limpos para ${guild.name}`);
   }
+  
+  // Atualiza a atividade do bot após remoção do servidor (com throttling inteligente)
+  const activityService = (guild.client as any).activityService;
+  if (activityService) {
+    activityService.updateActivity();
+    console.log(`🔄 Atividade agendada para atualização (servidor removido: ${guild.name})`);
+  }
+
+  // Envia notificação via webhook
+  const webhookService = (guild.client as any).webhookService;
+  if (webhookService) {
+    await webhookService.notifyGuildLeft(guild);
+  }
 }
