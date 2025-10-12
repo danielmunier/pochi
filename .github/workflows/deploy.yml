@@ -57,37 +57,23 @@ jobs:
           script: |
             set -eo pipefail
             echo "🚀 Iniciando deploy do Pochi Bot..."
-
-            echo "🔍 BOT_PATH recebido: '${BOT_PATH:-NÃO_DEFINIDO}'"
-            echo "🔍 GIT_BRANCH: '${GIT_BRANCH:-NÃO_DEFINIDO}'"
+            
+            echo "🔍 Debug - BOT_PATH recebido: '${BOT_PATH:-NÃO_DEFINIDO}'"
+            echo "🔍 Debug - GIT_BRANCH: '${GIT_BRANCH:-NÃO_DEFINIDO}'"
 
             BOT_DIR="${BOT_PATH:-/home/ubuntu/pochi}"
-            echo "📂 Diretório alvo: $BOT_DIR"
-
-            # Garante que o diretório existe
-            if [ ! -d "$BOT_DIR" ]; then
-              echo "⚠️ Diretório $BOT_DIR não existe, criando..."
-              mkdir -p "$BOT_DIR"
-            fi
+            echo "📂 Caminho do bot: $BOT_DIR"
 
             cd "$BOT_DIR"
 
-            echo "💾 Backup rápido..."
+            echo "💾 Backup compacto..."
             ts="$(date +%Y%m%d-%H%M%S)"
-            tar --exclude='./node_modules' --exclude='./.git' --exclude='./dist' \
-                -czf "../backup-pochi-$ts.tar.gz" . || true
+            tar --exclude='./node_modules' --exclude='./.git' --exclude='./dist' -czf "../backup-pochi-$ts.tar.gz" . || true
 
             BRANCH="${GIT_BRANCH:-main}"
-            echo "📥 Atualizando branch: ${BRANCH}..."
-            if [ -d ".git" ]; then
-              git fetch origin
-              git reset --hard "origin/${BRANCH}"
-            else
-              echo "⚠️ Repositório git não encontrado. Clonando novamente..."
-              rm -rf "$BOT_DIR"
-              git clone -b "$BRANCH" https://github.com/${{ github.repository }} "$BOT_DIR"
-              cd "$BOT_DIR"
-            fi
+            echo "📥 Atualizando código (branch: ${BRANCH})..."
+            git fetch origin
+            git reset --hard "origin/${BRANCH}"
 
             echo "📦 Instalando dependências..."
             bun install --frozen-lockfile
@@ -97,37 +83,33 @@ jobs:
 
             echo "📦 Verificando Node.js..."
             if ! command -v node >/dev/null 2>&1; then
-              echo "🚀 Instalando Node.js (LTS)..."
+              echo "🚀 Instalando Node.js..."
               curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
               sudo apt-get install -y nodejs
             else
               echo "✅ Node.js já instalado: $(node -v)"
             fi
-
+            
             echo "📦 Verificando PM2..."
             if ! command -v pm2 >/dev/null 2>&1; then
-              echo "🚀 Instalando PM2 globalmente..."
+              echo "🚀 Instalando PM2..."
               bun install -g pm2
             else
               echo "✅ PM2 já instalado: $(pm2 -v)"
             fi
-
+            
             export PATH="/home/ubuntu/snap/bun-js/77/.bun/bin:$PATH"
+            echo "🔍 PM2 path: $(which pm2 || echo 'PM2 não encontrado no PATH')"
+            echo "🔍 Node version: $(node --version || echo 'Node não encontrado')"
 
-            echo "🔄 Reiniciando Pochi Bot..."
-            if pm2 describe pochi-bot >/dev/null 2>&1; then
-              pm2 reload pochi-bot
-            else
-              pm2 start dist/main.js --name pochi-bot --interpreter bun
-            fi
-
+            echo "🔄 PM2 reload..."
+            pm2 describe pochi-bot >/dev/null 2>&1 && pm2 reload pochi-bot || pm2 start dist/main.js --name pochi-bot --interpreter bun
             pm2 save
 
-            echo "✅ Status atual do PM2:"
+            echo "✅ Status:"
             pm2 status
 
-            echo "🎉 Deploy concluído com sucesso!"
-
+            echo "🎉 Deploy concluído!"
       - name: 📢 Notify Discord
         if: always()
         uses: Ilshidur/action-discord@master
