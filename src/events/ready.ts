@@ -26,4 +26,14 @@ export async function execute(client: Client) {
   
   console.log('🎯 Bot configurado e pronto para múltiplos servidores!');
   console.log('🔄 Sistema de atividade dinâmica ativado!');
+
+  // Notifica que o bot está online
+  const webhookService = (client as any).webhookService;
+  if (webhookService) {
+    await webhookService.notifySuccess(
+      `Bot online! Conectado a ${client.guilds.cache.size} servidores`,
+      `Usuário: ${client.user?.tag} | Ping: ${client.ws.ping}ms`,
+      'Pochi Bot'
+    );
+  }
 }

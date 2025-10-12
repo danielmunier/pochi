@@ -40,7 +40,7 @@ class PochiBot {
     this.eventHandler = new EventHandler(this.client);
     this.guildManager = new GuildManager();
     this.loggingService = new LoggingService(this.client);
-    this.webhookService = new WebhookService(process.env.WEBHOOK_URL || '', {
+    this.webhookService = new WebhookService(process.env.DISCORD_WEBHOOK || '', {
       defaultUsername: 'Pochi Bot',
       defaultAvatarUrl: ''
     });
@@ -59,6 +59,13 @@ class PochiBot {
     try {
       console.log('🚀 Iniciando Pochi Bot...');
       
+      // Notifica início do bot
+      await this.webhookService.notifyInfo(
+        'Bot iniciando...',
+        `Ambiente: ${process.env.NODE_ENV || 'development'}`,
+        'Pochi Bot'
+      );
+      
       // Carrega eventos
       await this.eventHandler.loadEvents();
       console.log('✅ Eventos carregados');
@@ -76,6 +83,11 @@ class PochiBot {
       
     } catch (error) {
       console.error('❌ Erro ao iniciar bot:', error);
+      await this.webhookService.notifyError(
+        `Falha ao iniciar bot: ${error}`,
+        'Erro na inicialização',
+        'Pochi Bot'
+      );
       process.exit(1);
     }
   }
@@ -85,6 +97,14 @@ class PochiBot {
    */
   async stop() {
     console.log('🛑 Parando bot...');
+    
+    // Notifica parada do bot
+    await this.webhookService.notifyWarning(
+      'Bot sendo desligado...',
+      'Parada solicitada',
+      'Pochi Bot'
+    );
+    
     await this.client.destroy();
   }
 }
