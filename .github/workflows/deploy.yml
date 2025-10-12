@@ -58,11 +58,17 @@ jobs:
             set -eo pipefail
             echo "🚀 Iniciando deploy do Pochi Bot..."
             
+            # Debug inicial
             echo "🔍 Debug - BOT_PATH recebido: '${BOT_PATH:-NÃO_DEFINIDO}'"
             echo "🔍 Debug - GIT_BRANCH: '${GIT_BRANCH:-NÃO_DEFINIDO}'"
+            echo "🔍 Debug - PWD atual: $(pwd)"
+            echo "🔍 Debug - Listando /home:"
+            ls -la /home/ || echo "Erro ao listar /home"
 
+            # Caminho com fallback
             BOT_DIR="${BOT_PATH:-/home/ubuntu/pochi}"
-            echo "📂 Caminho do bot: $BOT_DIR"
+            echo "🔍 Debug - BOT_DIR final: '$BOT_DIR'"
+            ls -la "$BOT_DIR" || echo "Diretório não encontrado: $BOT_DIR"
 
             cd "$BOT_DIR"
 
@@ -70,6 +76,7 @@ jobs:
             ts="$(date +%Y%m%d-%H%M%S)"
             tar --exclude='./node_modules' --exclude='./.git' --exclude='./dist' -czf "../backup-pochi-$ts.tar.gz" . || true
 
+            # Branch padrão
             BRANCH="${GIT_BRANCH:-main}"
             echo "📥 Atualizando código (branch: ${BRANCH})..."
             git fetch origin
@@ -81,23 +88,25 @@ jobs:
             echo "🏗️ Build..."
             bun run build
 
+            # ✅ Instala apenas se necessário
             echo "📦 Verificando Node.js..."
             if ! command -v node >/dev/null 2>&1; then
-              echo "🚀 Instalando Node.js..."
+              echo "🧩 Node.js não encontrado. Instalando (LTS)..."
               curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
               sudo apt-get install -y nodejs
             else
-              echo "✅ Node.js já instalado: $(node -v)"
+              echo "✅ Node.js já está instalado: $(node -v)"
             fi
-            
+
             echo "📦 Verificando PM2..."
             if ! command -v pm2 >/dev/null 2>&1; then
-              echo "🚀 Instalando PM2..."
+              echo "🧩 PM2 não encontrado. Instalando via Bun..."
               bun install -g pm2
             else
-              echo "✅ PM2 já instalado: $(pm2 -v)"
+              echo "✅ PM2 já está instalado: $(pm2 -v)"
             fi
-            
+
+            # Ajuste de PATH
             export PATH="/home/ubuntu/snap/bun-js/77/.bun/bin:$PATH"
             echo "🔍 PM2 path: $(which pm2 || echo 'PM2 não encontrado no PATH')"
             echo "🔍 Node version: $(node --version || echo 'Node não encontrado')"
@@ -110,6 +119,7 @@ jobs:
             pm2 status
 
             echo "🎉 Deploy concluído!"
+            
       - name: 📢 Notify Discord
         if: always()
         uses: Ilshidur/action-discord@master
