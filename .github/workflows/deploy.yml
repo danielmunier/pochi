@@ -57,69 +57,76 @@ jobs:
           script: |
             set -eo pipefail
             echo "🚀 Iniciando deploy do Pochi Bot..."
-            
-            # Debug inicial
+
             echo "🔍 Debug - BOT_PATH recebido: '${BOT_PATH:-NÃO_DEFINIDO}'"
             echo "🔍 Debug - GIT_BRANCH: '${GIT_BRANCH:-NÃO_DEFINIDO}'"
             echo "🔍 Debug - PWD atual: $(pwd)"
             echo "🔍 Debug - Listando /home:"
             ls -la /home/ || echo "Erro ao listar /home"
 
-            # Caminho com fallback
             BOT_DIR="${BOT_PATH:-/home/ubuntu/pochi}"
             echo "🔍 Debug - BOT_DIR final: '$BOT_DIR'"
+            echo "🔍 Debug - Verificando se diretório existe:"
             ls -la "$BOT_DIR" || echo "Diretório não encontrado: $BOT_DIR"
-
+            
             cd "$BOT_DIR"
 
             echo "💾 Backup compacto..."
             ts="$(date +%Y%m%d-%H%M%S)"
             tar --exclude='./node_modules' --exclude='./.git' --exclude='./dist' -czf "../backup-pochi-$ts.tar.gz" . || true
 
-            # Branch padrão
             BRANCH="${GIT_BRANCH:-main}"
             echo "📥 Atualizando código (branch: ${BRANCH})..."
             git fetch origin
             git reset --hard "origin/${BRANCH}"
 
             echo "📦 Instalando dependências..."
-            bun install --frozen-lockfile
+            # Só reinstala se package.json ou bun.lock mudaram
+            if git diff --name-only HEAD@{1} HEAD | grep -qE 'package\.json|bun\.lock'; then
+              echo "📦 Dependências atualizadas, instalando..."
+              bun install --frozen-lockfile
+            else
+              echo "✅ Nenhuma mudança em dependências, pulando bun install."
+            fi
 
             echo "🏗️ Build..."
             bun run build
 
-            # ✅ Instala apenas se necessário
             echo "📦 Verificando Node.js..."
             if ! command -v node >/dev/null 2>&1; then
-              echo "🧩 Node.js não encontrado. Instalando (LTS)..."
-              curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-              sudo apt-get install -y nodejs
+              if command -v sudo >/dev/null 2>&1; then
+                echo "🚀 Instalando Node.js..."
+                curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - || echo "NodeSource já configurado"
+                sudo apt-get install -y nodejs || echo "Node.js já instalado"
+              else
+                echo "⚠️ Node.js não encontrado e sudo indisponível. Pulando instalação."
+              fi
             else
-              echo "✅ Node.js já está instalado: $(node -v)"
+              echo "✅ Node.js já instalado: $(node -v)"
             fi
 
             echo "📦 Verificando PM2..."
             if ! command -v pm2 >/dev/null 2>&1; then
-              echo "🧩 PM2 não encontrado. Instalando via Bun..."
-              bun install -g pm2
+              echo "🚀 Instalando PM2 globalmente..."
+              bun install -g pm2 || echo "Falha ao instalar PM2 com bun"
             else
-              echo "✅ PM2 já está instalado: $(pm2 -v)"
+              echo "✅ PM2 já instalado: $(pm2 -v)"
             fi
 
-            # Ajuste de PATH
             export PATH="/home/ubuntu/snap/bun-js/77/.bun/bin:$PATH"
             echo "🔍 PM2 path: $(which pm2 || echo 'PM2 não encontrado no PATH')"
-            echo "🔍 Node version: $(node --version || echo 'Node não encontrado')"
 
             echo "🔄 PM2 reload..."
-            pm2 describe pochi-bot >/dev/null 2>&1 && pm2 reload pochi-bot || pm2 start dist/main.js --name pochi-bot --interpreter bun
+            pm2 describe pochi-bot >/dev/null 2>&1 && \
+              pm2 reload pochi-bot || \
+              pm2 start dist/main.js --name pochi-bot --interpreter bun
             pm2 save
 
             echo "✅ Status:"
             pm2 status
 
             echo "🎉 Deploy concluído!"
-            
+
       - name: 📢 Notify Discord
         if: always()
         uses: Ilshidur/action-discord@master
